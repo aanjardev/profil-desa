@@ -1,9 +1,9 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php'; */
 @source '../../vendor/mylaraveltools/minimalist/resources/views/**/*.blade.php';
-@source '../../vendor/mylaraveltools/panel/resources/views/**/*.blade.php';
 @source '../../resources/views/**/*.blade.php';
 @source '../../resources/js/**/*.js';
 
@@ -12,3 +12,154 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Sidebar Styling Component */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-item-active {
+    background-color: #f0f5ff; /* bg-blue-50/80 equivalent */
+    color: #2563eb; /* text-blue-600 */
+}
+
+.menu-item-inactive {
+    color: #4b5563; /* text-gray-600 */
+}
+
+.menu-item-inactive:hover {
+    background-color: #f9fafb; /* bg-gray-50 */
+    color: #111827; /* text-gray-900 */
+}
+
+.menu-item-icon-active {
+    color: #2563eb; /* text-blue-600 */
+}
+
+.menu-item-icon-inactive {
+    color: #9ca3af; /* text-gray-400 */
+    transition: color 0.2s ease-in-out;
+}
+
+.menu-item:hover .menu-item-icon-inactive {
+    color: #4b5563; /* text-gray-600 */
+}
+
+.menu-item-text {
+    flex-grow: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Submenu Items */
+.menu-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+    position: relative;
+}
+
+.menu-dropdown-item-active {
+    color: #2563eb;
+    background-color: #f5f8ff;
+}
+
+.menu-dropdown-item-inactive {
+    color: #6b7280; /* text-gray-500 */
+}
+
+.menu-dropdown-item-inactive:hover {
+    color: #111827;
+    background-color: #f9fafb;
+}
+
+/* Badges */
+.menu-dropdown-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.menu-dropdown-badge-active {
+    background-color: #dbeafe; /* blue-100 */
+    color: #1e40af; /* blue-800 */
+}
+
+.menu-dropdown-badge-inactive {
+    background-color: #f3f4f6; /* gray-100 */
+    color: #4b5563; /* gray-600 */
+}
+
+.menu-dropdown-badge-pro {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.menu-dropdown-badge-pro-active {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.menu-dropdown-badge-pro-inactive {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+/* Global Form Input Styling (Fixes height/padding bug) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.375rem !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+/* Global Focus states */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+
+

@@ -32,4 +32,26 @@ class WebSetting extends Model
     protected $casts = [
         'updated_at' => 'datetime',
     ];
+
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo_path) {
+            return asset('images/logo/logo-icon.svg');
+        }
+        if (str_starts_with($this->logo_path, 'images/')) {
+            return asset($this->logo_path);
+        }
+        return asset('storage/' . $this->logo_path);
+    }
+
+    public function getFaviconUrlAttribute()
+    {
+        if (!$this->favicon_path) {
+            return asset('favicon.ico');
+        }
+        if (str_starts_with($this->favicon_path, 'images/')) {
+            return asset($this->favicon_path);
+        }
+        return asset('storage/' . $this->favicon_path);
+    }
 }
