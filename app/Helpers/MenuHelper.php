@@ -25,7 +25,7 @@ class MenuHelper
                         'icon' => 'settings',
                         'subItems' => [
                             ['name' => 'Info Web', 'path' => '/admin/web-settings'],
-                            ['name' => 'Profil / Identitas Desa', 'path' => '/admin/village-identities'],
+                            ['name' => 'Profil Desa', 'path' => '/admin/village-identities'],
                         ]
                     ],
                     [

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\VillageIdentity;
+
 class VillageIdentityController extends Controller
 {
     /**
@@ -12,7 +14,8 @@ class VillageIdentityController extends Controller
      */
     public function index()
     {
-        //
+        $identities = VillageIdentity::all();
+        return view('admin.village-identities.index', compact('identities'));
     }
 
     /**
@@ -20,7 +23,7 @@ class VillageIdentityController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -28,7 +31,7 @@ class VillageIdentityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -36,7 +39,7 @@ class VillageIdentityController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -44,7 +47,8 @@ class VillageIdentityController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $identity = VillageIdentity::findOrFail($id);
+        return view('admin.village-identities.edit', compact('identity'));
     }
 
     /**
@@ -52,7 +56,18 @@ class VillageIdentityController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $identity = VillageIdentity::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $validated['updated_at'] = now();
+
+        $identity->update($validated);
+
+        return redirect()->route('admin.village-identities.index')->with('success', 'Profil Desa ' . $identity->title . ' berhasil diperbarui!');
     }
 
     /**
@@ -60,6 +75,6 @@ class VillageIdentityController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        abort(404);
     }
 }
