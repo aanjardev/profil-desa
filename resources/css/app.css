@@ -3,6 +3,7 @@
 /* @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php'; */
 @source '../../vendor/mylaraveltools/minimalist/resources/views/**/*.blade.php';
+@source '../../vendor/mylaraveltools/panel/resources/views/**/*.blade.php';
 @source '../../resources/views/**/*.blade.php';
 @source '../../resources/js/**/*.js';
 

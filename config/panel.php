@@ -35,7 +35,7 @@ return [
     |
     */
 
-    'locale' => 'es',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ return [
     */
 
     'locales' => [
-        'es' => 'Español',
+        'id' => 'Indonesia',
         'en' => 'English',
     ],
 
@@ -130,7 +130,27 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'resources' => [],
+    'resources' => [
+        App\Panel\Resources\UserResource::class,
+        App\Panel\Resources\FaqResource::class,
+        App\Panel\Resources\EmergencyContactResource::class,
+        App\Panel\Resources\ContactServiceResource::class,
+        App\Panel\Resources\RtRwResource::class,
+        App\Panel\Resources\SettingResource::class,
+        App\Panel\Resources\GalleryResource::class,
+        App\Panel\Resources\ComplaintResource::class,
+        App\Panel\Resources\ServiceLetterResource::class,
+        App\Panel\Resources\PpidOfficialResource::class,
+        App\Panel\Resources\PpidDocumentResource::class,
+        App\Panel\Resources\InstitutionMemberResource::class,
+        App\Panel\Resources\InstitutionResource::class,
+        App\Panel\Resources\WebSettingResource::class,
+        App\Panel\Resources\VillageStatisticResource::class,
+        App\Panel\Resources\VillageIdentityResource::class,
+        App\Panel\Resources\VillageOfficialResource::class,
+        App\Panel\Resources\TourismUmkmImageResource::class,
+        App\Panel\Resources\TourismUmkmResource::class,
+        App\Panel\Resources\PostResource::class,],
 
     'discovery' => [
         'enabled' => true,
@@ -188,7 +208,63 @@ return [
     |
     */
 
-    'navigation' => null,
+    'navigation' => [
+        [
+            'type' => 'group',
+            'label' => 'Beranda & Konten Web',
+            'icon' => 'layout',
+            'children' => [
+                ['resource' => \App\Panel\Resources\WebSettingResource::class],
+                ['resource' => \App\Panel\Resources\VillageIdentityResource::class],
+                ['resource' => \App\Panel\Resources\VillageStatisticResource::class],
+                ['resource' => \App\Panel\Resources\PostResource::class],
+                ['resource' => \App\Panel\Resources\GalleryResource::class],
+            ],
+        ],
+        [
+            'type' => 'group',
+            'label' => 'Wisata & UMKM',
+            'icon' => 'map-pin',
+            'children' => [
+                ['resource' => \App\Panel\Resources\TourismUmkmResource::class],
+                ['resource' => \App\Panel\Resources\TourismUmkmImageResource::class],
+            ],
+        ],
+        [
+            'type' => 'group',
+            'label' => 'Kelembagaan & SOTK',
+            'icon' => 'users',
+            'children' => [
+                ['resource' => \App\Panel\Resources\VillageOfficialResource::class],
+                ['resource' => \App\Panel\Resources\InstitutionResource::class],
+                ['resource' => \App\Panel\Resources\InstitutionMemberResource::class],
+                ['resource' => \App\Panel\Resources\RtRwResource::class],
+            ],
+        ],
+        [
+            'type' => 'group',
+            'label' => 'PPID & Pelayanan',
+            'icon' => 'folder',
+            'children' => [
+                ['resource' => \App\Panel\Resources\PpidOfficialResource::class],
+                ['resource' => \App\Panel\Resources\PpidDocumentResource::class],
+                ['resource' => \App\Panel\Resources\ContactServiceResource::class],
+                ['resource' => \App\Panel\Resources\ServiceLetterResource::class],
+                ['resource' => \App\Panel\Resources\ComplaintResource::class],
+                ['resource' => \App\Panel\Resources\EmergencyContactResource::class],
+                ['resource' => \App\Panel\Resources\FaqResource::class],
+            ],
+        ],
+        [
+            'type' => 'group',
+            'label' => 'Sistem',
+            'icon' => 'settings',
+            'children' => [
+                ['resource' => \App\Panel\Resources\UserResource::class],
+                ['resource' => \App\Panel\Resources\SettingResource::class],
+            ],
+        ],
+    ],
 
     'navigation_groups_expanded' => false,
 
@@ -364,7 +440,7 @@ return [
     'theme' => [
         'preset' => 'minimal',
         'presets_file' => null,
-        'default' => 'dark',
+        'default' => 'light',
         'font' => 'Plus Jakarta Sans',
         'radius' => '0.75rem',
         'sidebar_width' => '16rem',
