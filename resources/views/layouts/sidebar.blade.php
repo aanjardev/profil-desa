@@ -204,4 +204,4 @@
 
 <!-- Mobile Overlay -->
 <div x-show="$store.sidebar.isMobileOpen" @click="$store.sidebar.setMobileOpen(false)"
-    class="fixed z-50 h-screen w-full bg-gray-900/50"></div>
+    class="fixed z-40 h-screen w-full bg-gray-900/50"></div>

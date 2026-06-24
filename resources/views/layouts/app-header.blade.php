@@ -1,5 +1,10 @@
+@php
+    $webSetting = \App\Models\WebSetting::first();
+    $villageName = $webSetting ? $webSetting->village_name : 'Profil Desa';
+    $logoIconPath = $webSetting ? $webSetting->logo_url : asset('images/logo/logo-icon.svg');
+@endphp
 <header
-    class="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 xl:border-b"
+    class="sticky top-0 flex w-full bg-white border-gray-200 z-30 dark:border-gray-800 dark:bg-gray-900 xl:border-b"
     x-data="{
         isApplicationMenuOpen: false,
         toggleApplicationMenu() {
@@ -57,14 +62,16 @@
             </button>
 
             <!-- Logo (mobile only) -->
-            <a href="/" class="xl:hidden">
-                <img class="dark:hidden" src="/images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="/images/logo/logo-dark.svg" alt="Logo" />
+            <a href="/admin" class="xl:hidden flex items-center gap-2">
+                <img class="h-8 w-8 object-contain rounded-md" src="{{ $logoIconPath }}" alt="Logo" />
+                <span class="font-bold text-gray-800 text-sm leading-tight uppercase tracking-wide">
+                    Desa {{ $villageName }}
+                </span>
             </a>
 
             <!-- Application Menu Toggle (mobile only) -->
             <button @click="toggleApplicationMenu()"
-                class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-99999 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden">
+                class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden">
                 <!-- Dots Icon -->
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"

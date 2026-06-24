@@ -20,20 +20,20 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Desa</label>
-                    <input type="text" name="village_name" value="{{ old('village_name', $webSetting->village_name) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" required autofocus>
+                    <input type="text" name="village_name" value="{{ old('village_name', $webSetting->village_name) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" required autofocus maxlength="100">
                     @error('village_name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
                 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Logo Desa</label>
-                    <input type="file" name="logo_file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <input type="file" name="logo_file" accept="image/png,image/jpeg,image/jpg,image/svg+xml" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     <span class="text-[11px] text-gray-400 mt-1 block">Format: JPG, PNG, SVG (Maks. 2MB). Kosongkan jika tidak ingin mengubah.</span>
                     @error('logo_file') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Favicon Desa (Tab Browser)</label>
-                    <input type="file" name="favicon_file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <input type="file" name="favicon_file" accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/x-icon" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     <span class="text-[11px] text-gray-400 mt-1 block">Format: ICO, PNG, SVG (Maks. 1MB). Kosongkan jika tidak ingin mengubah.</span>
                     @error('favicon_file') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -49,15 +49,15 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Kecamatan</label>
-                    <input type="text" name="subdistrict" value="{{ old('subdistrict', $webSetting->subdistrict) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">
+                    <input type="text" name="subdistrict" value="{{ old('subdistrict', $webSetting->subdistrict) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" maxlength="100">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Kabupaten/Kota</label>
-                    <input type="text" name="city" value="{{ old('city', $webSetting->city) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">
+                    <input type="text" name="city" value="{{ old('city', $webSetting->city) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" maxlength="100">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Provinsi</label>
-                    <input type="text" name="province" value="{{ old('province', $webSetting->province) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">
+                    <input type="text" name="province" value="{{ old('province', $webSetting->province) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" maxlength="100">
                 </div>
             </div>
             <div class="mb-6">
@@ -80,27 +80,27 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Nomor Telepon</label>
-                    <input type="text" name="phone" value="{{ old('phone', $webSetting->phone) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">
+                    <input type="tel" name="phone" value="{{ old('phone', $webSetting->phone) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" maxlength="20" pattern="[0-9+\s\-]*">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Email Desa</label>
-                    <input type="email" name="email" value="{{ old('email', $webSetting->email) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">
+                    <input type="email" name="email" value="{{ old('email', $webSetting->email) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" maxlength="100">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Facebook</label>
-                    <input type="url" name="facebook" value="{{ old('facebook', $webSetting->facebook) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://facebook.com/nama-desa">
+                    <input type="url" name="facebook" value="{{ old('facebook', $webSetting->facebook) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://facebook.com/nama-desa" maxlength="255">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Instagram</label>
-                    <input type="url" name="instagram" value="{{ old('instagram', $webSetting->instagram) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://instagram.com/nama-desa">
+                    <input type="url" name="instagram" value="{{ old('instagram', $webSetting->instagram) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://instagram.com/nama-desa" maxlength="255">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Youtube</label>
-                    <input type="url" name="youtube" value="{{ old('youtube', $webSetting->youtube) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://youtube.com/channel/nama-desa">
+                    <input type="url" name="youtube" value="{{ old('youtube', $webSetting->youtube) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://youtube.com/channel/nama-desa" maxlength="255">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Twitter</label>
-                    <input type="url" name="twitter" value="{{ old('twitter', $webSetting->twitter) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://twitter.com/nama-desa">
+                    <input type="url" name="twitter" value="{{ old('twitter', $webSetting->twitter) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://twitter.com/nama-desa" maxlength="255">
                 </div>
             </div>
         </div>
