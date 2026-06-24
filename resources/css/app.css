@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
+body {
+    background-color: #f7f7f7 !important;
+}
+
 /* @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php'; */
 @source '../../vendor/mylaraveltools/minimalist/resources/views/**/*.blade.php';
