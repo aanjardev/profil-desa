@@ -38,7 +38,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
                 <div>
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Nama Desa</span>
-                    <span class="text-sm font-medium text-gray-800 mt-1 block">Desa {{ $webSetting->village_name ?: '-' }}</span>
+                    <span class="text-sm font-medium text-gray-800 mt-1 block">DESA {{ $webSetting->village_name ?: '-' }}</span>
                 </div>
                 <div>
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Kecamatan</span>
