@@ -77,7 +77,7 @@
     </script>
 
 
-    
+    @stack('styles')
 </head>
 
 <body

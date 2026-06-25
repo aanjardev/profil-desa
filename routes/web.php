@@ -43,6 +43,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('village-identities', VillageIdentityController::class);
     Route::resource('village-officials', VillageOfficialController::class);
     Route::resource('institutions', InstitutionController::class);
+    
+    // Posts / Berita
+    Route::get('posts/archives', [PostController::class, 'archives'])->name('posts.archives');
+    Route::patch('posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore')->withTrashed();
+    Route::delete('posts/{post}/force-delete', [PostController::class, 'forceDelete'])->name('posts.force-delete')->withTrashed();
     Route::resource('posts', PostController::class);
     Route::resource('tourisms', TourismUmkmController::class);
     Route::resource('galleries', GalleryController::class);
