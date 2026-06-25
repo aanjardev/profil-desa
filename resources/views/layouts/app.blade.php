@@ -19,6 +19,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Alpine.js -->
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
@@ -126,6 +129,62 @@
     </div>
 
 </body>
+
+<!-- Global Modern UI Alert & Confirm Overrides -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Override standard window.alert
+        window.alert = function(message) {
+            Swal.fire({
+                title: 'Informasi',
+                text: message,
+                icon: 'info',
+                confirmButtonColor: '#3b82f6', // blue-500
+                confirmButtonText: 'Tutup',
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-lg px-4 py-2 font-medium'
+                }
+            });
+        };
+
+        // 2. Intercept forms that use native confirm() in onsubmit
+        document.querySelectorAll('form[onsubmit*="confirm"]').forEach(form => {
+            // Extract the original message from the onsubmit attribute
+            const onsubmitStr = form.getAttribute('onsubmit');
+            const match = onsubmitStr.match(/confirm\(\s*['"](.*?)['"]\s*\)/);
+            const message = match ? match[1] : 'Apakah Anda yakin ingin melanjutkan tindakan ini?';
+            
+            // Remove the native onsubmit
+            form.removeAttribute('onsubmit');
+            
+            // Listen for submit with SweetAlert2
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: message,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444', // red-500
+                    cancelButtonColor: '#9ca3af', // gray-400
+                    confirmButtonText: 'Ya, Lanjutkan',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-lg px-4 py-2 font-medium',
+                        cancelButton: 'rounded-lg px-4 py-2 font-medium mr-3'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 @stack('scripts')
 
