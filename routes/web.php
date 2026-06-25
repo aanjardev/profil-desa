@@ -49,6 +49,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('ppid-documents', PpidDocumentController::class);
     Route::resource('service-letters', ServiceLetterController::class);
     Route::resource('complaints', ComplaintController::class);
+    Route::post('faqs/reorder', [FaqController::class, 'reorder'])->name('faqs.reorder');
     Route::resource('faqs', FaqController::class);
     Route::resource('contact-services', ContactServiceController::class);
     Route::resource('users', UserController::class);
