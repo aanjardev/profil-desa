@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'posts';
 
     protected $fillable = [
@@ -17,15 +20,14 @@ class Post extends Model
         'excerpt',
         'image',
         'category',
-        'event_date',
         'is_published',
         'is_featured',
         'views',
         'user_id',
+        'tags',
     ];
 
     protected $casts = [
-        'event_date'   => 'datetime',
         'is_published' => 'boolean',
         'is_featured'  => 'boolean',
         'views'        => 'integer',
@@ -37,26 +39,18 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(PostImage::class);
+    }
+
     // ─── Scopes ───────────────────────────────────────────
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }
 
-    public function scopeBerita(Builder $query): Builder
-    {
-        return $query->where('category', 'berita');
-    }
 
-    public function scopePengumuman(Builder $query): Builder
-    {
-        return $query->where('category', 'pengumuman');
-    }
-
-    public function scopeAgenda(Builder $query): Builder
-    {
-        return $query->where('category', 'agenda');
-    }
 
     public function scopeFeatured(Builder $query): Builder
     {
