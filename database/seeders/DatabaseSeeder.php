@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WebSettingSeeder::class,
             VillageIdentitySeeder::class,
+            AgendaSeeder::class,
         ]);
     }
 }
