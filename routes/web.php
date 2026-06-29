@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ContactServiceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\TourismController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,6 +60,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('faqs', FaqController::class);
     Route::get('agendas/archives', [AgendaController::class, 'archives'])->name('agendas.archives');
     Route::resource('agendas', AgendaController::class);
+    Route::resource('tourisms', TourismController::class);
     Route::resource('contact-services', ContactServiceController::class);
     Route::resource('users', UserController::class);
 });
