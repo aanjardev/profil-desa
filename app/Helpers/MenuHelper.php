@@ -34,6 +34,7 @@ class MenuHelper
                         'subItems' => [
                             ['name' => 'Berita / Artikel', 'path' => '/admin/posts'],
                             ['name' => 'Galeri', 'path' => '/admin/galleries'],
+                            ['name' => 'Agenda', 'path' => '/admin/agendas'],
                             ['name' => 'FAQ', 'path' => '/admin/faqs'],
                         ]
                     ],
