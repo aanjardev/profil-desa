@@ -60,6 +60,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     // Resources
     Route::resource('village-identities', VillageIdentityController::class);
+    Route::post('village-officials/reorder', [VillageOfficialController::class, 'reorder'])->name('village-officials.reorder');
     Route::resource('village-officials', VillageOfficialController::class);
     Route::resource('institutions', InstitutionController::class);
     
