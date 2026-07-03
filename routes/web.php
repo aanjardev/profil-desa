@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ContactServiceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TourismController;
+use App\Http\Controllers\Admin\UmkmController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,6 +60,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     // Resources
     Route::resource('village-identities', VillageIdentityController::class);
+    Route::post('village-officials/reorder', [VillageOfficialController::class, 'reorder'])->name('village-officials.reorder');
     Route::resource('village-officials', VillageOfficialController::class);
     Route::resource('institutions', InstitutionController::class);
     
@@ -77,6 +79,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::get('agendas/archives', [AgendaController::class, 'archives'])->name('agendas.archives');
     Route::resource('agendas', AgendaController::class);
     Route::resource('tourisms', TourismController::class);
+    Route::resource('umkms', UmkmController::class);
     Route::resource('contact-services', ContactServiceController::class);
     Route::resource('users', UserController::class);
 });

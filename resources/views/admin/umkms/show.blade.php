@@ -1,0 +1,190 @@
+@extends('layouts.app')
+
+@section('page_title', 'Detail UMKM')
+@section('page_subtitle', 'Tinjau informasi lengkap tentang UMKM unggulan desa.')
+
+@section('content')
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+    <!-- Gambar Utama / Hero -->
+    <div class="w-full h-64 md:h-96 relative bg-gray-900 group">
+        @if($umkm->main_image)
+            <img src="{{ Storage::url($umkm->main_image) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover opacity-80">
+        @else
+            <div class="w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+                <svg class="w-24 h-24 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+            </div>
+        @endif
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full p-6 md:p-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+                @if($umkm->is_active)
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold uppercase tracking-wide rounded-md backdrop-blur-sm">Dipublikasikan</span>
+                @else
+                    <span class="px-3 py-1 bg-gray-500/20 text-gray-300 border border-gray-500/30 text-xs font-bold uppercase tracking-wide rounded-md backdrop-blur-sm">Draft</span>
+                @endif
+                @if($umkm->category)
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold tracking-wide rounded-md backdrop-blur-sm">🏪 {{ $umkm->category }}</span>
+                @endif
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight">{{ $umkm->name }}</h2>
+            <div class="flex items-center gap-2 text-gray-300 mt-2 text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                {{ $umkm->location }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Aksi -->
+    <div class="border-b border-gray-100 bg-gray-50/50 p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="text-sm text-gray-500 font-medium">
+            Ditambahkan pada: {{ $umkm->created_at->format('d M Y') }}
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.umkms.edit', $umkm->id) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg hover:bg-blue-100 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                Edit UMKM
+            </a>
+            <a href="{{ route('admin.umkms.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-50 transition-colors">
+                Kembali
+            </a>
+        </div>
+    </div>
+
+    <div class="p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 space-y-8">
+                <!-- Deskripsi -->
+                <div>
+                    <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Deskripsi Usaha</h3>
+                    <div class="prose prose-sm max-w-none text-gray-700 leading-relaxed">
+                        {!! nl2br(e($umkm->description)) !!}
+                    </div>
+                </div>
+
+                <!-- Produk / Layanan Unggulan -->
+                @if($umkm->facilities)
+                <div>
+                    <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Produk / Layanan Unggulan</h3>
+                    <div class="text-sm text-gray-700 leading-relaxed">
+                        {!! nl2br(e($umkm->facilities)) !!}
+                    </div>
+                </div>
+                @endif
+
+                <!-- Galeri -->
+                @if($umkm->supporting_images)
+                <div>
+                    <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Galeri Foto</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        @foreach($umkm->supporting_images as $img)
+                            <div class="group relative aspect-square rounded-xl overflow-hidden bg-gray-100 cursor-pointer" onclick="window.open('{{ Storage::url($img['path']) }}', '_blank')">
+                                <img src="{{ Storage::url($img['path']) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                                @if(isset($img['caption']) && $img['caption'])
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                        <p class="text-white text-xs p-3 font-medium line-clamp-2">{{ $img['caption'] }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <!-- Sidebar Info -->
+            <div class="space-y-5">
+                <div class="bg-blue-50/50 rounded-xl p-5 border border-blue-100 space-y-5">
+                    @if($umkm->owner_name)
+                    <div>
+                        <div class="flex items-center gap-2 text-blue-800 font-bold mb-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            Pemilik Usaha
+                        </div>
+                        <div class="text-sm font-medium text-gray-700 ml-6">{{ $umkm->owner_name }}</div>
+                    </div>
+                    @endif
+
+                    @if($umkm->opening_hours)
+                    <div>
+                        <div class="flex items-center gap-2 text-blue-800 font-bold mb-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Jam Operasional
+                        </div>
+                        <div class="text-sm font-medium text-gray-700 ml-6">{{ $umkm->opening_hours }}</div>
+                    </div>
+                    @endif
+
+                    @if($umkm->contact_person)
+                    <div>
+                        <div class="flex items-center gap-2 text-blue-800 font-bold mb-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            Kontak / Narahubung
+                        </div>
+                        <div class="text-sm font-medium text-gray-700 ml-6">{{ $umkm->contact_person }}</div>
+                    </div>
+                    @endif
+
+                    @if($umkm->marketplace_link)
+                    <div class="pt-2">
+                        <a href="{{ $umkm->marketplace_link }}" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-emerald-600 border border-transparent text-white text-sm font-bold rounded-lg hover:bg-emerald-700 transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            Pesan / Beli Online
+                        </a>
+                    </div>
+                    @endif
+
+                    @if($umkm->instagram_link)
+                    <div class="pt-2">
+                        <a href="{{ $umkm->instagram_link }}" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 border border-transparent text-white text-sm font-bold rounded-lg hover:opacity-90 transition-opacity shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                            Instagram
+                        </a>
+                    </div>
+                    @endif
+
+                    @if($umkm->youtube_link)
+                    <div class="pt-2">
+                        <a href="{{ $umkm->youtube_link }}" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-red-600 border border-transparent text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Youtube
+                        </a>
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Informasi Sistem -->
+                <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 space-y-3 text-xs text-gray-500">
+                    <div class="flex justify-between">
+                        <span class="font-semibold">ID Data</span>
+                        <span>#{{ $umkm->id }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Slug</span>
+                        <span class="truncate ml-2 text-right">{{ $umkm->slug }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Dibuat</span>
+                        <span>{{ $umkm->created_at->format('d M Y, H:i') }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Diperbarui</span>
+                        <span>{{ $umkm->updated_at->format('d M Y, H:i') }}</span>
+                    </div>
+                </div>
+
+                <!-- Hapus -->
+                <form action="{{ route('admin.umkms.destroy', $umkm->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data UMKM ini? Tindakan ini tidak dapat dibatalkan.');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-red-50 border border-red-100 text-red-600 text-sm font-semibold rounded-lg hover:bg-red-100 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        Hapus UMKM Ini
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
