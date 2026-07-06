@@ -53,6 +53,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
+    // Profile
+    Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [\App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
+
     // Web Settings
     Route::get('/web-settings', [WebSettingController::class, 'show'])->name('web-settings.show');
     Route::get('/web-settings/edit', [WebSettingController::class, 'edit'])->name('web-settings.edit');
