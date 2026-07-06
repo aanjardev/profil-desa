@@ -81,7 +81,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('tourisms', TourismController::class);
     Route::resource('umkms', UmkmController::class);
     Route::resource('contact-services', ContactServiceController::class);
-    Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');
-    Route::delete('users/email/{pendingRegistration}', [UserController::class, 'destroyEmail'])->name('users.email.destroy');
-    Route::resource('users', UserController::class);
+    
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');
+        Route::delete('users/email/{pendingRegistration}', [UserController::class, 'destroyEmail'])->name('users.email.destroy');
+        Route::resource('users', UserController::class);
+    });
 });

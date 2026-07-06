@@ -6,7 +6,7 @@ class MenuHelper
 {
     public static function getMenuGroups(): array
     {
-        return [
+        $menus = [
             [
                 'title' => 'Menu Utama',
                 'items' => [
@@ -68,8 +68,12 @@ class MenuHelper
                         ]
                     ]
                 ]
-            ],
-            [
+            ]
+        ];
+
+        // Hanya tambahkan menu Sistem jika user adalah superadmin
+        if (auth()->check() && auth()->user()->role === 'superadmin') {
+            $menus[] = [
                 'title' => 'Sistem',
                 'items' => [
                     [
@@ -78,8 +82,10 @@ class MenuHelper
                         'icon' => 'shield',
                     ],
                 ]
-            ]
-        ];
+            ];
+        }
+
+        return $menus;
     }
 
     public static function getIconSvg(string $name): string
