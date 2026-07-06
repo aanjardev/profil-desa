@@ -46,6 +46,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register/check-email', [AuthController::class, 'checkEmail'])->name('register.check-email');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
@@ -53,6 +54,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
+    // Profile
+    Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [\App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
+
     // Web Settings
     Route::get('/web-settings', [WebSettingController::class, 'show'])->name('web-settings.show');
     Route::get('/web-settings/edit', [WebSettingController::class, 'edit'])->name('web-settings.edit');
@@ -81,5 +87,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('tourisms', TourismController::class);
     Route::resource('umkms', UmkmController::class);
     Route::resource('contact-services', ContactServiceController::class);
-    Route::resource('users', UserController::class);
+    
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');
+        Route::delete('users/email/{pendingRegistration}', [UserController::class, 'destroyEmail'])->name('users.email.destroy');
+        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::resource('users', UserController::class);
+    });
 });

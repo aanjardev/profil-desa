@@ -670,6 +670,43 @@
                 padding: 2rem 1.5rem;
             }
         }
+
+        /* ===== CUSTOM MODAL ===== */
+        .custom-modal {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .custom-modal-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+        }
+        .custom-modal-content {
+            position: relative; z-index: 10000;
+            background: #fff; padding: 2rem; border-radius: 1rem;
+            width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .custom-modal-icon {
+            width: 3rem; height: 3rem; background: #fffbeb; color: #d97706;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .custom-modal-content h3 {
+            font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; margin-top: 0;
+        }
+        .custom-modal-content p {
+            font-size: 0.875rem; color: #475569; line-height: 1.6; margin: 0;
+        }
+        .btn-modal {
+            margin-top: 1.5rem; width: 100%; padding: 0.75rem; background: #f1f5f9; color: #0f172a;
+            font-weight: 700; border: none; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-modal:hover { background: #e2e8f0; }
     </style>
 </head>
 <body style="background:#f8fafc; margin:0; padding:0; font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;">
@@ -751,6 +788,16 @@
                 <h1>Masuk ke Akun</h1>
                 <p>Masukkan kredensial Anda untuk mengakses panel admin.</p>
             </div>
+
+            {{-- Success alert (e.g. from registration) --}}
+            @if(session('success'))
+            <div class="auth-alert-success" role="alert" style="display: flex; align-items: flex-start; gap: 0.625rem; padding: 0.875rem 1rem; background: #ecfdf5; border: 1px solid #d1fae5; border-left: 3px solid #10b981; border-radius: 0.5rem; margin-bottom: 1.25rem;">
+                <svg width="16" height="16" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink: 0; margin-top: 2px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span style="font-size: 0.875rem; color: #065f46; font-weight: 500; line-height: 1.4;">{{ session('success') }}</span>
+            </div>
+            @endif
 
             {{-- Server error alert --}}
             @if($errors->any())
@@ -841,6 +888,7 @@
                         <input type="checkbox" id="remember" name="remember">
                         <span>Ingat Saya</span>
                     </label>
+                    <a href="#" class="auth-link" id="forgotPasswordBtn">Lupa Password?</a>
                 </div>
 
                 {{-- Submit --}}
@@ -996,8 +1044,43 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.style.opacity = '0.85';
     });
 
+    /* ======================================================
+       4. FORGOT PASSWORD MODAL
+    ====================================================== */
+    const forgotBtn = document.getElementById('forgotPasswordBtn');
+    const forgotModal = document.getElementById('forgotPasswordModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    if (forgotBtn && forgotModal) {
+        forgotBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            forgotModal.style.display = 'flex';
+        });
+
+        const closeModal = () => {
+            forgotModal.style.display = 'none';
+        };
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+    }
 });
 </script>
+
+{{-- Custom Modal Lupa Password --}}
+<div id="forgotPasswordModal" class="custom-modal" style="display: none;">
+    <div class="custom-modal-backdrop" id="modalBackdrop"></div>
+    <div class="custom-modal-content">
+        <div class="custom-modal-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h3>Lupa Password?</h3>
+        <p>Karena alasan keamanan dan sistem pendaftaran yang terbatas, <strong>reset kata sandi tidak dapat dilakukan secara otomatis</strong> melalui email.</p>
+        <p style="margin-top:0.75rem">Harap hubungi <strong>Super Administrator</strong> atau pengelola sistem desa untuk meminta penyetelan ulang sandi akun Anda.</p>
+        <button type="button" id="closeModalBtn" class="btn-modal">Mengerti</button>
+    </div>
+</div>
 
 </body>
 </html>

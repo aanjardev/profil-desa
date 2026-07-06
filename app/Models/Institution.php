@@ -14,12 +14,15 @@ class Institution extends Model
         'name',
         'type',
         'description',
+        'contact_person',
         'logo',
+        'images',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'images'    => 'array',
     ];
 
     // ─── Relasi ───────────────────────────────────────────
