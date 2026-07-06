@@ -64,7 +64,6 @@ class MenuHelper
                         'icon' => 'briefcase',
                         'subItems' => [
                             ['name' => 'Layanan Surat', 'path' => '/admin/service-letters'],
-                            ['name' => 'Pengaduan', 'path' => '/admin/complaints'],
                             ['name' => 'Dokumen PPID', 'path' => '/admin/ppid-documents'],
                         ]
                     ]
