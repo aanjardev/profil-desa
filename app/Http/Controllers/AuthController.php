@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\PendingRegistration;
 
 class AuthController extends Controller
 {
@@ -44,12 +45,30 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
+        // Check if email is in pending registrations
+        $pending = PendingRegistration::where('email', $validated['email'])->first();
+
+        if (!$pending) {
+            return back()->withErrors([
+                'email' => 'Email ini belum didaftarkan oleh Admin. Silakan hubungi Admin untuk mendaftar.',
+            ])->onlyInput('name', 'email');
+        }
+
+        if ($pending->status !== 'pending') {
+            return back()->withErrors([
+                'email' => 'Email ini sudah digunakan untuk mendaftar sebelumnya.',
+            ])->onlyInput('name', 'email');
+        }
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => 'admin', // default role
         ]);
+
+        // Update pending registration status
+        $pending->update(['status' => 'registered']);
 
         Auth::login($user);
 

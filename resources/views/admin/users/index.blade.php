@@ -1,0 +1,293 @@
+@extends('layouts.app')
+
+@section('page_title', 'Manajemen User')
+@section('page_subtitle', 'Kelola daftar pengguna sistem dan daftarkan email undangan baru.')
+
+@section('content')
+@if(session('success'))
+<div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center gap-3 text-emerald-700">
+    <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <span class="font-medium text-sm">{{ session('success') }}</span>
+</div>
+@endif
+
+@if(session('error'))
+<div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 text-red-700">
+    <svg class="w-5 h-5 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <span class="font-medium text-sm">{{ session('error') }}</span>
+</div>
+@endif
+
+@if($errors->any())
+<div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex flex-col gap-1 text-red-700">
+    @foreach ($errors->all() as $error)
+        <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <span class="font-medium text-sm">{{ $error }}</span>
+        </div>
+    @endforeach
+</div>
+@endif
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden" x-data="{ tab: '{{ $activeTab }}' }">
+    {{-- Tabs Header --}}
+    <div class="flex border-b border-gray-100 bg-gray-50/50">
+        <button @click="tab = 'users'" 
+                :class="{'border-blue-600 text-blue-600 bg-white': tab === 'users', 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50': tab !== 'users'}"
+                class="flex-1 sm:flex-none px-6 py-4 text-sm font-bold border-b-2 transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            Pengguna Aktif
+        </button>
+        <button @click="tab = 'pending'" 
+                :class="{'border-blue-600 text-blue-600 bg-white': tab === 'pending', 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50': tab !== 'pending'}"
+                class="flex-1 sm:flex-none px-6 py-4 text-sm font-bold border-b-2 transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            Email Undangan (Pending)
+        </button>
+    </div>
+
+    {{-- TAB 1: PENGGUNA AKTIF --}}
+    <div x-show="tab === 'users'" x-transition.opacity class="animate-fade-in">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-white border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 w-12 text-center">#</th>
+                        <th class="px-6 py-4">Nama Lengkap</th>
+                        <th class="px-6 py-4">Alamat Email</th>
+                        <th class="px-6 py-4">Peran (Role)</th>
+                        <th class="px-6 py-4">Bergabung</th>
+                        <th class="px-6 py-4 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @forelse($users as $index => $user)
+                    <tr class="hover:bg-blue-50/30 transition-colors group">
+                        <td class="px-6 py-4 text-center text-sm font-medium text-gray-400">
+                            {{ $users->firstItem() + $index }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-sm font-bold text-gray-900 block">{{ $user->name }}</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $user->email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @if($user->role === 'admin')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 text-xs font-semibold border border-purple-200">Administrator</span>
+                            @elseif($user->role === 'editor')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200">Editor</span>
+                            @else
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-gray-50 text-gray-700 text-xs font-semibold border border-gray-200">User Biasa</span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $user->created_at->translatedFormat('d M Y') }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center gap-2" x-data="{ openEdit: false, openDelete: false }">
+                                {{-- Edit Button --}}
+                                <button type="button" @click="openEdit = true" class="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors" title="Edit Pengguna">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                                
+                                {{-- Delete Button (Disabled if self) --}}
+                                @if(auth()->id() !== $user->id)
+                                <button type="button" @click="openDelete = true" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Pengguna">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                                @endif
+
+                                {{-- MODAL EDIT USER --}}
+                                <div x-show="openEdit" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                        <div x-show="openEdit" @click="openEdit = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-gray-900/50" aria-hidden="true"></div>
+                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                        <div x-show="openEdit" x-transition.scale.origin.bottom class="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                                            <div class="flex items-center justify-between mb-5">
+                                                <h3 class="text-lg font-bold text-gray-900" id="modal-title">Edit Pengguna</h3>
+                                                <button @click="openEdit = false" class="text-gray-400 hover:text-gray-500">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                </button>
+                                            </div>
+                                            
+                                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama Lengkap</label>
+                                                        <input type="text" name="name" value="{{ $user->name }}" required
+                                                               class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Email <span class="text-xs font-normal text-gray-400">(Tidak dapat diubah)</span></label>
+                                                        <input type="email" value="{{ $user->email }}" disabled
+                                                               class="w-full px-4 py-2.5 bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-500 cursor-not-allowed">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Peran (Role)</label>
+                                                        <select name="role" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
+                                                            <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Administrator</option>
+                                                            <option value="editor" {{ $user->role === 'editor' ? 'selected' : '' }}>Editor</option>
+                                                            <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User Biasa</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="pt-2 border-t border-gray-100 mt-4">
+                                                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Ubah Password (Opsional)</p>
+                                                        <div class="grid grid-cols-2 gap-3">
+                                                            <div>
+                                                                <input type="password" name="password" placeholder="Password Baru" minlength="8"
+                                                                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
+                                                            </div>
+                                                            <div>
+                                                                <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" minlength="8"
+                                                                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-[11px] text-gray-400 mt-1">Kosongkan jika tidak ingin mengubah password.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-6 flex justify-end gap-3">
+                                                    <button type="button" @click="openEdit = false" class="px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+                                                    <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">Simpan Perubahan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- MODAL HAPUS USER --}}
+                                @if(auth()->id() !== $user->id)
+                                <div x-show="openDelete" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                        <div x-show="openDelete" @click="openDelete = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-gray-900/50" aria-hidden="true"></div>
+                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                        <div x-show="openDelete" x-transition.scale.origin.bottom class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                                            <div class="flex flex-col items-center justify-center text-center">
+                                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4 text-red-600">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                                </div>
+                                                <h3 class="text-lg font-bold text-gray-900 mb-1">Hapus Pengguna</h3>
+                                                <p class="text-sm text-gray-500 mb-6">Apakah Anda yakin ingin menghapus akun <span class="font-bold text-gray-900">{{ $user->name }}</span>? Tindakan ini tidak dapat dibatalkan.</p>
+                                                
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="w-full flex gap-3">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" @click="openDelete = false" class="flex-1 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+                                                    <button type="submit" class="flex-1 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700">Ya, Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-500 text-sm">Tidak ada data pengguna ditemukan.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        
+        @if($users->hasPages())
+        <div class="p-6 border-t border-gray-100 bg-white">
+            {{ $users->links() }}
+        </div>
+        @endif
+    </div>
+
+    {{-- TAB 2: EMAIL UNDANGAN --}}
+    <div x-show="tab === 'pending'" style="display: none;" x-transition.opacity class="animate-fade-in">
+        {{-- Form Tambah Email --}}
+        <div class="p-6 bg-blue-50/50 border-b border-blue-100">
+            <h4 class="text-sm font-bold text-blue-900 mb-2">Daftarkan Email Baru</h4>
+            <p class="text-xs text-blue-700/80 mb-4">Hanya email yang didaftarkan di sini yang dapat mendaftar (Register) ke dalam sistem panel admin.</p>
+            
+            <form action="{{ route('admin.users.email.store') }}" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-2xl">
+                @csrf
+                <div class="flex-1">
+                    <input type="email" name="email" required placeholder="Masukkan alamat email..."
+                           class="w-full px-4 py-2.5 bg-white border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm placeholder-gray-400">
+                </div>
+                <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                    Daftarkan Email
+                </button>
+            </form>
+        </div>
+
+        {{-- Tabel Email --}}
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-white border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 w-12 text-center">#</th>
+                        <th class="px-6 py-4">Alamat Email</th>
+                        <th class="px-6 py-4 text-center">Status</th>
+                        <th class="px-6 py-4">Didaftarkan Pada</th>
+                        <th class="px-6 py-4 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @forelse($pendingEmails as $index => $pending)
+                    <tr class="hover:bg-gray-50 transition-colors group">
+                        <td class="px-6 py-4 text-center text-sm font-medium text-gray-400">
+                            {{ $pendingEmails->firstItem() + $index }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-sm font-bold text-gray-900 block">{{ $pending->email }}</span>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            @if($pending->status === 'registered')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">Terdaftar</span>
+                            @else
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-50 text-amber-700 text-xs font-semibold border border-amber-200">Pending</span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $pending->created_at->translatedFormat('d M Y, H:i') }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <form action="{{ route('admin.users.email.destroy', $pending->id) }}" method="POST" class="inline-block"
+                                  onsubmit="return confirm('Hapus email ini dari daftar undangan? Jika sudah mendaftar, akun pengguna tersebut TIDAK akan terhapus secara otomatis.');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Email">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center justify-center">
+                                <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-3">
+                                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h3 class="text-sm font-bold text-gray-900 mb-1">Belum Ada Email Terdaftar</h3>
+                                <p class="text-sm text-gray-500">Gunakan formulir di atas untuk mengundang pengguna baru.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        
+        @if($pendingEmails->hasPages())
+        <div class="p-6 border-t border-gray-100 bg-white">
+            {{ $pendingEmails->links() }}
+        </div>
+        @endif
+    </div>
+</div>
+@endsection
