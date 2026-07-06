@@ -62,13 +62,21 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified user.
+     */
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
+    }
+
+    /**
      * Update the specified user in storage.
      */
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'required|string|in:admin,editor,user',
+            'role' => 'required|string|in:superadmin,admin',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 

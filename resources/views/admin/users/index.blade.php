@@ -73,117 +73,32 @@
                             {{ $user->email }}
                         </td>
                         <td class="px-6 py-4">
-                            @if($user->role === 'admin')
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 text-xs font-semibold border border-purple-200">Administrator</span>
-                            @elseif($user->role === 'editor')
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200">Editor</span>
+                            @if($user->role === 'superadmin')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 text-xs font-semibold border border-purple-200">Superadmin</span>
                             @else
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-gray-50 text-gray-700 text-xs font-semibold border border-gray-200">User Biasa</span>
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200">Admin</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-600">
                             {{ $user->created_at->translatedFormat('d M Y') }}
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center justify-center gap-2" x-data="{ openEdit: false, openDelete: false }">
+                            <div class="flex items-center justify-center gap-2">
                                 {{-- Edit Button --}}
-                                <button type="button" @click="openEdit = true" class="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors" title="Edit Pengguna">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" 
+                                    class="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors inline-block" title="Edit Pengguna">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                </button>
+                                </a>
                                 
                                 {{-- Delete Button (Disabled if self) --}}
                                 @if(auth()->id() !== $user->id)
-                                <button type="button" @click="openDelete = true" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Pengguna">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                </button>
-                                @endif
-
-                                {{-- MODAL EDIT USER --}}
-                                <div x-show="openEdit" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                                    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                                        <div x-show="openEdit" @click="openEdit = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-gray-900/50" aria-hidden="true"></div>
-                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                                        <div x-show="openEdit" x-transition.scale.origin.bottom class="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                            <div class="flex items-center justify-between mb-5">
-                                                <h3 class="text-lg font-bold text-gray-900" id="modal-title">Edit Pengguna</h3>
-                                                <button @click="openEdit = false" class="text-gray-400 hover:text-gray-500">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                                </button>
-                                            </div>
-                                            
-                                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                
-                                                <div class="space-y-4">
-                                                    <div>
-                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama Lengkap</label>
-                                                        <input type="text" name="name" value="{{ $user->name }}" required
-                                                               class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
-                                                    </div>
-                                                    <div>
-                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Email <span class="text-xs font-normal text-gray-400">(Tidak dapat diubah)</span></label>
-                                                        <input type="email" value="{{ $user->email }}" disabled
-                                                               class="w-full px-4 py-2.5 bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-500 cursor-not-allowed">
-                                                    </div>
-                                                    <div>
-                                                        <label class="block text-sm font-bold text-gray-700 mb-1">Peran (Role)</label>
-                                                        <select name="role" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
-                                                            <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Administrator</option>
-                                                            <option value="editor" {{ $user->role === 'editor' ? 'selected' : '' }}>Editor</option>
-                                                            <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User Biasa</option>
-                                                        </select>
-                                                    </div>
-                                                    
-                                                    <div class="pt-2 border-t border-gray-100 mt-4">
-                                                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Ubah Password (Opsional)</p>
-                                                        <div class="grid grid-cols-2 gap-3">
-                                                            <div>
-                                                                <input type="password" name="password" placeholder="Password Baru" minlength="8"
-                                                                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
-                                                            </div>
-                                                            <div>
-                                                                <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" minlength="8"
-                                                                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm">
-                                                            </div>
-                                                        </div>
-                                                        <p class="text-[11px] text-gray-400 mt-1">Kosongkan jika tidak ingin mengubah password.</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mt-6 flex justify-end gap-3">
-                                                    <button type="button" @click="openEdit = false" class="px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
-                                                    <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">Simpan Perubahan</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- MODAL HAPUS USER --}}
-                                @if(auth()->id() !== $user->id)
-                                <div x-show="openDelete" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                                    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                                        <div x-show="openDelete" @click="openDelete = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-gray-900/50" aria-hidden="true"></div>
-                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                                        <div x-show="openDelete" x-transition.scale.origin.bottom class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                            <div class="flex flex-col items-center justify-center text-center">
-                                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4 text-red-600">
-                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                                </div>
-                                                <h3 class="text-lg font-bold text-gray-900 mb-1">Hapus Pengguna</h3>
-                                                <p class="text-sm text-gray-500 mb-6">Apakah Anda yakin ingin menghapus akun <span class="font-bold text-gray-900">{{ $user->name }}</span>? Tindakan ini tidak dapat dibatalkan.</p>
-                                                
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="w-full flex gap-3">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" @click="openDelete = false" class="flex-1 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
-                                                    <button type="submit" class="flex-1 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700">Ya, Hapus</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun {{ addslashes($user->name) }}? Tindakan ini tidak dapat dibatalkan.')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Pengguna">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </form>
                                 @endif
                             </div>
                         </td>
@@ -290,4 +205,5 @@
         @endif
     </div>
 </div>
+
 @endsection

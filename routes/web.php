@@ -46,6 +46,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register/check-email', [AuthController::class, 'checkEmail'])->name('register.check-email');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
@@ -90,6 +91,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::middleware(['role:superadmin'])->group(function () {
         Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');
         Route::delete('users/email/{pendingRegistration}', [UserController::class, 'destroyEmail'])->name('users.email.destroy');
+        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::resource('users', UserController::class);
     });
 });

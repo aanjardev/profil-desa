@@ -37,6 +37,43 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function checkEmail(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $pending = PendingRegistration::where('email', $validated['email'])->first();
+
+        if (!$pending) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email ini belum didaftarkan oleh Admin. Silakan hubungi Admin untuk mendaftar.'
+            ], 422);
+        }
+
+        if ($pending->status !== 'pending') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email ini sudah digunakan untuk mendaftar sebelumnya.'
+            ], 422);
+        }
+
+        // Cek juga apakah sudah ada di users
+        $userExists = User::where('email', $validated['email'])->exists();
+        if ($userExists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email ini sudah terdaftar sebagai pengguna aktif.'
+            ], 422);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email valid, silakan lanjutkan pendaftaran.'
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -70,9 +107,10 @@ class AuthController extends Controller
         // Update pending registration status
         $pending->update(['status' => 'registered']);
 
-        Auth::login($user);
+        // Do not auto-login as per user request
+        // Auth::login($user);
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('login')->with('success', 'Akun Anda telah berhasil dibuat. Mohon lakukan login menggunakan kredensial yang telah didaftarkan.');
     }
 
     public function logout(Request $request)
