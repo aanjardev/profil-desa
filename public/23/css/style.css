@@ -1191,6 +1191,8 @@ fieldset[disabled] .s-btn {
 }
 
 .s-header__logo-img-default, .s-header__logo-img-shrink {
+  max-height: 40px;
+  width: auto;
   display: block;
   transition-duration: 300ms;
   transition-property: all;

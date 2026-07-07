@@ -28,8 +28,8 @@
         <link href="{{ asset('23/css/global/global.css') }}" rel="stylesheet" type="text/css"/>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('23/img/favicon.ico') }}" type="image/x-icon">
-        <link rel="apple-touch-icon" href="{{ asset('23/img/apple-touch-icon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('images/web-settings/icon-tab.png') }}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="{{ asset('images/web-settings/icon-tab.png') }}">
     </head>
     <!-- End Head -->
     <body>

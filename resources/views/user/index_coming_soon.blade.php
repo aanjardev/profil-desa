@@ -41,7 +41,7 @@
                         <div class="s-header__navbar-row-col">
                             <!-- Logo -->
                             <div class="s-header__logo">
-                                <a href="{{ route('template23.index') }}" class="s-header__logo-link">
+                                <a href="{{ route('home') }}" class="s-header__logo-link">
                                     <img class="s-header__logo-img" src="{{ asset('23/img/logo-dark.png') }}" alt="Megakit Logo">
                                 </a>
                             </div>
@@ -69,24 +69,24 @@
                     <div class="container-fluid">
                         <!-- Menu List -->                                
                         <ul class="list-unstyled s-header__nav-menu">
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index') }}">Corporate</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-app-landing') }}">App Landing</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-portfolio') }}">Portfolio</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-events') }}">Events</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-lawyer') }}">Lawyer</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('home') }}">Corporate</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-app-landing') }}">App Landing</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-portfolio') }}">Portfolio</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('events') }}">Events</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-lawyer') }}">Lawyer</a></li>
                             <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="#">Clinic</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider -is-active" href="{{ route('template23.index-coming-soon') }}">Coming Soon</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider -is-active" href="{{ route('index-coming-soon') }}">Coming Soon</a></li>
                         </ul>
                         <!-- End Menu List -->
 
                         <!-- Menu List -->                                
                         <ul class="list-unstyled s-header__nav-menu">
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.about') }}">About</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.team') }}">Team</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.services') }}">Services</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.events') }}">Events</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.faq') }}">FAQ</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.contacts') }}">Contacts</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('about') }}">About</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('team') }}">Team</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('services') }}">Services</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('events') }}">Events</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('faq') }}">FAQ</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('contacts') }}">Contacts</a></li>
                         </ul>
                         <!-- End Menu List -->
                     </div>
@@ -128,7 +128,7 @@
         <!--========== END HEADER ==========-->
 
         <!--========== PAGE CONTENT ==========-->
-        <div class="g-bg-position--center g-fullheight--xs" style="background: url('{{ asset('23/1920x1080/08.jpg') }}');">
+        <div class="g-bg-position--center g-fullheight--xs" style="background: url('{{ asset('23/img/1920x1080/08.jpg') }}');">
             <div class="container js__ver-center-aligned">
                 <div class="g-text-center--xs">
                     <div class="g-margin-t-40--xs g-margin-b-60--xs g-margin-b-80--sm">
