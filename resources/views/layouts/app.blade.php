@@ -114,8 +114,8 @@
 
         <div class="flex-1 transition-all duration-300 ease-in-out"
             :class="{
-                'xl:ml-[280px]': $store.sidebar.isExpanded,
-                'xl:ml-[76px]': !$store.sidebar.isExpanded,
+                'xl:ml-70': $store.sidebar.isExpanded,
+                'xl:ml-19': !$store.sidebar.isExpanded,
                 'ml-0': $store.sidebar.isMobileOpen
             }">
             <!-- app header start -->
