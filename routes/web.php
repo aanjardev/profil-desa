@@ -19,25 +19,24 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TourismController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/home');
 
-// Template 23 (Megakit) - preview routes untuk halaman yang baru dikonversi dari .html ke .blade.php
-Route::prefix('template23')->name('template23.')->group(function () {
-    Route::view('/', '23.index')->name('index');
-    Route::view('/about', '23.about')->name('about');
-    Route::view('/services', '23.services')->name('services');
-    Route::view('/team', '23.team')->name('team');
-    Route::view('/events', '23.events')->name('events');
-    Route::view('/contacts', '23.contacts')->name('contacts');
-    Route::view('/faq', '23.faq')->name('faq');
-    Route::view('/index-lawyer', '23.index_lawyer')->name('index-lawyer');
-    Route::view('/index-portfolio', '23.index_portfolio')->name('index-portfolio');
-    Route::view('/index-app-landing', '23.index_app_landing')->name('index-app-landing');
-    Route::view('/index-events', '23.index_events')->name('index-events');
-    Route::view('/index-coming-soon', '23.index_coming_soon')->name('index-coming-soon');
-});
+// User Routes
+Route::get('/home', function () {
+    return view('user.home');
+})->name('home');
+
+Route::view('/about', 'user.about')->name('about');
+Route::view('/services', 'user.services')->name('services');
+Route::view('/team', 'user.team')->name('team');
+Route::view('/events', 'user.events')->name('events');
+Route::view('/contacts', 'user.contacts')->name('contacts');
+Route::view('/faq', 'user.faq')->name('faq');
+Route::view('/index-lawyer', 'user.index_lawyer')->name('index-lawyer');
+Route::view('/index-portfolio', 'user.index_portfolio')->name('index-portfolio');
+Route::view('/index-app-landing', 'user.index_app_landing')->name('index-app-landing');
+Route::view('/index-events', 'user.index_events')->name('index-events');
+Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {

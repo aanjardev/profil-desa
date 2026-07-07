@@ -57,8 +57,8 @@
         }
     }"
     :class="{
-        'w-[280px] px-6': $store.sidebar.isExpanded || $store.sidebar.isMobileOpen || $store.sidebar.isHovered,
-        'w-[76px] px-3': !$store.sidebar.isExpanded && !$store.sidebar.isHovered,
+        'w-70 px-6': $store.sidebar.isExpanded || $store.sidebar.isMobileOpen || $store.sidebar.isHovered,
+        'w-19 px-3': !$store.sidebar.isExpanded && !$store.sidebar.isHovered,
         'translate-x-0': $store.sidebar.isMobileOpen,
         '-translate-x-full xl:translate-x-0': !$store.sidebar.isMobileOpen,
         'shadow-xl': $store.sidebar.isHovered && !$store.sidebar.isExpanded
@@ -101,7 +101,7 @@
                                 <span>{{ $menuGroup['title'] }}</span>
                             </template>
                             <template x-if="!$store.sidebar.isExpanded && !$store.sidebar.isHovered && !$store.sidebar.isMobileOpen">
-                                <span class="w-6 h-[2px] bg-gray-200 rounded-full"></span>
+                                <span class="w-6 h-0.5 bg-gray-200 rounded-full"></span>
                             </template>
                         </h2>
 

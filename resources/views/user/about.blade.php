@@ -132,7 +132,7 @@
         <!--========== END HEADER ==========-->
 
         <!--========== PROMO BLOCK ==========-->
-        <div class="g-fullheight--md js__parallax-window" style="background: url('{{ asset('23/1920x1080/02.jpg') }}') 50% 0 no-repeat fixed;">
+        <div class="g-fullheight--md js__parallax-window" style="background: url('{{ asset('23/img/1920x1080/02.jpg') }}') 50% 0 no-repeat fixed;">
             <div class="g-container--md g-text-center--xs g-ver-center--md g-padding-y-150--xs g-padding-y-0--md">
                 <div class="g-margin-b-60--xs">
                     <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs">Welcome to Megakit</p>
