@@ -6,7 +6,7 @@
 @section('content')
 
 {{-- 1. WELCOME BANNER --}}
-<div class="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-lg text-white">
+<div class="mb-8 relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-600 to-indigo-700 shadow-lg text-white">
     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
     <div class="absolute bottom-0 right-10 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
     

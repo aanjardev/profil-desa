@@ -8,8 +8,8 @@
                     <!-- Logo -->
                     <div class="s-header__logo">
                         <a href="{{ route('home') }}" class="s-header__logo-link">
-                            <img class="s-header__logo-img s-header__logo-img-default" src="{{ asset('23/img/logo.png') }}" alt="Megakit Logo">
-                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('23/img/logo-dark.png') }}" alt="Megakit Logo">
+                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-default" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
+                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-shrink" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
                         </a>
                     </div>
                     <!-- End Logo -->

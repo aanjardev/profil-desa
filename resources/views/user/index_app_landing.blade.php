@@ -1,135 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-    <!-- Begin Head -->
-    <head>
-        <!-- Basic -->
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Megakit - HTML5 Theme</title>
-        <meta name="keywords" content="HTML5 Theme" />
-        <meta name="description" content="Megakit - HTML5 Theme">
-        <meta name="author" content="keenthemes.com">
-
-        <!-- Web Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i|Montserrat:400,700" rel="stylesheet">
-
-        <!-- Vendor Styles -->
-        <link href="{{ asset('23/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/css/animate.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/vendor/themify/themify.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/vendor/scrollbar/scrollbar.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/vendor/swiper/swiper.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/vendor/cubeportfolio/css/cubeportfolio.min.css') }}" rel="stylesheet" type="text/css"/>
-
-        <!-- Theme Styles -->
-        <link href="{{ asset('23/css/style.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('23/css/global/global.css') }}" rel="stylesheet" type="text/css"/>
-
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('23/img/favicon.ico') }}" type="image/x-icon">
-        <link rel="apple-touch-icon" href="{{ asset('23/img/apple-touch-icon.png') }}">
-    </head>
-    <!-- End Head -->
-
-    <!-- Body -->
-    <body>
-
-        <!--========== HEADER ==========-->
-        <header class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
-            <!-- Navbar -->
-            <div class="s-header__navbar">
-                <div class="s-header__container">
-                    <div class="s-header__navbar-row">
-                        <div class="s-header__navbar-row-col">
-                            <!-- Logo -->
-                            <div class="s-header__logo">
-                                <a href="{{ route('template23.index') }}" class="s-header__logo-link">
-                                    <img class="s-header__logo-img s-header__logo-img-default" src="{{ asset('23/img/logo-white.png') }}" alt="Megakit Logo">
-                                    <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('23/img/logo-dark.png') }}" alt="Megakit Logo">
-                                </a>
-                            </div>
-                            <!-- End Logo -->
-                        </div>
-                        <div class="s-header__navbar-row-col">
-                            <!-- Trigger -->
-                            <a href="javascript:void(0);" class="s-header__trigger js__trigger">
-                                <span class="s-header__trigger-icon"></span>
-                                <svg x="0rem" y="0rem" width="3.125rem" height="3.125rem" viewbox="0 0 54 54">
-                                    <circle fill="transparent" stroke="#fff" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157"></circle>
-                                </svg>
-                            </a>
-                            <!-- End Trigger -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Navbar -->
-
-            <!-- Overlay -->
-            <div class="s-header-bg-overlay js__bg-overlay">
-                <!-- Nav -->
-                <nav class="s-header__nav js__scrollbar">
-                    <div class="container-fluid">
-                        <!-- Menu List -->                                
-                        <ul class="list-unstyled s-header__nav-menu">
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index') }}">Corporate</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider -is-active" href="{{ route('template23.index-app-landing') }}">App Landing</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-portfolio') }}">Portfolio</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-events') }}">Events</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-lawyer') }}">Lawyer</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="#">Clinic</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.index-coming-soon') }}">Coming Soon</a></li>
-                        </ul>
-                        <!-- End Menu List -->
-
-                        <!-- Menu List -->                                
-                        <ul class="list-unstyled s-header__nav-menu">
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.about') }}">About</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.team') }}">Team</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.services') }}">Services</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.events') }}">Events</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.faq') }}">FAQ</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('template23.contacts') }}">Contacts</a></li>
-                        </ul>
-                        <!-- End Menu List -->
-                    </div>
-                </nav>
-                <!-- End Nav -->
-                
-                <!-- Action -->
-                <ul class="list-inline s-header__action s-header__action--lb">
-                    <li class="s-header__action-item"><a class="s-header__action-link -is-active" href="#">En</a></li>
-                    <li class="s-header__action-item"><a class="s-header__action-link" href="#">Fr</a></li>
-                </ul>
-                <!-- End Action -->
-
-                <!-- Action -->
-                <ul class="list-inline s-header__action s-header__action--rb">
-                    <li class="s-header__action-item">
-                        <a class="s-header__action-link" href="https://www.behance.net/keenthemes">
-                            <i class="g-padding-r-5--xs ti-facebook"></i>
-                            <span class="g-display-none--xs g-display-inline-block--sm">Facebook</span>
-                        </a>
-                    </li>
-                    <li class="s-header__action-item">
-                        <a class="s-header__action-link" href="https://twitter.com/keenthemes">
-                            <i class="g-padding-r-5--xs ti-twitter"></i>
-                            <span class="g-display-none--xs g-display-inline-block--sm">Twitter</span>
-                        </a>
-                    </li>
-                    <li class="s-header__action-item">
-                        <a class="s-header__action-link" href="https://dribbble.com/keenthemes">
-                            <i class="g-padding-r-5--xs ti-dribbble"></i>
-                            <span class="g-display-none--xs g-display-inline-block--sm">Dribbble</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- End Action -->
-            </div>
-            <!-- End Overlay -->
-        </header>
-        <!--========== END HEADER ==========-->
+@extends('layouts.user')
+@section('content')
 
         <!--========== PROMO BLOCK ==========-->
         <div class="s-promo-block-v1 g-bg-color--primary-to-blueviolet-ltr g-fullheight--md">
@@ -217,7 +87,7 @@
         <!-- End Mockup -->
 
         <!-- Video -->
-        <section class="s-video__bg" data-vidbg-bg="mp4: {{ asset('23/include/media') }}/mp4_video.mp4, webm: {{ asset('23/include/media') }}/webm_video.webm, poster: {{ asset('23/include/media') }}/fallback.jpg" data-vidbg-options="loop: true, muted: true, overlay: false">
+        <section class="s-video__bg" data-vidbg-bg="mp4: {{ asset('23/img/include/media') }}/mp4_video.mp4, webm: {{ asset('23/img/include/media') }}/webm_video.webm, poster: {{ asset('23/img/include/media') }}/fallback.jpg" data-vidbg-options="loop: true, muted: true, overlay: false">
             <div class="container g-position--overlay g-text-center--xs">
                 <div class="g-padding-y-50--xs g-margin-t-50--xs g-margin-t-100--sm g-margin-b-100--xs g-margin-b-250--md">
                     <h2 class="g-font-size-36--xs g-font-size-50--sm g-font-size-60--md g-color--white">More Than a Look,</h2>
@@ -587,7 +457,7 @@
         <!-- End Clients -->
 
         <!-- Contact -->
-        <div class="s-promo-block-v7 g-bg-position--center g-bg-color--dark-light" style="background: url('{{ asset('23/1920x1080/05.jpg') }}') no-repeat;">
+        <div class="s-promo-block-v7 g-bg-position--center g-bg-color--dark-light" style="background: url('{{ asset('23/img/1920x1080/05.jpg') }}') no-repeat;">
             <div class="g-container--sm g-padding-y-80--xs g-padding-y-125--xsm">
                 <div class="g-text-center--xs g-margin-b-60--xs">
                     <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs">Contact Us</p>
@@ -617,7 +487,7 @@
         <!-- End Contact -->
         <!--========== END PAGE CONTENT ==========-->
 
-        <!--========== FOOTER ==========-->
+        {{-- <!--========== FOOTER ==========-->
         <footer class="g-bg-color--dark">
             <!-- Links -->
             <div class="g-hor-divider__dashed--white-opacity-lightest">
@@ -670,33 +540,6 @@
             </div>
             <!-- End Copyright -->
         </footer>
-        <!--========== END FOOTER ==========-->
+        <!--========== END FOOTER ==========--> --}}
 
-        <!-- Back To Top -->
-        <a href="javascript:void(0);" class="s-back-to-top js__back-to-top"></a>
-
-        <!--========== JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) ==========-->
-        <!-- Vendor -->
-        <script type="text/javascript" src="{{ asset('23/vendor/jquery.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/jquery.migrate.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/jquery.smooth-scroll.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/jquery.back-to-top.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/scrollbar/jquery.scrollbar.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/vidbg.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/swiper/swiper.jquery.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/cubeportfolio/js/jquery.cubeportfolio.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/vendor/jquery.wow.min.js') }}"></script>
-
-        <!-- General Components and Settings -->
-        <script type="text/javascript" src="{{ asset('23/js/global.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/js/components/header-sticky.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/js/components/scrollbar.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/js/components/swiper.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/js/components/portfolio-4-col-slider.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('23/js/components/wow.min.js') }}"></script>
-        <!--========== END JAVASCRIPTS ==========-->
-
-    </body>
-    <!-- End Body -->
-</html>
+ @endsection
