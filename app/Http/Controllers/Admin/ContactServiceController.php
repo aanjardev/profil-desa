@@ -12,54 +12,37 @@ class ContactServiceController extends Controller
      */
     public function index()
     {
-        //
+        $service = \App\Models\ContactService::first();
+        
+        if (!$service) {
+            $service = \App\Models\ContactService::create([
+                'service_name' => 'Pusat Pelayanan Administrasi',
+                'is_active' => true,
+            ]);
+        }
+
+        return view('admin.contact-services.index', compact('service'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $service = \App\Models\ContactService::first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if (!$service) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $validated = $request->validate([
+            'service_name' => 'required|string|max:150',
+            'description' => 'nullable|string',
+            'officer_name' => 'nullable|string|max:150',
+            'phone' => 'nullable|string|max:20',
+            'office_hours' => 'nullable|string|max:100',
+            'is_active' => 'boolean',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $service->update($validated);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('admin.contact-services.index')->with('success', 'Data Administrasi Online berhasil diperbarui.');
     }
 }
