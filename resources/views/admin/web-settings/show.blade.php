@@ -52,9 +52,22 @@
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Provinsi</span>
                     <span class="text-sm font-medium text-gray-800 mt-1 block">{{ $webSetting->province ?: '-' }}</span>
                 </div>
-                <div class="md:col-span-2 mt-2 pt-4 border-t border-gray-50">
-                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Alamat Lengkap</span>
-                    <span class="text-sm font-medium text-gray-700 mt-1 block leading-relaxed">{{ $webSetting->address ?: 'Belum diatur' }}</span>
+                <div>
+                    <dt class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Alamat Lengkap</dt>
+                    <dd class="text-sm font-medium text-gray-900 bg-gray-50/50 p-3 rounded-lg border border-gray-100 min-h-[44px] flex items-center">{{ $webSetting->address ?: '-' }}</dd>
+                </div>
+                <div>
+                    <dt class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Link Google Maps</dt>
+                    <dd class="text-sm font-medium text-gray-900 bg-gray-50/50 p-3 rounded-lg border border-gray-100 min-h-[44px] flex items-center">
+                        @if($webSetting->maps_link)
+                            <a href="{{ $webSetting->maps_link }}" target="_blank" class="text-blue-600 hover:underline flex items-center gap-1.5">
+                                Buka di Google Maps
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        @else
+                            -
+                        @endif
+                    </dd>
                 </div>
             </div>
         </div>
@@ -126,6 +139,14 @@
                             <a href="{{ $webSetting->twitter }}" target="_blank" class="text-blue-600 hover:underline font-medium truncate">{{ $webSetting->twitter }}</a>
                         @else
                             <span class="text-gray-400 italic">Belum diatur</span>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2.5 text-sm mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-gray-400 font-semibold text-xs w-24">Video Profil:</span>
+                        @if($webSetting->youtube_video_url)
+                            <a href="{{ $webSetting->youtube_video_url }}" target="_blank" class="text-blue-600 hover:underline font-medium truncate flex-1">{{ $webSetting->youtube_video_url }}</a>
+                        @else
+                            <span class="text-gray-400 italic flex-1">Belum diatur</span>
                         @endif
                     </div>
                 </div>

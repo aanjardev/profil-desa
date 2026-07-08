@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TourismController;
 use App\Http\Controllers\Admin\UmkmController;
+use App\Http\Controllers\Admin\EmergencyContactController;
 
 Route::redirect('/', '/home');
 
@@ -64,6 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::put('/web-settings', [WebSettingController::class, 'update'])->name('web-settings.update');
 
     // Resources
+    Route::get('village-identities/edit-key/{key}', [VillageIdentityController::class, 'editKey'])->name('village-identities.edit-key');
     Route::resource('village-identities', VillageIdentityController::class);
     Route::post('village-officials/reorder', [VillageOfficialController::class, 'reorder'])->name('village-officials.reorder');
     Route::resource('village-officials', VillageOfficialController::class);
@@ -86,6 +88,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('tourisms', TourismController::class);
     Route::resource('umkms', UmkmController::class);
     Route::resource('contact-services', ContactServiceController::class);
+    Route::resource('emergency-contacts', EmergencyContactController::class);
     
     Route::middleware(['role:superadmin'])->group(function () {
         Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');

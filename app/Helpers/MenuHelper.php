@@ -8,65 +8,61 @@ class MenuHelper
     {
         $menus = [
             [
-                'title' => 'Menu Utama',
+                'title' => 'Navigasi Utama',
                 'items' => [
                     [
                         'name' => 'Dashboard',
                         'path' => '/admin',
                         'icon' => 'dashboard',
                     ],
-                ]
-            ],
-            [
-                'title' => 'Konten Web',
-                'items' => [
                     [
                         'name' => 'Pengaturan Web',
+                        'path' => '/admin/web-settings',
                         'icon' => 'settings',
+                    ],
+                    [
+                        'name' => 'Data Desa',
+                        'icon' => 'newspaper',
                         'subItems' => [
-                            ['name' => 'Info Web', 'path' => '/admin/web-settings'],
                             ['name' => 'Profil Desa', 'path' => '/admin/village-identities'],
+                            ['name' => 'SOTK Desa', 'path' => '/admin/village-officials'],
+                            ['name' => 'Visi Misi', 'path' => '/admin/village-identities/edit-key/visi-misi'],
+                            ['name' => 'Monografi Desa', 'path' => '/admin/village-identities/edit-key/demografi'],
                         ]
                     ],
                     [
-                        'name' => 'Informasi & Publikasi',
-                        'icon' => 'newspaper',
-                        'subItems' => [
-                            ['name' => 'Berita / Artikel', 'path' => '/admin/posts'],
-                            ['name' => 'Galeri', 'path' => '/admin/galleries'],
-                            ['name' => 'Agenda', 'path' => '/admin/agendas'],
-                            ['name' => 'FAQ', 'path' => '/admin/faqs'],
-                        ]
+                        'name' => 'Kelembagaan',
+                        'path' => '/admin/institutions',
+                        'icon' => 'shield',
                     ],
                     [
                         'name' => 'Potensi Desa',
                         'icon' => 'star',
                         'subItems' => [
-                            ['name' => 'Wisata', 'path' => '/admin/tourisms'],
+                            ['name' => 'Pariwisata', 'path' => '/admin/tourisms'],
                             ['name' => 'UMKM', 'path' => '/admin/umkms'],
-                        ]
-                    ]
-                ]
-            ],
-            [
-                'title' => 'Pemerintahan',
-                'items' => [
-                    [
-                        'name' => 'SOTK & Lembaga',
-                        'icon' => 'users',
-                        'subItems' => [
-                            ['name' => 'Perangkat Desa', 'path' => '/admin/village-officials'],
-                            ['name' => 'Lembaga Desa', 'path' => '/admin/institutions'],
                         ]
                     ],
                     [
-                        'name' => 'Pelayanan Publik',
+                        'name' => 'Informasi',
+                        'icon' => 'newspaper',
+                        'subItems' => [
+                            ['name' => 'Berita Desa', 'path' => '/admin/posts'],
+                            ['name' => 'Agenda Kegiatan', 'path' => '/admin/agendas'],
+                            ['name' => 'Galeri', 'path' => '/admin/galleries'],
+                            ['name' => 'Dokumen PPID', 'path' => '/admin/ppid-documents'],
+                        ]
+                    ],
+                    [
+                        'name' => 'Pelayanan',
                         'icon' => 'briefcase',
                         'subItems' => [
                             ['name' => 'Layanan Surat', 'path' => '/admin/service-letters'],
-                            ['name' => 'Dokumen PPID', 'path' => '/admin/ppid-documents'],
+                            ['name' => 'Administrasi Online', 'path' => '/admin/contact-services'],
+                            ['name' => 'Tanya Jawab (FAQ)', 'path' => '/admin/faqs'],
+                            ['name' => 'Kontak Darurat', 'path' => '/admin/emergency-contacts'],
                         ]
-                    ]
+                    ],
                 ]
             ]
         ];
