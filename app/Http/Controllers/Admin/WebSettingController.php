@@ -54,6 +54,7 @@ class WebSettingController extends Controller
             'facebook' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
+            'youtube_video_url' => 'nullable|string|max:255',
             'twitter' => 'nullable|string|max:255',
         ]);
 

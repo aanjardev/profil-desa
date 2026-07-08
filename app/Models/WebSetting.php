@@ -25,6 +25,7 @@ class WebSetting extends Model
         'facebook',
         'instagram',
         'youtube',
+        'youtube_video_url',
         'twitter',
         'updated_at',
     ];

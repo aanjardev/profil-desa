@@ -128,6 +128,14 @@
                             <span class="text-gray-400 italic">Belum diatur</span>
                         @endif
                     </div>
+                    <div class="flex items-center gap-2.5 text-sm mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-gray-400 font-semibold text-xs w-24">Video Profil:</span>
+                        @if($webSetting->youtube_video_url)
+                            <a href="{{ $webSetting->youtube_video_url }}" target="_blank" class="text-blue-600 hover:underline font-medium truncate flex-1">{{ $webSetting->youtube_video_url }}</a>
+                        @else
+                            <span class="text-gray-400 italic flex-1">Belum diatur</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

@@ -95,8 +95,12 @@
                     <input type="url" name="instagram" value="{{ old('instagram', $webSetting->instagram) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://instagram.com/nama-desa" maxlength="255">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">URL Youtube</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">URL Youtube (Channel)</label>
                     <input type="url" name="youtube" value="{{ old('youtube', $webSetting->youtube) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://youtube.com/channel/nama-desa" maxlength="255">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">URL Video Profil (Youtube)</label>
+                    <input type="url" name="youtube_video_url" value="{{ old('youtube_video_url', $webSetting->youtube_video_url) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://www.youtube.com/watch?v=..." maxlength="255">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Twitter</label>
