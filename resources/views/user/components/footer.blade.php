@@ -40,7 +40,7 @@
     <div class="container g-padding-y-50--xs">
         <div class="row">
             <div class="col-xs-6">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('beranda') }}">
                     <img class="g-width-100--xs g-height-auto--xs" src="{{ asset('23/img/logo.png') }}" alt="Megakit Logo">
                 </a>
             </div>
