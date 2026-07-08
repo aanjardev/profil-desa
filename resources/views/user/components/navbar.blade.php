@@ -14,7 +14,28 @@
                     </div>
                     <!-- End Logo -->
                 </div>
-                <div class="s-header__navbar-row-col">
+
+                <div class="s-header__navbar-list hidden-xs hidden-sm">
+                    <ul class="list-inline">
+                        <li class="dropdown-wrapper">
+                            <a href="{{ route('beranda') }}" class="navbar-desktop-link {{ Route::is('beranda') ? 'active-page' : '' }}">Beranda</a>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="#">Sub menu 1</a></li>
+                                <li><a href="#">Sub menu 2</a></li>
+                                <li><a href="#">Sub menu 3</a></li>
+                                <li><a href="#">Sub menu 4  </a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ route('about') }}" class="navbar-desktop-link {{ Route::is('about') ? 'active-page' : '' }}">About</a></li>
+                        <li><a href="{{ route('kelembagaan') }}" class="navbar-desktop-link {{ Route::is('kelembagaan') ? 'active-page' : '' }}">Kelembagaan</a></li>
+                        <li><a href="{{ route('services') }}" class="navbar-desktop-link {{ Route::is('services') ? 'active-page' : '' }}">Services</a></li>
+                        <li><a href="{{ route('events') }}" class="navbar-desktop-link {{ Route::is('events') ? 'active-page' : '' }}">Events</a></li>
+                        <li><a href="{{ route('faq') }}" class="navbar-desktop-link {{ Route::is('faq') ? 'active-page' : '' }}">FAQ</a></li>
+                        <li><a href="{{ route('contacts') }}" class="navbar-desktop-link {{ Route::is('contacts') ? 'active-page' : '' }}">Contacts</a></li>
+                    </ul>
+                </div>
+
+                <div class="s-header__navbar-row-col hidden-md hidden-lg">
                     <!-- Trigger -->
                     <a href="javascript:void(0);" class="s-header__trigger js__trigger">
                         <span class="s-header__trigger-icon"></span>
@@ -35,25 +56,19 @@
         <nav class="s-header__nav js__scrollbar">
             <div class="container-fluid">
                 <!-- Menu List -->                                
-                <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('beranda') ? ' -is-active' : '' }}" href="{{ route('beranda') }}">Beranda</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-app-landing') ? ' -is-active' : '' }}" href="{{ route('index-app-landing') }}">App Landing</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-portfolio') ? ' -is-active' : '' }}" href="{{ route('index-portfolio') }}">Portfolio</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-lawyer') ? ' -is-active' : '' }}" href="{{ route('index-lawyer') }}">Lawyer</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="#">Clinic</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-coming-soon') ? ' -is-active' : '' }}" href="{{ route('index-coming-soon') }}">Coming Soon</a></li>
-                </ul>
-                <!-- End Menu List -->
-
-                <!-- Menu List -->                                
-                <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('about') ? ' -is-active' : '' }}" href="{{ route('about') }}">About</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('kelembagaan') ? ' -is-active' : '' }}" href="{{ route('kelembagaan') }}">Kelembagaan</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('services') ? ' -is-active' : '' }}" href="{{ route('services') }}">Services</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('events') ? ' -is-active' : '' }}" href="{{ route('events') }}">Events</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('faq') ? ' -is-active' : '' }}" href="{{ route('faq') }}">FAQ</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('contacts') ? ' -is-active' : '' }}" href="{{ route('contacts') }}">Contacts</a></li>
-                </ul>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <ul class="list-unstyled s-header__nav-menu">
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('beranda') ? '-is-active' : '' }}" href="{{ route('beranda') }}">Beranda</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('about') ? '-is-active' : '' }}" href="{{ route('about') }}">About</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('kelembagaan') ? '-is-active' : '' }}" href="{{ route('kelembagaan') }}">Kelembagaan</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('services') ? '-is-active' : '' }}" href="{{ route('services') }}">Services</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('events') ? '-is-active' : '' }}" href="{{ route('events') }}">Events</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('faq') ? '-is-active' : '' }}" href="{{ route('faq') }}">FAQ</a></li>
+                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('contacts') ? '-is-active' : '' }}" href="{{ route('contacts') }}">Contacts</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <!-- End Menu List -->
             </div>
         </nav>
