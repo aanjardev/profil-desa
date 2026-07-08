@@ -37,6 +37,12 @@ class VillageIdentitySeeder extends Seeder
                 'content' => "Desa Tulungrejo dihuni oleh ribuan kepala keluarga yang memiliki dinamika sosial yang sangat erat. Mayoritas penduduk menggantungkan hidupnya pada sektor pertanian, baik sebagai pemilik lahan pertanian, buruh tani, maupun pelaku usaha mikro kecil dan menengah (UMKM) pengolah hasil tani.\n\nTingkat kepadatan penduduk tergolong sedang dengan persebaran permukiman yang terpusat di beberapa dusun utama. Kerukunan antarumat beragama dan budaya gotong royong yang kental menjadi pilar utama penyangga ketenteraman dan ketertiban kehidupan sosial kemasyarakatan sehari-hari di desa ini.",
                 'updated_at' => now(),
             ],
+            [
+                'key' => 'wilayah-dusun',
+                'title' => 'Pembagian Wilayah / Dusun',
+                'content' => "Desa Tulungrejo secara administratif terbagi menjadi beberapa Dusun yang masing-masing dipimpin oleh Kepala Dusun (Kasun). Pembagian wilayah ini bertujuan untuk mempermudah pelayanan masyarakat dan koordinasi pemerintahan.\n\nRincian wilayah Dusun meliputi:\n1. Dusun Krajan: Pusat pemerintahan desa dan kegiatan ekonomi utama.\n2. Dusun Mulyorejo: Wilayah yang didominasi oleh lahan perkebunan dan pertanian.\n3. Dusun Sidomakmur: Wilayah pemukiman yang berkembang pesat.\n\nSecara keseluruhan, desa ini terdiri dari puluhan Rukun Warga (RW) dan Rukun Tetangga (RT) yang aktif berpartisipasi dalam pembangunan desa.",
+                'updated_at' => now(),
+            ]
         ];
 
         foreach ($data as $item) {

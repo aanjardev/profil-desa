@@ -61,13 +61,20 @@
                 </div>
             </div>
             <div class="mb-6">
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Alamat Lengkap</label>
-                <textarea name="address" rows="3" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm">{{ old('address', $webSetting->address) }}</textarea>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Alamat Lengkap Kantor Desa</label>
+                <textarea name="address" rows="3" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Contoh: Jl. Raya Desa No. 1, Kec. Bumiaji...">{{ old('address', $webSetting->address) }}</textarea>
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Embed Google Maps (&lt;iframe&gt;)</label>
-                <textarea name="maps_embed" rows="3" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Copy-paste tag <iframe> dari Google Maps">{{ old('maps_embed', $webSetting->maps_embed) }}</textarea>
-                <span class="text-[11px] text-gray-400 mt-1 block">Salin kode HTML dari Google Maps melalui menu Bagikan > Sematkan Peta.</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Embed Google Maps (&lt;iframe&gt;)</label>
+                    <textarea name="maps_embed" rows="3" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Copy-paste tag <iframe> dari Google Maps">{{ old('maps_embed', $webSetting->maps_embed) }}</textarea>
+                    <span class="text-[11px] text-gray-400 mt-1 block">Salin kode HTML dari Google Maps melalui menu Bagikan > Sematkan Peta.</span>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Link Google Maps Kantor Desa</label>
+                    <textarea name="maps_link" rows="3" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Contoh: https://goo.gl/maps/xyz ATAU https://maps.app.goo.gl/xyz">{{ old('maps_link', $webSetting->maps_link) }}</textarea>
+                    <span class="text-[11px] text-gray-400 mt-1 block">Link tautan langsung (Share link) dari Google Maps.</span>
+                </div>
             </div>
         </div>
 

@@ -22,6 +22,7 @@ class WebSetting extends Model
         'logo_path',
         'favicon_path',
         'maps_embed',
+        'maps_link',
         'facebook',
         'instagram',
         'youtube',

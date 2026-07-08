@@ -14,7 +14,8 @@ class VillageIdentityController extends Controller
      */
     public function index()
     {
-        $identities = VillageIdentity::all();
+        // Only show items meant for the general Profil Desa page
+        $identities = VillageIdentity::whereNotIn('key', ['visi-misi', 'demografi'])->get();
         return view('admin.village-identities.index', compact('identities'));
     }
 
@@ -70,7 +71,20 @@ class VillageIdentityController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image_file')) {
+            if ($identity->image_path && \Storage::disk('public')->exists($identity->image_path)) {
+                \Storage::disk('public')->delete($identity->image_path);
+            }
+            $validated['image_path'] = $request->file('image_file')->store('identities', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($identity->image_path && \Storage::disk('public')->exists($identity->image_path)) {
+                \Storage::disk('public')->delete($identity->image_path);
+            }
+            $validated['image_path'] = null;
+        }
 
         $validated['updated_at'] = now();
 
