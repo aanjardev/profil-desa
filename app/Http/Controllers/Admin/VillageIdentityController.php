@@ -52,6 +52,15 @@ class VillageIdentityController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource by key.
+     */
+    public function editKey(string $key)
+    {
+        $identity = VillageIdentity::where('key', $key)->firstOrFail();
+        return view('admin.village-identities.edit', compact('identity'));
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)

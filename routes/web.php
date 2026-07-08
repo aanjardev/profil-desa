@@ -65,6 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::put('/web-settings', [WebSettingController::class, 'update'])->name('web-settings.update');
 
     // Resources
+    Route::get('village-identities/edit-key/{key}', [VillageIdentityController::class, 'editKey'])->name('village-identities.edit-key');
     Route::resource('village-identities', VillageIdentityController::class);
     Route::post('village-officials/reorder', [VillageOfficialController::class, 'reorder'])->name('village-officials.reorder');
     Route::resource('village-officials', VillageOfficialController::class);
