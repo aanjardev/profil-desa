@@ -36,24 +36,23 @@
             <div class="container-fluid">
                 <!-- Menu List -->                                
                 <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider -is-active" href="{{ route('home') }}">Beranda</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-app-landing') }}">App Landing</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-portfolio') }}">Portfolio</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('events') }}">Events</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-lawyer') }}">Lawyer</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('home') ? ' -is-active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-app-landing') ? ' -is-active' : '' }}" href="{{ route('index-app-landing') }}">App Landing</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-portfolio') ? ' -is-active' : '' }}" href="{{ route('index-portfolio') }}">Portfolio</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-lawyer') ? ' -is-active' : '' }}" href="{{ route('index-lawyer') }}">Lawyer</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="#">Clinic</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('index-coming-soon') }}">Coming Soon</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-coming-soon') ? ' -is-active' : '' }}" href="{{ route('index-coming-soon') }}">Coming Soon</a></li>
                 </ul>
                 <!-- End Menu List -->
 
                 <!-- Menu List -->                                
                 <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('about') }}">About</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('team') }}">Team</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('services') }}">Services</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('events') }}">Events</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('faq') }}">FAQ</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="{{ route('contacts') }}">Contacts</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('about') ? ' -is-active' : '' }}" href="{{ route('about') }}">About</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('team') ? ' -is-active' : '' }}" href="{{ route('team') }}">Team</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('services') ? ' -is-active' : '' }}" href="{{ route('services') }}">Services</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('events') ? ' -is-active' : '' }}" href="{{ route('events') }}">Events</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('faq') ? ' -is-active' : '' }}" href="{{ route('faq') }}">FAQ</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('contacts') ? ' -is-active' : '' }}" href="{{ route('contacts') }}">Contacts</a></li>
                 </ul>
                 <!-- End Menu List -->
             </div>
