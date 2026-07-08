@@ -15,12 +15,20 @@ class VillageIdentity extends Model
         'key',
         'title',
         'content',
+        'image_path',
         'updated_at',
     ];
 
     protected $casts = [
         'updated_at' => 'datetime',
     ];
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image_path) return null;
+        if (str_starts_with($this->image_path, 'http')) return $this->image_path;
+        return asset('storage/' . $this->image_path);
+    }
 
     // ─── Helper: ambil konten berdasarkan key ─────────────
     public static function getByKey(string $key): ?self

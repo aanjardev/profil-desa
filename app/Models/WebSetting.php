@@ -22,9 +22,11 @@ class WebSetting extends Model
         'logo_path',
         'favicon_path',
         'maps_embed',
+        'maps_link',
         'facebook',
         'instagram',
         'youtube',
+        'youtube_video_url',
         'twitter',
         'updated_at',
     ];

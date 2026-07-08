@@ -49,11 +49,13 @@ class WebSettingController extends Controller
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
             'maps_embed' => 'nullable|string',
+            'maps_link' => 'nullable|url|max:255',
             'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'favicon_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico|max:1024',
             'facebook' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
+            'youtube_video_url' => 'nullable|string|max:255',
             'twitter' => 'nullable|string|max:255',
         ]);
 

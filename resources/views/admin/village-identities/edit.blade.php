@@ -4,7 +4,7 @@
 @section('page_subtitle', 'Ubah judul dan isi narasi profil desa.')
 
 @section('content')
-<form action="{{ route('admin.village-identities.update', $identity->id) }}" method="POST" class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+<form action="{{ route('admin.village-identities.update', $identity->id) }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
     @csrf
     @method('PUT')
     
@@ -30,6 +30,23 @@
                     @error('title') 
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
                     @enderror
+                </div>
+
+                <!-- Gambar Opsional -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Gambar Pelengkap (Opsional)</label>
+                    @if($identity->image_url)
+                        <div class="mb-3">
+                            <img src="{{ $identity->image_url }}" alt="Gambar {{ $identity->title }}" class="h-32 object-cover rounded-lg border">
+                            <div class="mt-2 flex items-center gap-2">
+                                <input type="checkbox" name="remove_image" id="remove_image" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                <label for="remove_image" class="text-sm text-red-600">Hapus gambar ini</label>
+                            </div>
+                        </div>
+                    @endif
+                    <input type="file" name="image_file" accept="image/png,image/jpeg,image/jpg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <span class="text-[11px] text-gray-400 mt-1 block">Format: JPG, PNG (Maks. 2MB). Biarkan kosong jika tidak ingin mengubah.</span>
+                    @error('image_file') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <!-- Isi Konten -->
