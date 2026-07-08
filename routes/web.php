@@ -21,16 +21,16 @@ use App\Http\Controllers\Admin\TourismController;
 use App\Http\Controllers\Admin\UmkmController;
 use App\Http\Controllers\Admin\EmergencyContactController;
 
-Route::redirect('/', '/home');
+Route::redirect('/', '/beranda');
 
 // User Routes
-Route::get('/home', function () {
+Route::get('/beranda', function () {
     return view('user.home');
-})->name('home');
+})->name('beranda');
 
 Route::view('/about', 'user.about')->name('about');
 Route::view('/services', 'user.services')->name('services');
-Route::view('/team', 'user.team')->name('team');
+Route::view('/kelembagaan', 'user.team')->name('kelembagaan');
 Route::view('/events', 'user.events')->name('events');
 Route::view('/contacts', 'user.contacts')->name('contacts');
 Route::view('/faq', 'user.faq')->name('faq');

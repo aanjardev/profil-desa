@@ -7,7 +7,7 @@
                 <div class="s-header__navbar-row-col">
                     <!-- Logo -->
                     <div class="s-header__logo">
-                        <a href="{{ route('home') }}" class="s-header__logo-link">
+                        <a href="{{ route('beranda') }}" class="s-header__logo-link">
                             <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-default" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
                             <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-shrink" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
                         </a>
@@ -36,7 +36,7 @@
             <div class="container-fluid">
                 <!-- Menu List -->                                
                 <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('home') ? ' -is-active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('beranda') ? ' -is-active' : '' }}" href="{{ route('beranda') }}">Beranda</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-app-landing') ? ' -is-active' : '' }}" href="{{ route('index-app-landing') }}">App Landing</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-portfolio') ? ' -is-active' : '' }}" href="{{ route('index-portfolio') }}">Portfolio</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('index-lawyer') ? ' -is-active' : '' }}" href="{{ route('index-lawyer') }}">Lawyer</a></li>
@@ -48,7 +48,7 @@
                 <!-- Menu List -->                                
                 <ul class="list-unstyled s-header__nav-menu">
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('about') ? ' -is-active' : '' }}" href="{{ route('about') }}">About</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('team') ? ' -is-active' : '' }}" href="{{ route('team') }}">Team</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('kelembagaan') ? ' -is-active' : '' }}" href="{{ route('kelembagaan') }}">Kelembagaan</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('services') ? ' -is-active' : '' }}" href="{{ route('services') }}">Services</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('events') ? ' -is-active' : '' }}" href="{{ route('events') }}">Events</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::is('faq') ? ' -is-active' : '' }}" href="{{ route('faq') }}">FAQ</a></li>
