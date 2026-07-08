@@ -65,6 +65,7 @@ class MenuHelper
                         'subItems' => [
                             ['name' => 'Layanan Surat', 'path' => '/admin/service-letters'],
                             ['name' => 'Dokumen PPID', 'path' => '/admin/ppid-documents'],
+                            ['name' => 'Kontak Darurat', 'path' => '/admin/emergency-contacts'],
                         ]
                     ]
                 ]
