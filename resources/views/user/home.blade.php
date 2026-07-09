@@ -2,42 +2,27 @@
 
 @section('content')
 
-{{-- Swipe Slider --}}
-@include('user.components.home.swipe-slider')
+{{-- Hero Video Section --}}
+@include('user.components.home.hero-video')
 
 <!--========== PAGE CONTENT ==========-->
-{{-- Features --}}
-@include('user.components.home.features')
+{{-- Short Profile Section --}}
+@include('user.components.home.profil-singkat')
 
-{{-- Parallax --}}
-@include('user.components.home.parallax')
+{{-- Statistics --}}
+@include('user.components.home.statistik')
 
-{{-- Culture --}}
-@include('user.components.home.culture')
+{{-- News & Announcements --}}
+@include('user.components.home.berita-pengumuman')
 
-{{-- Subscribe --}}
-@include('user.components.home.subscribe')
+{{-- Highlight Wisata & UMKM --}}
+@include('user.components.home.highlight-wisata-umkm')
 
-{{-- Portfolio Filter --}}
-@include('user.components.home.portfolio-filter')
+{{-- Agenda --}}
+@include('user.components.home.agenda')
 
-{{-- Portfolio Gallery --}}
-@include('user.components.home.portfolio-gallery')
-
-{{-- Testimonial --}}
-@include('user.components.home.testimonial')
-
-{{-- Clients --}}
-@include('user.components.home.clients')
-
-{{-- News --}}
-@include('user.components.home.news')
-
-{{-- Counter --}}
-@include('user.components.home.counter')
-
-{{-- Feedback Form --}}
-@include('user.components.home.feedback-form')
+{{-- Gallery Slideshow --}}
+@include('user.components.home.galeri-slideshow')
 
 <!-- Google Map -->
 <section class="s-google-map" style="line-height: 0;">
