@@ -391,6 +391,163 @@ fieldset[disabled] .s-btn {
 /*----------------------------------
   Form Input
 ------------------------------------*/
+.contact-box-card {
+  border-radius: 4px; 
+  border-left: 4px solid #17bedb; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+  transition: all 0.3s ease; 
+  overflow: hidden;
+}
+
+.contact-box-card .contact-box-name {
+  display: block; 
+  padding: 22px 25px; 
+  text-decoration: none; 
+  color: #333; 
+  position: relative;
+}
+
+.contact-box-card, .contact-box-name > span {
+  letter-spacing: 0.5px; 
+  padding-right: 25px; 
+  display: block; 
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contact-box-card .contact-box-name > i {
+  position: absolute; 
+  right: 25px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  transition: transform 0.3s ease; 
+  font-size: 11px; 
+  color: #999;
+}
+
+.detail-contact-info {
+  padding: 0 25px 25px 25px; 
+  border-top: 1px solid #f5f5f5; 
+  background-color: #fafafa;
+}
+
+.category-contact-info {
+  margin-top: 15px;
+}
+
+.category-contact-info > label {
+  font-size: 13px; 
+  font-weight: 600; 
+  font-family: 'Montserrat', sans-serif;
+  color: #999; 
+  text-transform: uppercase; 
+  margin-bottom: 4px; 
+  display: block; 
+  letter-spacing: 0.5px;
+}
+
+.category-contact-info > span {
+  background-color: #17bedb; 
+  color: white; 
+  font-size: 13px; 
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase; 
+  padding: 4px 8px; 
+  border-radius: 2px; 
+  font-weight: 500;;
+}
+
+.description-contact-info {
+  margin-top: 15px;
+}
+
+.description-contact-info > label {
+  font-size: 13px; 
+  font-weight: 600; 
+  font-family: 'Montserrat', sans-serif;
+  color: #999; 
+  text-transform: uppercase; 
+  margin-bottom: 2px; 
+  display: block; 
+  letter-spacing: 0.5px;
+}
+
+.description-contact-info > p {
+  font-size: 13px; 
+  font-family: 'Montserrat', sans-serif;
+  color: #555; 
+  margin-bottom: 0; 
+  line-height: 1.6;
+}
+
+.address-contact-info {
+  margin-top: 15px;
+}
+
+.address-contact-info > label {
+  font-size: 13px; 
+  font-weight: 600; 
+  font-family: 'Montserrat', sans-serif;
+  color: #999; 
+  text-transform: uppercase; 
+  margin-bottom: 2px; 
+  display: block; 
+  letter-spacing: 0.5px;
+}
+
+.address-contact-info > p {
+  font-size: 13px; 
+  font-family: 'Montserrat', sans-serif;
+  color: #555; 
+  margin-bottom: 0; 
+  line-height: 1.5;
+}
+
+.address-contact-info > p > i {
+  color: #ff5722; 
+  margin-right: 3px; 
+  font-size: 12px;
+}
+
+.phone-contact-info {
+  margin-top: 20px; 
+  padding-top: 15px; 
+  border-top: 1px dashed #ddd;
+}
+
+.phone-contact-info, .detail-phone-contact-info {
+  margin-bottom: 12px; 
+  text-align: center;
+}
+
+.phone-contact-info, .detail-phone-contact-info > span{
+  font-size: 16px; 
+  font-weight: 600; 
+  font-family: 'Montserrat', sans-serif;
+  color: #222; 
+  letter-spacing: 0.5px;
+}
+
+.phone-contact-info, .detail-phone-contact-info > span > i {
+  margin-right: 6px; 
+  color: #17bedb; 
+  font-size: 14px;
+}
+
+.not-available-contact > i {
+  color: #bbb; 
+  display: block;
+  margin-bottom: 15px;
+}
+
+.not-available-contact > p {
+  margin-bottom: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+/*----------------------------------
+  Form Input
+------------------------------------*/
 /* Form Input v1 */
 .s-form-v1__input {
   height: 3.375rem;
@@ -1324,8 +1481,6 @@ fieldset[disabled] .s-btn {
   background: #f5f5f5;
   color: #dc3545;
 }
-
-
 
 .dropdown-wrapper:hover .dropdown-menu-custom {
   display: block;

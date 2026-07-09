@@ -62,7 +62,8 @@ Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon');
 // PELAYANAN
 Route::get('/layanan-surat', function () { return view('user.index_coming_soon'); })->name('layanan-surat');
 Route::get('/administrasi-online', function () { return view('user.index_coming_soon'); })->name('administrasi-online');
-Route::get('/kontak-darurat', function () { return view('user.index_coming_soon'); })->name('kontak-darurat');
+Route::get('/kontak-darurat', function () { return view('user.emergency_contacts'); })->name('kontak-darurat');
+Route::get('/kontak-darurat', [\App\Http\Controllers\User\EmergencyContactController::class, 'index'])->name('kontak-darurat');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
