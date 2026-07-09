@@ -51,10 +51,13 @@ Route::get('/kelembagaan/{slug}', function ($slug) { return view('user.team'); }
 
 // POTENSI DESA
 Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
+Route::get('/pariwisata/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('pariwisata.show');
 Route::get('/umkm', function () { return view('user.index_coming_soon'); })->name('umkm');
+Route::get('/umkm/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('umkm.show');
 
 // INFORMASI
 Route::get('/berita-desa', function () { return view('user.index_coming_soon'); })->name('berita-desa');
+Route::get('/berita-desa/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('berita-desa.show');
 Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon'); })->name('agenda-kegiatan');
 Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
 Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');

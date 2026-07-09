@@ -5,38 +5,38 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs g-margin-b-30--xs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#tab-profil" aria-controls="tab-profil" role="tab" data-toggle="tab" class="g-font-size-18--xs g-font-weight--700 text-uppercase">Profil</a>
+                        <a href="#tab-profil" aria-controls="tab-profil" role="tab" data-toggle="tab" class="g-font-size-14--xs g-font-size-18--md g-font-weight--700 text-uppercase">Profil</a>
                     </li>
                     <li role="presentation">
-                        <a href="#tab-sejarah" aria-controls="tab-sejarah" role="tab" data-toggle="tab" class="g-font-size-18--xs g-font-weight--700 text-uppercase">Sejarah</a>
+                        <a href="#tab-sejarah" aria-controls="tab-sejarah" role="tab" data-toggle="tab" class="g-font-size-14--xs g-font-size-18--md g-font-weight--700 text-uppercase">Sejarah</a>
                     </li>
                     <li role="presentation">
-                        <a href="#tab-geografis" aria-controls="tab-geografis" role="tab" data-toggle="tab" class="g-font-size-18--xs g-font-weight--700 text-uppercase">Geografis</a>
+                        <a href="#tab-geografis" aria-controls="tab-geografis" role="tab" data-toggle="tab" class="g-font-size-14--xs g-font-size-18--md g-font-weight--700 text-uppercase">Geografis</a>
                     </li>
                     <li role="presentation">
-                        <a href="#tab-wilayah" aria-controls="tab-wilayah" role="tab" data-toggle="tab" class="g-font-size-18--xs g-font-weight--700 text-uppercase">Wilayah</a>
+                        <a href="#tab-wilayah" aria-controls="tab-wilayah" role="tab" data-toggle="tab" class="g-font-size-14--xs g-font-size-18--md g-font-weight--700 text-uppercase">Wilayah</a>
                     </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content g-margin-b-40--xs">
                     <div role="tabpanel" class="tab-pane fade in active" id="tab-profil">
-                        <div class="g-font-size-16--xs g-color--dark" style="line-height: 1.8;">
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
                             {!! $profil_singkat !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-sejarah">
-                        <div class="g-font-size-16--xs g-color--dark" style="line-height: 1.8;">
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
                             {!! $sejarah !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-geografis">
-                        <div class="g-font-size-16--xs g-color--dark" style="line-height: 1.8;">
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
                             {!! $geografis !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-wilayah">
-                        <div class="g-font-size-16--xs g-color--dark" style="line-height: 1.8;">
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
                             {!! $pembagian_wilayah !!}
                         </div>
                     </div>

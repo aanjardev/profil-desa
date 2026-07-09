@@ -12,8 +12,8 @@
 {{-- Statistics --}}
 @include('user.components.home.statistik')
 
-{{-- News & Announcements --}}
-@include('user.components.home.berita-pengumuman')
+{{-- Berita Desa --}}
+@include('user.components.home.berita')
 
 {{-- Highlight Wisata & UMKM --}}
 @include('user.components.home.highlight-wisata-umkm')

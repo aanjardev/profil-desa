@@ -16,11 +16,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Fetch 3 latest Berita
-        $berita = Post::published()->where('category', 'berita')->latest()->take(3)->get();
-        
-        // Fetch 3 latest Pengumuman
-        $pengumuman = Post::published()->where('category', 'pengumuman')->latest()->take(3)->get();
+        // Fetch 5 latest Berita (1 large highlight, 4 smaller)
+        $berita = Post::published()->latest()->take(5)->get();
         
         // Fetch Tourism & UMKM
         $wisata = TourismUmkm::wisata()->active()->latest()->take(3)->get();
@@ -53,7 +50,6 @@ class HomeController extends Controller
 
         return view('user.home', compact(
             'berita', 
-            'pengumuman', 
             'wisata', 
             'umkm', 
             'agendas', 

@@ -9,32 +9,20 @@ class PostSeeder extends Seeder
 {
     public function run(): void
     {
-        // 3 Berita
-        for ($i = 1; $i <= 3; $i++) {
+        $categories = ['Ekonomi', 'Sosial', 'Pendidikan', 'Infrastruktur', 'Kesehatan'];
+
+        // 6 Berita dengan kategori random
+        for ($i = 1; $i <= 6; $i++) {
+            $cat = $categories[array_rand($categories)];
             Post::create([
                 'title' => 'Berita Desa ' . $i,
                 'slug' => 'berita-desa-' . $i,
-                'content' => 'Ini adalah konten berita desa ' . $i . '. Desa Tulungrejo terus berkembang.',
-                'excerpt' => 'Ini adalah ringkasan berita desa ' . $i . '.',
-                'category' => 'berita',
+                'content' => 'Ini adalah konten berita desa ' . $i . ' tentang ' . $cat . '. Desa Tulungrejo terus berkembang dan memberikan manfaat bagi warganya.',
+                'excerpt' => 'Ini adalah ringkasan berita desa ' . $i . ' mengenai bidang ' . $cat . '.',
+                'category' => $cat,
                 'is_published' => true,
-                'is_featured' => true,
+                'is_featured' => $i === 1 ? true : false,
                 'views' => rand(10, 100),
-                'user_id' => 1,
-            ]);
-        }
-
-        // 3 Pengumuman
-        for ($i = 1; $i <= 3; $i++) {
-            Post::create([
-                'title' => 'Pengumuman Penting ' . $i,
-                'slug' => 'pengumuman-penting-' . $i,
-                'content' => 'Ini adalah detail pengumuman penting ke-' . $i . ' untuk warga desa Tulungrejo.',
-                'excerpt' => 'Ringkasan pengumuman ' . $i,
-                'category' => 'pengumuman',
-                'is_published' => true,
-                'is_featured' => false,
-                'views' => rand(5, 50),
                 'user_id' => 1,
             ]);
         }

@@ -21,16 +21,16 @@
 
     <!-- Content Overlay -->
     <div class="container g-text-center--xs g-padding-y-100--xs" style="position: relative; z-index: 3;">
-        <h1 class="g-font-size-40--xs g-font-size-50--sm g-font-size-60--md g-color--white g-font-weight--700 g-margin-b-20--xs" style="text-transform: uppercase; letter-spacing: 2px;">
+        <h1 class="g-font-size-18--xs g-font-size-50--sm g-font-size-60--md g-color--white g-font-weight--700 g-margin-b-10--xs g-margin-b-20--sm" style="text-transform: uppercase; letter-spacing: 2px;">
             Selamat Datang di
         </h1>
-        <h2 class="g-font-size-50--xs g-font-size-60--sm g-font-size-80--md g-color--primary g-font-weight--800 g-margin-b-10--xs" style="text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+        <h2 class="g-font-size-28--xs g-font-size-60--sm g-font-size-80--md g-color--primary g-font-weight--800 g-margin-b-10--xs" style="text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
             {{ 'Desa ' . ($setting->village_name ?? 'Tulungrejo') }}
         </h2>
-        <h3 class="g-font-size-18--xs g-font-size-24--md g-color--white g-font-weight--400 g-margin-b-30--xs" style="text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+        <h3 class="g-font-size-14--xs g-font-size-24--md g-color--white g-font-weight--400 g-margin-b-30--xs" style="text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
             Kecamatan {{ $setting->subdistrict ?? 'Bumiaji' }}, Kota {{ $setting->city ?? 'Batu' }}, {{ $setting->province ?? 'Jawa Timur' }}
         </h3>
-        <p class="g-font-size-18--xs g-font-size-22--md g-color--white-opacity g-margin-b-50--xs" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+        <p class="g-font-size-14--xs g-font-size-22--md g-color--white-opacity g-margin-b-50--xs" style="max-width: 800px; margin-left: auto; margin-right: auto;">
             Membangun Desa yang Mandiri, Sejahtera, dan Berbudaya
         </p>
         <div>
