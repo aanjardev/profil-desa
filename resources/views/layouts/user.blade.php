@@ -55,5 +55,6 @@
         <script type="text/javascript" src="{{ asset('23/vendor/jquery.wow.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('23/js/global.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('23/js/components/header-sticky.min.js') }}"></script>
+        <script src="{{ asset('23/js/components/navbar-mobile.js') }}"></script>
     </body>
 </html>
