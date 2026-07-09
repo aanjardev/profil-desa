@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\VillageIdentityController;
 use App\Http\Controllers\Admin\VillageOfficialController;
 use App\Http\Controllers\Admin\InstitutionController;
+use App\Http\Controllers\InstitutionController as PublicInstitutionController;
 use App\Http\Controllers\Admin\TourismUmkmController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PpidDocumentController;
@@ -30,7 +31,8 @@ Route::get('/beranda', function () {
 
 Route::view('/about', 'user.about')->name('about');
 Route::view('/services', 'user.services')->name('services');
-Route::view('/kelembagaan', 'user.team')->name('kelembagaan');
+Route::get('/kelembagaan', [PublicInstitutionController::class, 'index'])->name('kelembagaan');
+Route::get('/kelembagaan/{institution}', [PublicInstitutionController::class, 'show'])->name('kelembagaan.show');
 Route::view('/events', 'user.events')->name('events');
 Route::view('/contacts', 'user.contacts')->name('contacts');
 Route::view('/faq', 'user.faq')->name('faq');

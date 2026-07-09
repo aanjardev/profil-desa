@@ -27,7 +27,6 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('about') }}" class="navbar-desktop-link {{ Route::is('about') ? 'active-page' : '' }}">About</a></li>
-                        <li><a href="{{ route('kelembagaan') }}" class="navbar-desktop-link {{ Route::is('kelembagaan') ? 'active-page' : '' }}">Kelembagaan</a></li>
                         <li><a href="{{ route('services') }}" class="navbar-desktop-link {{ Route::is('services') ? 'active-page' : '' }}">Services</a></li>
                         <li><a href="{{ route('events') }}" class="navbar-desktop-link {{ Route::is('events') ? 'active-page' : '' }}">Events</a></li>
                         <li><a href="{{ route('faq') }}" class="navbar-desktop-link {{ Route::is('faq') ? 'active-page' : '' }}">FAQ</a></li>
