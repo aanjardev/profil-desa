@@ -172,18 +172,7 @@
     .dropdown-menu-custom li a:hover,
     .dropdown-menu-custom li a.active-page {
         background: #f5f5f5;
-        color: red !important;
-    }
-
-    /* Override desktop link hover & active */
-    .navbar-desktop-link:hover,
-    .s-header-v2__shrink .navbar-desktop-link:hover,
-    .s-header__shrink .navbar-desktop-link:hover,
-    .js__header-sticky.s-header__shrink .navbar-desktop-link:hover,
-    .navbar-desktop-link.active-page,
-    .s-header-v2__shrink .navbar-desktop-link.active-page,
-    .s-header__shrink .navbar-desktop-link.active-page {
-        color: red !important;
+        color: #dc3545;
     }
 
     /* Custom Mobile Sidebar Styles */
@@ -259,7 +248,7 @@
     .mobile-menu-list > li > a:focus,
     .mobile-menu-list > li > a.active-page {
         background-color: #fafafa;
-        color: red;
+        color: #dc3545;
     }
     .mobile-submenu {
         list-style: none;
@@ -284,7 +273,7 @@
     }
     .mobile-submenu li a:hover,
     .mobile-submenu li a.active-page {
-        color: red;
+        color: #dc3545;
         background-color: #f0f0f0;
     }
     .mobile-submenu.open {
