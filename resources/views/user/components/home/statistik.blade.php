@@ -1,6 +1,6 @@
-<div style="background: url('{{ asset('images/auth-bg.jpeg') }}') center center no-repeat fixed; background-size: cover; position: relative;">
+<div style="background: url('{{ asset('images/auth-bg.jpg') }}') center center no-repeat fixed; background-size: cover; position: relative;">
     <!-- Red Overlay -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(122, 29, 38, 0.81); z-index: 1;"></div>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
     
     <div class="g-padding-y-80--xs g-padding-y-125--sm" style="position: relative; z-index: 2;">
         <div class="container g-text-center--xs">
