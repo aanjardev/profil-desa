@@ -40,6 +40,30 @@ Route::view('/index-app-landing', 'user.index_app_landing')->name('index-app-lan
 Route::view('/index-events', 'user.index_events')->name('index-events');
 Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
 
+// DATA DESA
+Route::get('/profil-desa', function () { return view('user.index_coming_soon'); })->name('profil-desa');
+Route::get('/sotk-desa', function () { return view('user.index_coming_soon'); })->name('sotk-desa');
+Route::get('/visi-misi', function () { return view('user.index_coming_soon'); })->name('visi-misi');
+Route::get('/monografi-desa', function () { return view('user.index_coming_soon'); })->name('monografi-desa');
+
+// KELEMBAGAAN
+Route::get('/kelembagaan/{slug}', function ($slug) { return view('user.team'); })->name('kelembagaan.show');
+
+// POTENSI DESA
+Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
+Route::get('/umkm', function () { return view('user.index_coming_soon'); })->name('umkm');
+
+// INFORMASI
+Route::get('/berita-desa', function () { return view('user.index_coming_soon'); })->name('berita-desa');
+Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon'); })->name('agenda-kegiatan');
+Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
+Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
+
+// PELAYANAN
+Route::get('/layanan-surat', function () { return view('user.index_coming_soon'); })->name('layanan-surat');
+Route::get('/administrasi-online', function () { return view('user.index_coming_soon'); })->name('administrasi-online');
+Route::get('/kontak-darurat', function () { return view('user.index_coming_soon'); })->name('kontak-darurat');
+
 // Auth Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

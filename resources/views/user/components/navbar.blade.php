@@ -22,10 +22,10 @@
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
-                                <li><a href="#">Profil Desa</a></li>
-                                <li><a href="#">SOTK Desa</a></li>
-                                <li><a href="#">Visi Misi</a></li>
-                                <li><a href="#">Monografi Desa</a></li>
+                                <li><a href="{{ route('profil-desa') }}">Profil Desa</a></li>
+                                <li><a href="{{ route('sotk-desa') }}">SOTK Desa</a></li>
+                                <li><a href="{{ route('visi-misi') }}">Visi Misi</a></li>
+                                <li><a href="{{ route('monografi-desa') }}">Monografi Desa</a></li>
                             </ul>
                         </li>
 
@@ -33,7 +33,7 @@
                             <a href="javascript:void(0)" class="navbar-desktop-link">KELEMBAGAAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 @foreach(\App\Models\Institution::all() as $institution)
-                                    <li><a href="#">{{ $institution->name }}</a></li>
+                                    <li><a href="{{ route('kelembagaan.show', \Illuminate\Support\Str::slug($institution->name)) }}">{{ $institution->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -41,28 +41,28 @@
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link">POTENSI DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
-                                <li><a href="#">Pariwisata</a></li>
-                                <li><a href="#">UMKM</a></li>
+                                <li><a href="{{ route('pariwisata') }}">Pariwisata</a></li>
+                                <li><a href="{{ route('umkm') }}">UMKM</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link">INFORMASI <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
-                                <li><a href="#">Berita Desa</a></li>
-                                <li><a href="#">Agenda Kegiatan</a></li>
-                                <li><a href="#">Galeri</a></li>
-                                <li><a href="#">Dokumen PPID</a></li>
+                                <li><a href="{{ route('berita-desa') }}">Berita Desa</a></li>
+                                <li><a href="{{ route('agenda-kegiatan') }}">Agenda Kegiatan</a></li>
+                                <li><a href="{{ route('galeri') }}">Galeri</a></li>
+                                <li><a href="{{ route('dokumen-ppid') }}">Dokumen PPID</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link">PELAYANAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
-                                <li><a href="#">Layanan Surat</a></li>
-                                <li><a href="#">Administrasi Online</a></li>
-                                <li><a href="#">Tanya Jawab (FAQ)</a></li>
-                                <li><a href="#">Kontak Darurat</a></li>
+                                <li><a href="{{ route('layanan-surat') }}">Layanan Surat</a></li>
+                                <li><a href="{{ route('administrasi-online') }}">Administrasi Online</a></li>
+                                <li><a href="{{ route('faq') }}">Tanya Jawab (FAQ)</a></li>
+                                <li><a href="{{ route('kontak-darurat') }}">Kontak Darurat</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -93,10 +93,10 @@
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">DATA DESA <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
-                        <li><a href="#">Profil Desa</a></li>
-                        <li><a href="#">SOTK Desa</a></li>
-                        <li><a href="#">Visi Misi</a></li>
-                        <li><a href="#">Monografi Desa</a></li>
+                        <li><a href="{{ route('profil-desa') }}">Profil Desa</a></li>
+                        <li><a href="{{ route('sotk-desa') }}">SOTK Desa</a></li>
+                        <li><a href="{{ route('visi-misi') }}">Visi Misi</a></li>
+                        <li><a href="{{ route('monografi-desa') }}">Monografi Desa</a></li>
                     </ul>
                 </li>
 
@@ -104,7 +104,7 @@
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">KELEMBAGAAN <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
                         @foreach(\App\Models\Institution::all() as $institution)
-                            <li><a href="#">{{ $institution->name }}</a></li>
+                            <li><a href="{{ route('kelembagaan.show', \Illuminate\Support\Str::slug($institution->name)) }}">{{ $institution->name }}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -112,28 +112,28 @@
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">POTENSI DESA <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
-                        <li><a href="#">Pariwisata</a></li>
-                        <li><a href="#">UMKM</a></li>
+                        <li><a href="{{ route('pariwisata') }}">Pariwisata</a></li>
+                        <li><a href="{{ route('umkm') }}">UMKM</a></li>
                     </ul>
                 </li>
 
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">INFORMASI <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
-                        <li><a href="#">Berita Desa</a></li>
-                        <li><a href="#">Agenda Kegiatan</a></li>
-                        <li><a href="#">Galeri</a></li>
-                        <li><a href="#">Dokumen PPID</a></li>
+                        <li><a href="{{ route('berita-desa') }}">Berita Desa</a></li>
+                        <li><a href="{{ route('agenda-kegiatan') }}">Agenda Kegiatan</a></li>
+                        <li><a href="{{ route('galeri') }}">Galeri</a></li>
+                        <li><a href="{{ route('dokumen-ppid') }}">Dokumen PPID</a></li>
                     </ul>
                 </li>
 
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">PELAYANAN <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
-                        <li><a href="#">Layanan Surat</a></li>
-                        <li><a href="#">Administrasi Online</a></li>
-                        <li><a href="#">Tanya Jawab (FAQ)</a></li>
-                        <li><a href="#">Kontak Darurat</a></li>
+                        <li><a href="{{ route('layanan-surat') }}">Layanan Surat</a></li>
+                        <li><a href="{{ route('administrasi-online') }}">Administrasi Online</a></li>
+                        <li><a href="{{ route('faq') }}">Tanya Jawab (FAQ)</a></li>
+                        <li><a href="{{ route('kontak-darurat') }}">Kontak Darurat</a></li>
                     </ul>
                 </li>
             </ul>
