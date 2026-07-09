@@ -64,5 +64,6 @@
         @include('user.components.floating-wa')
 
         <script type="text/javascript" src="{{ asset('23/js/components/header-sticky.min.js') }}"></script>
+        <script src="{{ asset('23/js/components/navbar-mobile.js') }}"></script>
     </body>
 </html>
