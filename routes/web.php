@@ -23,10 +23,10 @@ use App\Http\Controllers\Admin\EmergencyContactController;
 
 Route::redirect('/', '/beranda');
 
+use App\Http\Controllers\User\HomeController;
+
 // User Routes
-Route::get('/beranda', function () {
-    return view('user.home');
-})->name('beranda');
+Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
 
 Route::view('/about', 'user.about')->name('about');
 Route::view('/services', 'user.services')->name('services');

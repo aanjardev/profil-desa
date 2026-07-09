@@ -54,6 +54,15 @@
         <script type="text/javascript" src="{{ asset('23/vendor/swiper/swiper.jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('23/vendor/jquery.wow.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('23/js/global.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('23/js/components/magnific-popup.min.js') }}"></script>
+        {{-- Floating WhatsApp --}}
+        @php
+            if(!isset($setting)) {
+                $setting = \App\Models\WebSetting::first();
+            }
+        @endphp
+        @include('user.components.floating-wa')
+
         <script type="text/javascript" src="{{ asset('23/js/components/header-sticky.min.js') }}"></script>
     </body>
 </html>
