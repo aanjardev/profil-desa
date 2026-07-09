@@ -24,10 +24,10 @@ use App\Http\Controllers\Admin\EmergencyContactController;
 
 Route::redirect('/', '/beranda');
 
+use App\Http\Controllers\User\HomeController;
+
 // User Routes
-Route::get('/beranda', function () {
-    return view('user.home');
-})->name('beranda');
+Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
 
 Route::view('/about', 'user.about')->name('about');
 Route::view('/services', 'user.services')->name('services');
@@ -41,6 +41,34 @@ Route::view('/index-portfolio', 'user.index_portfolio')->name('index-portfolio')
 Route::view('/index-app-landing', 'user.index_app_landing')->name('index-app-landing');
 Route::view('/index-events', 'user.index_events')->name('index-events');
 Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
+
+// DATA DESA
+Route::get('/profil-desa', function () { return view('user.index_coming_soon'); })->name('profil-desa');
+Route::get('/sotk-desa', function () { return view('user.index_coming_soon'); })->name('sotk-desa');
+Route::get('/visi-misi', function () { return view('user.index_coming_soon'); })->name('visi-misi');
+Route::get('/monografi-desa', function () { return view('user.index_coming_soon'); })->name('monografi-desa');
+
+// KELEMBAGAAN
+Route::get('/kelembagaan/{slug}', function ($slug) { return view('user.team'); })->name('kelembagaan.show');
+
+// POTENSI DESA
+Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
+Route::get('/pariwisata/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('pariwisata.show');
+Route::get('/umkm', function () { return view('user.index_coming_soon'); })->name('umkm');
+Route::get('/umkm/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('umkm.show');
+
+// INFORMASI
+Route::get('/berita-desa', function () { return view('user.index_coming_soon'); })->name('berita-desa');
+Route::get('/berita-desa/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('berita-desa.show');
+Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon'); })->name('agenda-kegiatan');
+Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
+Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
+
+// PELAYANAN
+Route::get('/layanan-surat', function () { return view('user.index_coming_soon'); })->name('layanan-surat');
+Route::get('/administrasi-online', function () { return view('user.index_coming_soon'); })->name('administrasi-online');
+Route::get('/kontak-darurat', function () { return view('user.emergency_contacts'); })->name('kontak-darurat');
+Route::get('/kontak-darurat', [\App\Http\Controllers\User\EmergencyContactController::class, 'index'])->name('kontak-darurat');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {

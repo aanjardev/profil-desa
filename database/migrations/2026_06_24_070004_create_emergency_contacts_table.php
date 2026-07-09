@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('emergency_contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 150);               // Nama layanan darurat (contoh: Polsek, Puskesmas)
-            $table->string('phone', 20);               // Nomor telepon darurat
-            $table->string('category', 100)->nullable(); // Kategori (kesehatan, keamanan, bencana, dll)
-            $table->string('address', 255)->nullable(); // Alamat
+            $table->string('name', 150);
+            $table->string('phone', 20);
+            $table->string('category', 100)->nullable();
+            $table->string('description')->nullable();
+            $table->string('address', 255)->nullable();
             $table->integer('order_num')->nullable()->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

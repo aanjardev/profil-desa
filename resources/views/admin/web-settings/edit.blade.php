@@ -116,6 +116,29 @@
             </div>
         </div>
 
+        <!-- Statistik Desa -->
+        <div>
+            <h3 class="text-base font-bold text-gray-900 mb-4 pb-2 border-b flex items-center gap-2">
+                <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                Statistik Desa
+            </h3>
+            <p class="text-sm text-gray-500 mb-4">Angka statistik ini akan ditampilkan pada halaman beranda.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Luas Wilayah (Ha)</label>
+                    <input type="text" name="stat_luas_wilayah" value="{{ old('stat_luas_wilayah', $statistics['luas_wilayah']->value ?? '') }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Contoh: 120">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Jumlah Penduduk</label>
+                    <input type="text" name="stat_jumlah_penduduk" value="{{ old('stat_jumlah_penduduk', $statistics['jumlah_penduduk']->value ?? '') }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Contoh: 5400">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Jumlah RT / RW</label>
+                    <input type="text" name="stat_jumlah_rt_rw" value="{{ old('stat_jumlah_rt_rw', $statistics['jumlah_rt_rw']->value ?? '') }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="Contoh: 42 / 10">
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Actions -->

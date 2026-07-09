@@ -19,7 +19,8 @@ class WebSettingController extends Controller
                 'province' => 'Provinsi'
             ]
         );
-        return view('admin.web-settings.show', compact('webSetting'));
+        $statistics = \App\Models\VillageStatistic::all()->keyBy('key');
+        return view('admin.web-settings.show', compact('webSetting', 'statistics'));
     }
 
     public function edit()
@@ -33,7 +34,8 @@ class WebSettingController extends Controller
                 'province' => 'Provinsi'
             ]
         );
-        return view('admin.web-settings.edit', compact('webSetting'));
+        $statistics = \App\Models\VillageStatistic::all()->keyBy('key');
+        return view('admin.web-settings.edit', compact('webSetting', 'statistics'));
     }
 
     public function update(Request $request)
@@ -57,6 +59,10 @@ class WebSettingController extends Controller
             'youtube' => 'nullable|string|max:255',
             'youtube_video_url' => 'nullable|string|max:255',
             'twitter' => 'nullable|string|max:255',
+            // statistics
+            'stat_luas_wilayah' => 'nullable|string|max:255',
+            'stat_jumlah_penduduk' => 'nullable|string|max:255',
+            'stat_jumlah_rt_rw' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('logo_file')) {
@@ -74,6 +80,17 @@ class WebSettingController extends Controller
         }
 
         $webSetting->update($validated);
+
+        // Update statistics
+        if (isset($validated['stat_luas_wilayah'])) {
+            \App\Models\VillageStatistic::updateOrCreate(['key' => 'luas_wilayah'], ['value' => $validated['stat_luas_wilayah']]);
+        }
+        if (isset($validated['stat_jumlah_penduduk'])) {
+            \App\Models\VillageStatistic::updateOrCreate(['key' => 'jumlah_penduduk'], ['value' => $validated['stat_jumlah_penduduk']]);
+        }
+        if (isset($validated['stat_jumlah_rt_rw'])) {
+            \App\Models\VillageStatistic::updateOrCreate(['key' => 'jumlah_rt_rw'], ['value' => $validated['stat_jumlah_rt_rw']]);
+        }
 
         return redirect()->route('admin.web-settings.show')->with('success', 'Info Web berhasil diperbarui!');
     }

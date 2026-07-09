@@ -72,6 +72,29 @@
             </div>
         </div>
 
+        <!-- Statistik Desa -->
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 p-6 md:p-8">
+            <h3 class="text-base font-bold text-gray-900 mb-4 flex items-center gap-2.5">
+                <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                Statistik Desa
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-6">
+                <div>
+                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Luas Wilayah</span>
+                    <span class="text-sm font-medium text-gray-800 mt-1 block">{{ $statistics['luas_wilayah']->value ?? '-' }} Ha</span>
+                </div>
+                <div>
+                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Penduduk</span>
+                    <span class="text-sm font-medium text-gray-800 mt-1 block">{{ $statistics['jumlah_penduduk']->value ?? '-' }} Jiwa</span>
+                </div>
+                <div>
+                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">RT / RW</span>
+                    <span class="text-sm font-medium text-gray-800 mt-1 block">{{ $statistics['jumlah_rt_rw']->value ?? '-' }}</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Kontak & Media Sosial -->
         <div class="bg-white rounded-xl shadow-xs border border-gray-100 p-6 md:p-8">
             <h3 class="text-base font-bold text-gray-900 mb-5 flex items-center gap-2.5">
