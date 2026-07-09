@@ -28,14 +28,14 @@
                         
                         <!-- Tombol Baca Berita -->
                         <div style="position: absolute; top: 20px; right: 20px; z-index: 3;">
-                            <a href="#" class="text-uppercase s-btn s-btn--xs s-btn--primary-brd g-radius--50 g-padding-x-30--xs g-color--white" style="background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);">Baca Berita</a>
+                            <a href="{{ route('berita-desa.show', $utama->slug) }}" class="text-uppercase s-btn s-btn--xs s-btn--primary-brd g-radius--50 g-padding-x-30--xs g-color--white" style="background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);">Baca Berita</a>
                         </div>
                         
                         <!-- Konten Text -->
                         <div style="position: relative; z-index: 2; width: 100%; padding: 30px;">
                             <span class="g-font-size-12--xs g-color--primary g-font-weight--700 g-margin-b-10--xs block text-uppercase"><i class="ti-time g-margin-r-5--xs"></i> {{ $utama->created_at->translatedFormat('d F Y') }}</span>
                             <h3 class="g-font-size-22--xs g-font-size-28--md g-font-weight--700 g-margin-b-10--xs">
-                                <a href="#" class="g-color--white g-color--primary--hover berita-title-hover" style="text-decoration: none; line-height: 1.3;">{{ $utama->title }}</a>
+                                <a href="{{ route('berita-desa.show', $utama->slug) }}" class="g-color--white g-color--primary--hover berita-title-hover" style="text-decoration: none; line-height: 1.3;">{{ $utama->title }}</a>
                             </h3>
                             <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-0--xs" style="margin-bottom: 0;">{{ Str::limit($utama->excerpt, 120) }}</p>
                         </div>
@@ -53,7 +53,7 @@
                                 <div class="g-padding-x-20--xs g-padding-y-15--xs" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
                                     <span class="g-font-size-11--xs g-color--primary g-font-weight--600 g-margin-b-5--xs block"><i class="ti-time g-margin-r-5--xs"></i> {{ $post->created_at->format('d M Y') }}</span>
                                     <h3 class="g-font-size-15--xs g-font-weight--700 g-margin-b-5--xs" style="line-height: 1.4;">
-                                        <a href="#" class="g-color--dark g-color--primary--hover berita-title-hover" style="text-decoration: none;">{{ Str::limit($post->title, 60) }}</a>
+                                        <a href="{{ route('berita-desa.show', $post->slug) }}" class="g-color--dark g-color--primary--hover berita-title-hover" style="text-decoration: none;">{{ Str::limit($post->title, 60) }}</a>
                                     </h3>
                                     <p class="g-font-size-12--xs g-color--dark g-margin-b-0--xs hidden-xs">{{ Str::limit($post->excerpt, 50) }}</p>
                                 </div>
