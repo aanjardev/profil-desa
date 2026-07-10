@@ -16,18 +16,106 @@
 <!--========== END PARALLAX HEADER ==========-->
 
 <!--========== PAGE CONTENT ==========-->
+<style>
+    .profil-sidebar-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px;
+    }
+    #profil-nav a {
+        transition: all 0.2s ease;
+        color: #718096;
+    }
+    #profil-nav a:hover, #profil-nav a.active {
+        background: #f8f9fa;
+        color: #dc3545 !important;
+    }
+    /* CSS scroll offset — ensures anchor targets clear the sticky header */
+    #profil-singkat, #sejarah, #geografis, #wilayah-dusun {
+        scroll-margin-top: 130px;
+    }
+    
+    @media (max-width: 991px) {
+        #profil-sidebar-col {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 100px !important;
+            z-index: 999;
+            background: #f8fafc !important; /* Matches g-bg-color--sky-light background */
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            margin-bottom: 25px !important;
+        }
+        .profil-sidebar-card {
+            position: static !important;
+            padding: 10px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        #profil-nav {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            width: 100% !important;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            gap: 6px;
+        }
+        #profil-nav li {
+            flex: 1 1 0% !important;
+            text-align: center;
+            margin-bottom: 0 !important;
+        }
+        #profil-nav li a {
+            display: block !important;
+            text-align: center;
+            white-space: nowrap !important;
+            padding: 8px 4px !important;
+            font-size: 12px !important;
+        }
+        /* Mobile: larger scroll offset to clear both sticky header + tab bar */
+        #profil-singkat, #sejarah, #geografis, #wilayah-dusun {
+            scroll-margin-top: 220px;
+        }
+    }
+</style>
+
 <div class="g-bg-color--sky-light g-padding-y-60--xs">
     <div class="container">
         <div class="row" style="display: flex; flex-wrap: wrap;">
-            <div class="col-md-3 g-margin-b-30--xs g-margin-b-0--md">
+            <div id="profil-sidebar-col" class="col-md-3 col-xs-12 g-margin-b-30--xs g-margin-b-0--md">
                 <!-- Sidebar Navigation -->
-                <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px; border: 1px solid #e2e8f0; position: -webkit-sticky; position: sticky; top: 100px;">
-                    <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-15--xs" style="color: #2d3748; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0;">Navigasi Profil</h3>
+                <div class="profil-sidebar-card">
+                    <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-15--xs hidden-xs" style="color: #2d3748; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0;">Navigasi Profil</h3>
                     <ul class="list-unstyled g-margin-b-0--xs" id="profil-nav">
-                        <li class="g-margin-b-10--xs"><a href="#profil-singkat" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px; background: #f8f9fa;">Profil Singkat</a></li>
-                        <li class="g-margin-b-10--xs"><a href="#sejarah" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">Sejarah Desa</a></li>
-                        <li class="g-margin-b-10--xs"><a href="#geografis" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">Kondisi Geografis</a></li>
-                        <li class="g-margin-b-0--xs"><a href="#wilayah-dusun" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">Pembagian Wilayah</a></li>
+                        <li class="g-margin-b-10--xs">
+                            <a href="#profil-singkat" class="g-color--text g-color--primary--hover active" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px; background: #f8f9fa; color: #dc3545;">
+                                <span class="hidden-xs">Profil Singkat</span>
+                                <span class="visible-xs">Profil</span>
+                            </a>
+                        </li>
+                        <li class="g-margin-b-10--xs">
+                            <a href="#sejarah" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">
+                                <span class="hidden-xs">Sejarah Desa</span>
+                                <span class="visible-xs">Sejarah</span>
+                            </a>
+                        </li>
+                        <li class="g-margin-b-10--xs">
+                            <a href="#geografis" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">
+                                <span class="hidden-xs">Kondisi Geografis</span>
+                                <span class="visible-xs">Geografis</span>
+                            </a>
+                        </li>
+                        <li class="g-margin-b-0--xs">
+                            <a href="#wilayah-dusun" class="g-color--text g-color--primary--hover" style="display: block; font-weight: 600; padding: 8px 12px; border-radius: 6px;">
+                                <span class="hidden-xs">Pembagian Wilayah</span>
+                                <span class="visible-xs">Wilayah</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -74,18 +162,42 @@
         // Simple smooth scroll and active state for navigation
         $('#profil-nav a').on('click', function(e) {
             e.preventDefault();
+            e.stopPropagation(); // Stop theme smooth scroll bubble
+            
             var target = $(this).attr('href');
+            var targetEl = $(target);
             
             // Remove active styles from all
-            $('#profil-nav a').css({'background': 'transparent', 'color': '#718096'});
+            $('#profil-nav a').removeClass('active').css({'background': 'transparent', 'color': '#718096'});
             
             // Add active style to clicked
-            $(this).css({'background': '#f8f9fa', 'color': '#dc3545'});
+            $(this).addClass('active').css({'background': '#f8f9fa', 'color': '#dc3545'});
             
-            // Smooth scroll (offset for sticky nav)
-            $('html, body').animate({
-                scrollTop: $(target).offset().top - 100
-            }, 500);
+            if (targetEl.length) {
+                // Smooth scroll (offset for sticky nav, larger on mobile due to sticky tabs)
+                var offset = $(window).width() < 992 ? 220 : 120;
+                $('html, body').animate({
+                    scrollTop: targetEl.offset().top - offset
+                }, 500);
+            }
+        });
+
+        // Update active class on scroll
+        $(window).on('scroll', function() {
+            var scrollPos = $(document).scrollTop();
+            var offset = $(window).width() < 992 ? 230 : 130;
+            $('#profil-nav a').each(function() {
+                var currLink = $(this);
+                var refElement = $(currLink.attr('href'));
+                if (refElement.length) {
+                    var elementTop = refElement.offset().top - offset;
+                    var elementBottom = elementTop + refElement.outerHeight();
+                    if (scrollPos >= elementTop && scrollPos < elementBottom) {
+                        $('#profil-nav a').removeClass('active').css({'background': 'transparent', 'color': '#718096'});
+                        currLink.addClass('active').css({'background': '#f8f9fa', 'color': '#dc3545'});
+                    }
+                }
+            });
         });
     });
 </script>

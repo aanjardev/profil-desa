@@ -202,8 +202,74 @@
             .custom-pagination ul.pagination { margin: 0 !important; }
             .custom-pagination nav { display: flex; align-items: center; }
             .custom-pagination p { margin-bottom: 0 !important; }
+
+            /* Mobile Search Bar */
+            .mobile-search-bar {
+                display: none;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 16px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 767px) {
+                .mobile-search-bar {
+                    display: block;
+                }
+                .results-info-bar {
+                    padding: 10px 14px;
+                    gap: 6px;
+                }
+                .results-info-bar .g-font-size-14--xs {
+                    font-size: 12px !important;
+                }
+                .custom-pagination .pagination > li > span,
+                .custom-pagination .pagination > li > a {
+                    padding: 4px 10px !important;
+                    font-size: 12px !important;
+                }
+                .umkm-img-container {
+                    height: 180px;
+                }
+                .umkm-info-title {
+                    font-size: 16px !important;
+                }
+                .umkm-card .g-padding-25--xs {
+                    padding: 18px !important;
+                }
+                .umkm-btn-detail {
+                    padding: 10px 16px !important;
+                    font-size: 12px !important;
+                }
+                .filter-reset-bar {
+                    padding: 12px 16px;
+                }
+                .filter-reset-bar h4 {
+                    font-size: 13px !important;
+                    flex-direction: column;
+                    gap: 8px;
+                }
+            }
         </style>
         
+        <!-- Mobile Search Bar (visible on xs only) -->
+        <div class="mobile-search-bar">
+            <form action="{{ route('umkm') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control sidebar-search-input" placeholder="Cari UMKM..." value="{{ request('search') }}" style="height: 44px !important; border-radius: 30px 0 0 30px !important; border: 1px solid #cbd5e1 !important; padding-left: 18px !important;">
+                    <span class="input-group-btn">
+                        <button class="btn sidebar-search-btn" type="submit" style="height: 44px !important; border: 1px solid #dc3545 !important; background: #dc3545 !important; color: #fff !important; border-radius: 0 30px 30px 0 !important; padding: 0 18px !important;"><i class="ti-search"></i></button>
+                    </span>
+                </div>
+                @if(request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+            </form>
+        </div>
+
         <div class="row">
             <!-- Main Content -->
             <div class="col-md-8 g-margin-b-30--xs g-margin-b-0--md">
@@ -226,7 +292,8 @@
             <!-- Top Pagination / Results Bar -->
             <div class="results-info-bar g-margin-b-30--xs">
                 <div class="g-font-size-14--xs" style="color: #64748b;">
-                    Menampilkan <strong>{{ $umkms->firstItem() }}</strong> - <strong>{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM
+                    <span class="hidden-xs">Menampilkan <strong>{{ $umkms->firstItem() }}</strong> - <strong>{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM</span>
+                    <span class="visible-xs" style="font-size: 13px;"><strong>{{ $umkms->firstItem() }}-{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM</span>
                 </div>
                 <div class="custom-pagination">
                     @if ($umkms->lastPage() > 1)
@@ -300,7 +367,8 @@
             <!-- Bottom Pagination -->
             <div class="results-info-bar g-margin-t-10--xs">
                 <div class="g-font-size-14--xs" style="color: #64748b;">
-                    Menampilkan <strong>{{ $umkms->firstItem() }}</strong> - <strong>{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM
+                    <span class="hidden-xs">Menampilkan <strong>{{ $umkms->firstItem() }}</strong> - <strong>{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM</span>
+                    <span class="visible-xs" style="font-size: 13px;"><strong>{{ $umkms->firstItem() }}-{{ $umkms->lastItem() }}</strong> dari <strong>{{ $umkms->total() }}</strong> UMKM</span>
                 </div>
                 <div class="custom-pagination">
                     @if ($umkms->lastPage() > 1)
