@@ -55,8 +55,9 @@ Route::get('/umkm', function () { return view('user.index_coming_soon'); })->nam
 Route::get('/umkm/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('umkm.show');
 
 // INFORMASI
-Route::get('/berita-desa', function () { return view('user.index_coming_soon'); })->name('berita-desa');
-Route::get('/berita-desa/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('berita-desa.show');
+use App\Http\Controllers\User\PostController as PublicPostController;
+Route::get('/berita-desa', [PublicPostController::class, 'index'])->name('berita-desa');
+Route::get('/berita-desa/{slug}', [PublicPostController::class, 'show'])->name('berita-desa.show');
 Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon'); })->name('agenda-kegiatan');
 Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
 Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
