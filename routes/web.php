@@ -35,7 +35,6 @@ Route::get('/kelembagaan', [PublicInstitutionController::class, 'index'])->name(
 Route::get('/kelembagaan/{institution}', [PublicInstitutionController::class, 'show'])->name('kelembagaan.show');
 Route::view('/events', 'user.events')->name('events');
 Route::view('/contacts', 'user.contacts')->name('contacts');
-Route::view('/faq', 'user.faq')->name('faq');
 Route::view('/index-lawyer', 'user.index_lawyer')->name('index-lawyer');
 Route::view('/index-portfolio', 'user.index_portfolio')->name('index-portfolio');
 Route::view('/index-app-landing', 'user.index_app_landing')->name('index-app-landing');
@@ -67,6 +66,8 @@ Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon');
 // PELAYANAN
 Route::get('/layanan-surat', function () { return view('user.index_coming_soon'); })->name('layanan-surat');
 Route::get('/administrasi-online', function () { return view('user.index_coming_soon'); })->name('administrasi-online');
+Route::get('/faq', function () { return view('user.faq'); })->name('faq');
+Route::get('/faq', [\App\Http\Controllers\User\FaqController::class, 'index'])->name('faq');
 Route::get('/kontak-darurat', function () { return view('user.emergency_contacts'); })->name('kontak-darurat');
 Route::get('/kontak-darurat', [\App\Http\Controllers\User\EmergencyContactController::class, 'index'])->name('kontak-darurat');
 
