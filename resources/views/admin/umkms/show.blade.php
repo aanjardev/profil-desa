@@ -91,6 +91,16 @@
                     </div>
                 </div>
                 @endif
+
+                <!-- Peta Lokasi -->
+                @if($umkm->maps_link && (Str::startsWith($umkm->maps_link, '<iframe') || Str::contains($umkm->maps_link, '<iframe')))
+                <div class="mt-8">
+                    <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Peta Lokasi</h3>
+                    <div class="rounded-xl overflow-hidden shadow-xs border border-gray-200 aspect-video w-full [&_iframe]:w-full [&_iframe]:h-full">
+                        {!! $umkm->maps_link !!}
+                    </div>
+                </div>
+                @endif
             </div>
 
             <!-- Sidebar Info -->
@@ -150,6 +160,22 @@
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                             Youtube
                         </a>
+                    </div>
+                    @endif
+
+                    @if($umkm->maps_link)
+                    <div class="pt-2">
+                        @if(Str::startsWith($umkm->maps_link, '<iframe') || Str::contains($umkm->maps_link, '<iframe'))
+                            <span class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-gray-600 text-white text-sm font-bold rounded-lg cursor-default shadow-sm opacity-90">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L16 4m0 13V4m0 0L9 7"></path></svg>
+                                Peta Sematan Tersedia
+                            </span>
+                        @else
+                            <a href="{{ $umkm->maps_link }}" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-gray-600 border border-transparent text-white text-sm font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                Buka di Google Maps
+                            </a>
+                        @endif
                     </div>
                     @endif
                 </div>

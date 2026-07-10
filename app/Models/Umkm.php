@@ -21,6 +21,7 @@ class Umkm extends Model
         'facilities',
         'main_image',
         'supporting_images',
+        'maps_link',
         'is_active',
     ];
 
