@@ -37,11 +37,18 @@
                     <span class="text-[11px] text-gray-400 mt-1 block">Format: ICO, PNG, SVG (Maks. 1MB). Kosongkan jika tidak ingin mengubah.</span>
                     @error('favicon_file') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Background Image (Parallax/Hero)</label>
+                    <input type="file" name="background_image_file" accept="image/png,image/jpeg,image/jpg,image/webp" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <span class="text-[11px] text-gray-400 mt-1 block">Format: JPG, PNG, WEBP (Maks. 5MB). Kosongkan jika tidak ingin mengubah. Digunakan sebagai gambar latar (parallax) pada berbagai halaman.</span>
+                    @error('background_image_file') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
             </div>
         </div>
 
         <!-- Wilayah & Alamat -->
-        <div>
+        <div class="pt-8 border-t border-gray-200 mt-8">
             <h3 class="text-base font-bold text-gray-900 mb-4 pb-2 border-b flex items-center gap-2">
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Wilayah & Alamat
@@ -79,7 +86,7 @@
         </div>
 
         <!-- Kontak & Media Sosial -->
-        <div>
+        <div class="pt-8 border-t border-gray-200 mt-8">
             <h3 class="text-base font-bold text-gray-900 mb-4 pb-2 border-b flex items-center gap-2">
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Kontak & Media Sosial
@@ -117,7 +124,7 @@
         </div>
 
         <!-- Statistik Desa -->
-        <div>
+        <div class="pt-8 border-t border-gray-200 mt-8">
             <h3 class="text-base font-bold text-gray-900 mb-4 pb-2 border-b flex items-center gap-2">
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Statistik Desa

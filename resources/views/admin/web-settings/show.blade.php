@@ -213,6 +213,16 @@
                         </div>
                     @endif
                 </div>
+
+                <!-- Background Image -->
+                <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3">Background Image</span>
+                    @if($webSetting->background_image)
+                        <img src="{{ asset('storage/' . $webSetting->background_image) }}" alt="Background" class="max-h-24 object-cover rounded-md w-full">
+                    @else
+                        <span class="text-xs text-gray-400 mt-2">Belum ada gambar background</span>
+                    @endif
+                </div>
             </div>
         </div>
 

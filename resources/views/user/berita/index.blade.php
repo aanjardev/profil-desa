@@ -5,7 +5,7 @@
 @section('content')
 
 <!--========== HIGHLIGHT & MARQUEE BLOCK ==========-->
-<div class="g-padding-y-100--xs" style="background-image: url('{{ asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-bottom: 50px !important;">
+<div class="g-padding-y-100--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-bottom: 50px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.75); z-index: 1;"></div>
     
