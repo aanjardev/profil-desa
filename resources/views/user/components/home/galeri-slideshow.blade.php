@@ -137,3 +137,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if(typeof $ !== 'undefined' && $.fn.magnificPopup) {
+            $('.modern-gallery-item').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0,1]
+                },
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
+                fixedContentPos: true
+            });
+        }
+    });
+</script>

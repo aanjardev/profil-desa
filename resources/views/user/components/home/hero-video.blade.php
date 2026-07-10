@@ -6,7 +6,17 @@
         preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/\s]{11})%i', $videoUrl, $match);
         $videoId = $match[1] ?? 'LXb3EKWsInQ';
     @endphp
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
+    <style>
+        @keyframes fadeInVideo {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .hero-video-fade {
+            opacity: 0;
+            animation: fadeInVideo 2s ease-in-out 3s forwards;
+        }
+    </style>
+    <div class="hero-video-fade" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
         <iframe 
             src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1&controls=0&loop=1&playlist={{ $videoId }}&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&disablekb=1&playsinline=1" 
             frameborder="0" 
@@ -37,9 +47,33 @@
             <a href="#profil" class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-40--xs g-margin-b-20--xs g-margin-r-10--sm">
                 Jelajahi Desa
             </a>
-            <a href="{{ $videoUrl }}" class="js__popup__youtube text-uppercase s-btn s-btn--md s-btn--white-brd g-radius--50 g-padding-x-40--xs g-margin-b-20--xs">
+            <a href="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&controls=0&rel=0&iv_load_policy=3&cc_load_policy=0&disablekb=1&modestbranding=1&playsinline=1" class="js__popup__clean_video text-uppercase s-btn s-btn--md s-btn--white-brd g-radius--50 g-padding-x-40--xs g-margin-b-20--xs">
                 <i class="ti-control-play g-margin-r-5--xs"></i> Tonton Video Profil
             </a>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if(typeof $ !== 'undefined' && $.fn.magnificPopup) {
+            $('.js__popup__clean_video').magnificPopup({
+                disableOn: 700,
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
+                fixedContentPos: true,
+                iframe: {
+                    patterns: {
+                        youtube: {
+                            index: 'youtube.com/embed/',
+                            id: function(url) { return url; }, // Return the whole URL
+                            src: '%id%' // Use the whole URL as src
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>

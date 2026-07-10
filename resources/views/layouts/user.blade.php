@@ -30,6 +30,15 @@
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ asset('images/web-settings/icon-tab.png') }}" type="image/x-icon">
         <link rel="apple-touch-icon" href="{{ asset('images/web-settings/icon-tab.png') }}">
+        <!-- Custom Global Overrides -->
+        <style>
+            @media (min-width: 1200px) {
+                .container {
+                    width: 95% !important;
+                    max-width: 1600px !important;
+                }
+            }
+        </style>
     </head>
     <!-- End Head -->
     <body>

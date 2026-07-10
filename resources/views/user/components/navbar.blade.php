@@ -1,3 +1,12 @@
+<style>
+    .navbar-desktop-link, .mobile-menu-list a {
+        font-weight: 700 !important;
+        letter-spacing: 0.5px;
+    }
+    .dropdown-menu-custom li a, .mobile-submenu li a {
+        font-weight: 600 !important;
+    }
+</style>
 <!--========== HEADER ==========-->
 <header class="navbar-fixed-top s-header js__header-sticky">
     <!-- Navbar -->
