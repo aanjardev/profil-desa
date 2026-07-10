@@ -357,6 +357,41 @@ fieldset[disabled] .s-btn {
 /*----------------------------------
   FAQ
 ------------------------------------*/
+
+.not-available-faq > i {
+  color: #bbb; 
+  display: block; 
+  margin-bottom: 15px;
+}
+
+.not-available-faq > p {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.toggle-faq-link[aria-expanded="true"] .arrow-icon {
+  transform: translateY(-50%) rotate(-180deg) !important;
+  color: #17bedb !important;
+}
+
+.faq-box-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06) !important;
+}
+
+.faq-html-content ul {
+  padding-left: 18px;
+  margin-bottom: 8px;
+}
+
+.faq-html-content li {
+  list-style-type: disc !important;
+}
+
+.faq-html-content strong {
+  font-weight: 700;
+  color: #222;
+}
+
 .s-faq__pseudo {
   position: relative;
 }
@@ -391,6 +426,11 @@ fieldset[disabled] .s-btn {
 /*----------------------------------
   Form Input
 ------------------------------------*/
+.s-header__emergency-contact > p{
+  color: #fff
+}
+
+
 .contact-box-card {
   border-radius: 4px; 
   border-left: 4px solid #17bedb; 
@@ -543,6 +583,16 @@ fieldset[disabled] .s-btn {
   margin-bottom: 0;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
+}
+
+.toggle-collapse-link[aria-expanded="true"] .arrow-icon {
+  transform: translateY(-50%) rotate(-180deg) !important;
+  color: #17bedb !important;
+}
+
+.col-md-4:hover .g-bg-color--white {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06) !important;
 }
 
 /*----------------------------------
@@ -1281,6 +1331,28 @@ fieldset[disabled] .s-btn {
   content: " ";
 }
 
+/*----------------------------------
+  Header
+------------------------------------*/
+.floating-whatsapp {
+  position: fixed; 
+  bottom: 30px; 
+  right: 30px; 
+  width: 60px; 
+  height: 60px; 
+  background-color: #25d366; 
+  color: white; 
+  border-radius: 50%; 
+  text-align: center; 
+  font-size: 30px; 
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.2); 
+  z-index: 9999; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-decoration: none; 
+  transition: transform 0.3s;
+}
 /*----------------------------------
   Header
 ------------------------------------*/
