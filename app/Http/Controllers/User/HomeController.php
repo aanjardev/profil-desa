@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\TourismUmkm;
+use App\Models\Tourism;
+use App\Models\Umkm;
 use App\Models\Agenda;
 use App\Models\Gallery;
 use App\Models\VillageStatistic;
@@ -20,8 +21,8 @@ class HomeController extends Controller
         $berita = Post::published()->latest()->take(5)->get();
         
         // Fetch Tourism & UMKM
-        $wisata = TourismUmkm::wisata()->active()->latest()->take(3)->get();
-        $umkm = TourismUmkm::umkm()->active()->latest()->take(3)->get();
+        $wisata = Tourism::where('is_active', true)->latest()->take(3)->get();
+        $umkm = Umkm::where('is_active', true)->latest()->take(3)->get();
         
         // Fetch Agendas
         $agendas = Agenda::where('start_date', '>=', now()->format('Y-m-d'))->orderBy('start_date')->take(3)->get();
