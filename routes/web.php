@@ -42,10 +42,11 @@ Route::view('/index-events', 'user.index_events')->name('index-events');
 Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
 
 // DATA DESA
-Route::get('/profil-desa', function () { return view('user.index_coming_soon'); })->name('profil-desa');
-Route::get('/sotk-desa', function () { return view('user.index_coming_soon'); })->name('sotk-desa');
-Route::get('/visi-misi', function () { return view('user.index_coming_soon'); })->name('visi-misi');
-Route::get('/monografi-desa', function () { return view('user.index_coming_soon'); })->name('monografi-desa');
+use App\Http\Controllers\User\VillageDataController as PublicVillageDataController;
+Route::get('/profil-desa', [PublicVillageDataController::class, 'profil'])->name('profil-desa');
+Route::get('/sotk-desa', [PublicVillageDataController::class, 'sotk'])->name('sotk-desa');
+Route::get('/visi-misi', [PublicVillageDataController::class, 'visiMisi'])->name('visi-misi');
+Route::get('/monografi-desa', [PublicVillageDataController::class, 'monografi'])->name('monografi-desa');
 
 
 // POTENSI DESA
