@@ -29,7 +29,7 @@
                         <li><a href="{{ route('beranda') }}" class="navbar-desktop-link {{ Route::is('beranda') ? 'active-page' : '' }}">BERANDA</a></li>
                         
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('profil-desa', 'sotk-desa', 'visi-misi', 'monografi-desa') ? 'active-page' : '' }}">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('profil-desa') }}">Profil Desa</a></li>
                                 <li><a href="{{ route('sotk-desa') }}">SOTK Desa</a></li>
@@ -39,7 +39,7 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link">KELEMBAGAAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="{{ route('kelembagaan') }}" class="navbar-desktop-link {{ request()->is('kelembagaan*') ? 'active-page' : '' }}">KELEMBAGAAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 @foreach(\App\Models\Institution::all() as $institution)
                                     <li><a href="{{ route('kelembagaan.show', $institution->id) }}">{{ $institution->name }}</a></li>
@@ -48,7 +48,7 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link">POTENSI DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('pariwisata', 'umkm') ? 'active-page' : '' }}">POTENSI DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('pariwisata') }}">Pariwisata</a></li>
                                 <li><a href="{{ route('umkm') }}">UMKM</a></li>
@@ -56,7 +56,7 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link">INFORMASI <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ request()->is('berita*', 'agenda-kegiatan', 'galeri', 'dokumen-ppid') ? 'active-page' : '' }}">INFORMASI <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('berita-desa') }}">Berita Desa</a></li>
                                 <li><a href="{{ route('agenda-kegiatan') }}">Agenda Kegiatan</a></li>
@@ -66,7 +66,7 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link">PELAYANAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('layanan-surat', 'administrasi-online', 'faq', 'kontak-darurat') ? 'active-page' : '' }}">PELAYANAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('layanan-surat') }}">Layanan Surat</a></li>
                                 <li><a href="{{ route('administrasi-online') }}">Administrasi Online</a></li>
