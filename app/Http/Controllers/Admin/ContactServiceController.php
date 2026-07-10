@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ContactService;
 
 class ContactServiceController extends Controller
 {
@@ -12,25 +13,15 @@ class ContactServiceController extends Controller
      */
     public function index()
     {
-        $service = \App\Models\ContactService::first();
-        
-        if (!$service) {
-            $service = \App\Models\ContactService::create([
-                'service_name' => 'Pusat Pelayanan Administrasi',
-                'is_active' => true,
-            ]);
-        }
+        // Cukup ambil data pertama, jika kosong biarkan bernilai null (jangan di-create otomatis)
+        $service = ContactService::first();
 
         return view('admin.contact-services.index', compact('service'));
     }
 
     public function store(Request $request)
     {
-        $service = \App\Models\ContactService::first();
-
-        if (!$service) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
-        }
+        $service = ContactService::first();
 
         $validated = $request->validate([
             'service_name' => 'required|string|max:150',
@@ -41,8 +32,14 @@ class ContactServiceController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        $service->update($validated);
+        if (!$service) {
+            ContactService::create($validated);
+            $message = 'Data Administrasi Online berhasil ditambahkan.';
+        } else {
+            $service->update($validated);
+            $message = 'Data Administrasi Online berhasil diperbarui.';
+        }
 
-        return redirect()->route('admin.contact-services.index')->with('success', 'Data Administrasi Online berhasil diperbarui.');
+        return redirect()->route('admin.contact-services.index')->with('success', $message);
     }
 }
