@@ -61,14 +61,10 @@ Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon
 Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
 Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
 
-// PELAYANAN
-Route::get('/layanan-surat', function () { return view('user.service_letter'); })->name('layanan-surat');
+// PELAYANAN\
 Route::get('/layanan-surat', [\App\Http\Controllers\User\ServiceLetterController::class, 'index'])->name('layanan-surat');
-Route::get('/administrasi-online', function () { return view('user.online_administration'); })->name('administrasi-online');
 Route::get('/administrasi-online', [\App\Http\Controllers\User\OnlineAdministrationController::class, 'index'])->name('administrasi-online');
-Route::get('/faq', function () { return view('user.faq'); })->name('faq');
 Route::get('/faq', [\App\Http\Controllers\User\FaqController::class, 'index'])->name('faq');
-Route::get('/kontak-darurat', function () { return view('user.emergency_contacts'); })->name('kontak-darurat');
 Route::get('/kontak-darurat', [\App\Http\Controllers\User\EmergencyContactController::class, 'index'])->name('kontak-darurat');
 
 // Auth Routes

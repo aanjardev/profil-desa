@@ -112,4 +112,3 @@
         list-style-type: disc !important;
     }
 </style>
-@endsection
