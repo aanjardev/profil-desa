@@ -47,8 +47,6 @@ Route::get('/sotk-desa', function () { return view('user.index_coming_soon'); })
 Route::get('/visi-misi', function () { return view('user.index_coming_soon'); })->name('visi-misi');
 Route::get('/monografi-desa', function () { return view('user.index_coming_soon'); })->name('monografi-desa');
 
-// KELEMBAGAAN
-Route::get('/kelembagaan/{slug}', function ($slug) { return view('user.team'); })->name('kelembagaan.show');
 
 // POTENSI DESA
 Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
