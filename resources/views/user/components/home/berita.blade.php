@@ -60,7 +60,7 @@
                     <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                         @foreach($berita->skip(3)->take(4) as $post)
                             <article class="clearfix g-bg-color--white g-margin-b-15--xs" style="border-radius: 8px; overflow: hidden; box-shadow: 0 2px 15px rgba(0,0,0,0.06); display: flex; align-items: center;">
-                                <div style="flex: 0 0 130px; aspect-ratio: 1/1; overflow: hidden; padding: 10px;">
+                                <div style="flex: 0 0 200px; aspect-ratio: 16/9; overflow: hidden; padding: 10px;">
                                     <img src="{{ $post->image ? asset('storage/'.$post->image) : asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
                                 </div>
                                 <div style="flex: 1; padding: 15px 25px 15px 5px;">
