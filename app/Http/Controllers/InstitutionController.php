@@ -40,6 +40,6 @@ class InstitutionController extends Controller
         $typeLabels = AdminInstitutionController::TYPE_LABELS;
         $typeColors = AdminInstitutionController::TYPE_COLORS;
 
-        return view('user.institution-show', compact('institution', 'typeLabels', 'typeColors'));
+        return view('user.instutions-show', compact('institution', 'typeLabels', 'typeColors'));
     }
 }

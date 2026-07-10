@@ -33,7 +33,7 @@
                             <a href="javascript:void(0)" class="navbar-desktop-link">KELEMBAGAAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 @foreach(\App\Models\Institution::all() as $institution)
-                                    <li><a href="{{ route('kelembagaan.show', \Illuminate\Support\Str::slug($institution->name)) }}">{{ $institution->name }}</a></li>
+                                    <li><a href="{{ route('kelembagaan.show', $institution->id) }}">{{ $institution->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -104,7 +104,7 @@
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">KELEMBAGAAN <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">
                         @foreach(\App\Models\Institution::all() as $institution)
-                            <li><a href="{{ route('kelembagaan.show', \Illuminate\Support\Str::slug($institution->name)) }}">{{ $institution->name }}</a></li>
+                            <li><a href="{{ route('kelembagaan.show', $institution->id) }}">{{ $institution->name }}</a></li>
                         @endforeach
                     </ul>
                 </li>
