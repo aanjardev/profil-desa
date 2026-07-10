@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container g-padding-y-80--xs">
     <div class="row">
         @forelse($contacts as $index => $contact)
             <div class="col-xs-12 g-margin-b-20--xs">
