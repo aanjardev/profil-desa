@@ -17,8 +17,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Fetch 5 latest Berita (1 large highlight, 4 smaller)
-        $berita = Post::published()->latest()->take(5)->get();
+        // Fetch 7 latest Berita (3 for slider, 4 for list)
+        $berita = Post::published()->latest()->take(7)->get();
         
         // Fetch Tourism & UMKM
         $wisata = Tourism::where('is_active', true)->latest()->take(3)->get();
@@ -39,10 +39,10 @@ class HomeController extends Controller
         
         // Settings and Identity
         $setting = WebSetting::first();
-        $profil_singkat = VillageIdentity::getContentByKey('profil_singkat', 'Desa Tulungrejo merupakan desa yang asri dan memiliki banyak potensi wisata serta UMKM.');
+        $profil_singkat = VillageIdentity::getContentByKey('profil-singkat', 'Desa Tulungrejo merupakan desa yang asri dan memiliki banyak potensi wisata serta UMKM.');
         $sejarah = VillageIdentity::getContentByKey('sejarah', 'Sejarah desa belum diisi.');
         $geografis = VillageIdentity::getContentByKey('geografis', 'Letak geografis desa belum diisi.');
-        $pembagian_wilayah = VillageIdentity::getContentByKey('pembagian_wilayah', 'Pembagian wilayah desa belum diisi.');
+        $pembagian_wilayah = VillageIdentity::getContentByKey('wilayah-dusun', 'Pembagian wilayah desa belum diisi.');
         
         // If there's no youtube URL in setting, fallback
         if ($setting && !$setting->youtube_video_url) {

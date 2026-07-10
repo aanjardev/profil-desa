@@ -21,23 +21,23 @@
                 <!-- Tab panes -->
                 <div class="tab-content g-margin-b-40--xs">
                     <div role="tabpanel" class="tab-pane fade in active" id="tab-profil">
-                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
-                            {!! $profil_singkat !!}
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8; text-align: justify; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
+                            {!! nl2br(e($profil_singkat)) !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-sejarah">
-                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
-                            {!! $sejarah !!}
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8; text-align: justify; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
+                            {!! nl2br(e($sejarah)) !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-geografis">
-                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
-                            {!! $geografis !!}
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8; text-align: justify; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
+                            {!! nl2br(e($geografis)) !!}
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab-wilayah">
-                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8;">
-                            {!! $pembagian_wilayah !!}
+                        <div class="g-font-size-14--xs g-font-size-16--md g-color--dark" style="line-height: 1.8; text-align: justify; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
+                            {!! nl2br(e($pembagian_wilayah)) !!}
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             <div class="col-sm-6 text-center">
                 @if(isset($setting) && $setting->maps_embed)
                     <div class="g-margin-t-40--xs g-margin-t-0--md" style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        {!! str_replace('<iframe ', '<iframe style="width: 100%; height: 400px; border: 0;" ', $setting->maps_embed) !!}
+                        {!! str_replace('<iframe ', '<iframe style="width: 100%; height: 450px; border: 0;" ', $setting->maps_embed) !!}
                     </div>
                 @else
                     <!-- Fallback placeholder Map -->
