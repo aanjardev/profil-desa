@@ -57,7 +57,8 @@
                 <div class="col-md-3 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
                     <!-- <h4 class="g-font-size-16--xs g-color--white g-margin-b-20--xs">Dikembangkan Oleh</h4> -->
                     <div class="g-margin-b-15--xs">
-                        <img src="https://upload.wikimedia.org/wikipedia/id/5/5a/Logo_Universitas_Negeri_Malang.png" alt="Logo UM" style="max-width: 60px; height: auto;">
+                        <img src="images/logoum.png" alt="Logo UM" style="max-width: 60px; height: auto; margin-right: 10px;">
+                        <img src="images/logoumbbm.png" alt="Logo UM" style="max-width: 60px; height: auto;">
                     </div>
                     <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-10--xs" style="line-height: 1.6;">
                         Dikembangkan Oleh <br>

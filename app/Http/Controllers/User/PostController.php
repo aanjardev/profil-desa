@@ -34,7 +34,7 @@ class PostController extends Controller
             $query->whereYear('created_at', $year);
         }
 
-        $posts = $query->paginate(10)->withQueryString();
+        $posts = $query->paginate(5)->withQueryString();
 
         // Sidebar Data
         // Because category can be empty, we filter out null/empty categories

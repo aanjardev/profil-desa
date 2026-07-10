@@ -4,7 +4,7 @@
             background-color: #fff;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
         }
@@ -67,11 +67,11 @@
         @foreach($popularPosts as $pop)
             <div class="media sidebar-list-item" style="display: flex; gap: 15px;">
                 <div class="media-left">
-                    <a href="{{ route('berita-desa.show', $pop->slug) }}">
-                        <img class="media-object" src="{{ $pop->image ? asset('storage/'.$pop->image) : asset('images/default-image.png') }}" alt="{{ $pop->title }}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
+                    <a href="{{ route('berita-desa.show', $pop->slug) }}" style="display: block; width: 100px; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px;">
+                        <img class="media-object" src="{{ $pop->image ? asset('storage/'.$pop->image) : asset('images/default-image.png') }}" alt="{{ $pop->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </a>
                 </div>
-                <div class="media-body">
+                <div class="media-body" style="flex: 1;">
                     <h4 class="g-font-size-14--xs g-margin-b-5--xs" style="line-height: 1.5; font-weight: 600;">
                         <a href="{{ route('berita-desa.show', $pop->slug) }}" class="sidebar-link">{{ Str::limit($pop->title, 45) }}</a>
                     </h4>
