@@ -60,8 +60,11 @@ Route::get('/berita-desa', [PublicPostController::class, 'index'])->name('berita
 Route::get('/berita-desa/{slug}', [PublicPostController::class, 'show'])->name('berita-desa.show');
 use App\Http\Controllers\User\AgendaController as PublicAgendaController;
 Route::get('/agenda-kegiatan', [PublicAgendaController::class, 'index'])->name('agenda-kegiatan');
-Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
-Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
+use App\Http\Controllers\User\GalleryController as PublicGalleryController;
+Route::get('/galeri', [PublicGalleryController::class, 'index'])->name('galeri');
+Route::get('/galeri/{gallery}', [PublicGalleryController::class, 'show'])->name('galeri.show');
+use App\Http\Controllers\User\PpidDocumentController as PublicPpidDocumentController;
+Route::get('/dokumen-ppid', [PublicPpidDocumentController::class, 'index'])->name('dokumen-ppid');
 
 // PELAYANAN
 Route::get('/layanan-surat', function () { return view('user.index_coming_soon'); })->name('layanan-surat');
