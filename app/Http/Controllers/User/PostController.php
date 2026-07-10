@@ -34,7 +34,7 @@ class PostController extends Controller
             $query->whereYear('created_at', $year);
         }
 
-        $posts = $query->paginate(10)->withQueryString();
+        $posts = $query->paginate(5)->withQueryString();
 
         // Sidebar Data
         // Because category can be empty, we filter out null/empty categories
@@ -53,7 +53,7 @@ class PostController extends Controller
             ->orderBy('month', 'desc')
             ->get()
             ->map(function($archive) {
-                $archive->month_name = Carbon::create()->month($archive->month)->translatedFormat('F');
+                $archive->month_name = Carbon::create()->month((int)$archive->month)->translatedFormat('F');
                 return $archive;
             });
             
@@ -86,7 +86,7 @@ class PostController extends Controller
             ->orderBy('month', 'desc')
             ->get()
             ->map(function($archive) {
-                $archive->month_name = Carbon::create()->month($archive->month)->translatedFormat('F');
+                $archive->month_name = Carbon::create()->month((int)$archive->month)->translatedFormat('F');
                 return $archive;
             });
 

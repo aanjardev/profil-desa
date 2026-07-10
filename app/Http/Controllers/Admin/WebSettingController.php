@@ -54,6 +54,7 @@ class WebSettingController extends Controller
             'maps_link' => 'nullable|url|max:255',
             'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'favicon_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico|max:1024',
+            'background_image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'facebook' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
@@ -70,6 +71,13 @@ class WebSettingController extends Controller
                 \Storage::disk('public')->delete($webSetting->logo_path);
             }
             $validated['logo_path'] = $request->file('logo_file')->store('logo', 'public');
+        }
+
+        if ($request->hasFile('background_image_file')) {
+            if ($webSetting->background_image && \Storage::disk('public')->exists($webSetting->background_image)) {
+                \Storage::disk('public')->delete($webSetting->background_image);
+            }
+            $validated['background_image'] = $request->file('background_image_file')->store('backgrounds', 'public');
         }
 
         if ($request->hasFile('favicon_file')) {

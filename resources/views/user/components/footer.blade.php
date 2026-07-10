@@ -9,9 +9,9 @@
             <div class="row">
                 
                 <!-- Column 1: Info & Logo -->
-                <div class="col-md-5 col-sm-12 g-margin-b-40--xs g-margin-b-0--md s-footer__logo">
+                <div class="col-md-4 col-sm-12 g-margin-b-40--xs g-margin-b-0--md s-footer__logo">
                     <img class="g-width-100--xs g-height-auto--xs g-margin-b-20--xs" src="{{ asset('images/web-settings/logo.png') }}" alt="Logo Desa" style="max-width: 150px; object-fit: contain;">
-                    <h3 class="g-font-size-18--xs g-color--white">{{ 'DESA ' . $setting->village_name ?? 'Desa Tulungrejo' }}</h3>
+                    <h3 class="g-font-size-18--xs g-color--white">{{ 'DESA ' . ($setting->village_name ?? 'Desa Tulungrejo') }}</h3>
                     <p class="g-color--white-opacity">
                         {{ $setting->address ?? 'Alamat lengkap desa belum diatur.' }}
                     </p>
@@ -24,18 +24,18 @@
                 </div>
 
                 <!-- Column 2: Navigation -->
-                <div class="col-md-3 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
+                <div class="col-md-2 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
                     <h4 class="g-font-size-16--xs g-color--white g-margin-b-20--xs">Navigasi</h4>
                     <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
                         <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="{{ route('beranda') }}">Beranda</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="javascript:void(0);">Berita Desa</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="javascript:void(0);">Galeri</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="javascript:void(0);">Kontak Darurat</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="{{ route('berita-desa') }}">Berita Desa</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="{{ route('galeri') }}">Galeri</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity hover:g-color--primary" href="{{ route('kontak-darurat') }}">Kontak Darurat</a></li>
                     </ul>
                 </div>
 
                 <!-- Column 3: Social Media -->
-                <div class="col-md-4 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
+                <div class="col-md-3 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
                     <h4 class="g-font-size-16--xs g-color--white g-margin-b-20--xs">Sosial Media</h4>
                     <ul class="list-inline g-ul-li-tb-5--xs g-margin-b-0--xs">
                         @if($setting && $setting->facebook)
@@ -53,6 +53,22 @@
                     </ul>
                 </div>
 
+                <!-- Column 4: Credit KKN -->
+                <div class="col-md-3 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
+                    <!-- <h4 class="g-font-size-16--xs g-color--white g-margin-b-20--xs">Dikembangkan Oleh</h4> -->
+                    <div class="g-margin-b-15--xs">
+                        <img src="images/logoum.png" alt="Logo UM" style="max-width: 60px; height: auto; margin-right: 10px;">
+                        <img src="images/logoumbbm.png" alt="Logo UM" style="max-width: 60px; height: auto;">
+                    </div>
+                    <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-10--xs" style="line-height: 1.6;">
+                        Dikembangkan Oleh <br>
+                        <b>Tim UM BBM Tematik Universitas Negeri Malang 2026</b>
+                    </p>
+                    <a href="https://www.instagram.com/umbbm.desatulungrejo?" target="_blank" class="g-color--white-opacity hover:g-color--primary" style="display: inline-flex; align-items: center; text-decoration: none;">
+                        <i class="ti-instagram g-font-size-18--xs g-margin-r-5--xs"></i> @umbbm.desatulungrejo
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -62,7 +78,7 @@
     <div class="container g-padding-y-20--xs">
         <div class="row">
             <div class="col-xs-12 g-text-center--xs">
-                <p class="g-font-size-14--xs g-margin-b-0--xs g-color--white-opacity-light">&copy; {{ date('Y') }} Pemerintah Desa {{ $setting->village_name ?? 'Desa' }}. All Rights Reserved.</p>
+                <p class="g-font-size-14--xs g-margin-b-0--xs g-color--white-opacity-light">&copy; {{ date('Y') }} Pemerintah Desa {{ $setting->village_name ?? 'Tulungrejo' }}. Dikembangkan oleh Tim UM BBM Tematik Universitas Negeri Malang 2026.</p>
             </div>
         </div>
     </div>

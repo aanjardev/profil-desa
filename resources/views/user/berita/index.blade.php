@@ -5,8 +5,11 @@
 @section('content')
 
 <!--========== HIGHLIGHT & MARQUEE BLOCK ==========-->
-<div class="g-padding-y-100--xs" style="background-color: #1a202c; padding-bottom: 50px !important;">
-    <div class="container">
+<div class="g-padding-y-100--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-bottom: 50px !important;">
+    <!-- Dark Overlay -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.75); z-index: 1;"></div>
+    
+    <div class="container" style="position: relative; z-index: 2;">
         
         <style>
             .marquee-link:hover, .news-title-link:hover {
@@ -33,7 +36,7 @@
         </style>
         
         <!-- Marquee Info -->
-        <div class="g-bg-color--white g-radius--4 g-padding-x-20--xs g-padding-y-10--xs g-margin-b-30--xs" style="border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; align-items: center;">
+        <div class="g-bg-color--white g-padding-x-20--xs g-padding-y-10--xs g-margin-b-30--xs" style="border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; align-items: center;">
             <div class="g-color--white g-bg-color--primary g-padding-x-15--xs g-padding-y-5--xs g-radius--50 g-font-size-12--xs g-font-weight--700 text-uppercase g-margin-r-15--xs" style="white-space: nowrap;">Info Terbaru</div>
             <div class="marquee-container">
                 <div class="marquee-content">
@@ -61,16 +64,19 @@
             <!-- Main Highlight (Left) -->
             <div class="col-md-{{ $highlightPosts->count() > 1 ? '8' : '12' }} g-margin-b-30--xs g-margin-b-0--md">
                 @php $mainHighlight = $highlightPosts[0]; @endphp
-                <div style="position: relative; height: 400px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
+                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
                     <img src="{{ $mainHighlight->image ? asset('storage/'.$mainHighlight->image) : asset('images/default-image.png') }}" alt="{{ $mainHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                     <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 50px 30px 25px;">
                         <span class="g-bg-color--primary g-color--white g-font-size-11--xs g-font-weight--700 text-uppercase g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-margin-b-15--xs" style="display: inline-block;">{{ $mainHighlight->category ?? 'Umum' }}</span>
                         <h2 class="g-font-size-24--xs g-font-size-32--sm g-font-weight--700 g-margin-b-10--xs" style="line-height: 1.3;">
                             <a href="{{ route('berita-desa.show', $mainHighlight->slug) }}" class="g-color--white news-title-link" style="text-decoration: none;">{{ $mainHighlight->title }}</a>
                         </h2>
-                        <ul class="list-inline g-font-size-13--xs" style="color: #ffffff !important;">
+                        <ul class="list-inline g-font-size-13--xs" style="color: #ffffff !important; margin-bottom: 10px;">
                             <li style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $mainHighlight->created_at->translatedFormat('d M Y') }}</span></li>
                         </ul>
+                        <p class="g-font-size-14--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
+                            {{ Str::limit(strip_tags($mainHighlight->excerpt ?? $mainHighlight->content), 200) }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -78,15 +84,20 @@
             <!-- Sub Highlights (Right) -->
             @if($highlightPosts->count() > 1)
             <div class="col-md-4">
-                <div style="display: flex; flex-direction: column; gap: 30px; height: 400px;">
+                <div style="display: flex; flex-direction: column; gap: 30px;">
                     @foreach($highlightPosts->slice(1, 2) as $subHighlight)
-                        <div style="position: relative; height: calc(50% - 15px); border-radius: 4px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
+                        <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
                             <img src="{{ $subHighlight->image ? asset('storage/'.$subHighlight->image) : asset('images/default-image.png') }}" alt="{{ $subHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px 15px;">
                                 <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-5--xs" style="line-height: 1.3;">
                                     <a href="{{ route('berita-desa.show', $subHighlight->slug) }}" class="g-color--white news-title-link" style="text-decoration: none;">{{ $subHighlight->title }}</a>
                                 </h3>
-                                <span class="g-font-size-12--xs" style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $subHighlight->created_at->translatedFormat('d M Y') }}</span></span>
+                                <div style="margin-bottom: 8px;">
+                                    <span class="g-font-size-12--xs" style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $subHighlight->created_at->translatedFormat('d M Y') }}</span></span>
+                                </div>
+                                <p class="g-font-size-13--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
+                                    {{ Str::limit(strip_tags($subHighlight->excerpt ?? $subHighlight->content), 120) }}
+                                </p>
                             </div>
                         </div>
                     @endforeach
@@ -108,12 +119,12 @@
                 
                 <!-- Filter Status -->
                 @if(request('search') || request('category') || request('month'))
-                <div class="g-margin-b-30--xs g-bg-color--white g-padding-x-20--xs g-padding-y-20--xs g-radius--4" style="border: 1px solid #e2e8f0;">
+                <div class="g-margin-b-30--xs g-bg-color--white g-padding-x-20--xs g-padding-y-20--xs" style="border-radius: 12px; border: 1px solid #e2e8f0;">
                     <h4 class="g-font-size-16--xs g-font-weight--400 g-margin-b-0--xs" style="color: #4a5568;">
                         Hasil untuk: 
                         @if(request('search')) <strong>"{{ request('search') }}"</strong> @endif
                         @if(request('category')) Kategori <strong>{{ request('category') }}</strong> @endif
-                        @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month(request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
+                        @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month((int)request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
                         <a href="{{ route('berita-desa') }}" class="pull-right g-color--primary" style="font-size: 13px;"><i class="ti-close"></i> Hapus Filter</a>
                     </h4>
                 </div>
@@ -122,10 +133,10 @@
                 @if($posts->count() > 0)
                     <style>
                         .list-card-responsive { flex-direction: column !important; }
-                        .list-card-img { width: 100%; height: 220px; }
+                        .list-card-img { width: 100%; aspect-ratio: 16/9; }
                         @media (min-width: 768px) {
                             .list-card-responsive { flex-direction: row !important; }
-                            .list-card-img { width: 40%; height: auto; flex-shrink: 0; }
+                            .list-card-img { width: 40%; aspect-ratio: 16/9; flex-shrink: 0; }
                         }
                         .custom-pagination ul.pagination { margin: 0 !important; }
                     </style>
@@ -133,7 +144,7 @@
                     <!-- Top Pagination & Info -->
                     <div class="g-margin-b-30--xs" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                         <p class="g-font-size-14--xs" style="color: #4a5568; margin-bottom: 0;">
-                            Menampilkan <strong>{{ $posts->firstItem() ?? 0 }}</strong> sampai <strong>{{ $posts->lastItem() ?? 0 }}</strong> dari total <strong>{{ $posts->total() }}</strong> berita
+                            Menampilkan <strong>{{ $posts->count() }}</strong> dari <strong>{{ $posts->total() }}</strong> berita
                         </p>
                         <div class="custom-pagination">
                             @if ($posts->lastPage() > 1)
@@ -163,8 +174,8 @@
                                     <h3 class="g-font-size-20--xs g-font-weight--700 g-margin-b-15--xs" style="line-height: 1.4;">
                                         <a href="{{ route('berita-desa.show', $post->slug) }}" class="news-title-link" style="color: #2d3748; text-decoration: none;">{{ $post->title }}</a>
                                     </h3>
-                                    <p class="g-font-size-14--xs" style="color: #718096; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0;">
-                                        {{ Str::limit(strip_tags($post->excerpt ?? $post->content), 150) }}
+                                    <p class="g-font-size-14--xs" style="color: #718096; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; text-align: justify;">
+                                        {{ Str::limit(strip_tags($post->excerpt ?? $post->content), 300) }}
                                     </p>
                                 </div>
                             </article>
@@ -184,7 +195,7 @@
                         @endif
                     </div>
                 @else
-                    <div class="text-center g-padding-y-60--xs g-bg-color--white g-radius--8" style="border: 1px solid #e2e8f0;">
+                    <div class="text-center g-padding-y-60--xs g-bg-color--white" style="border-radius: 12px; border: 1px solid #e2e8f0;">
                         <i class="ti-info-alt g-font-size-40--xs g-color--primary g-margin-b-15--xs" style="display: block;"></i>
                         <h4 class="g-font-size-20--xs g-margin-b-10--xs" style="color: #2d3748;">Berita Tidak Ditemukan</h4>
                         <p class="g-font-size-15--xs" style="color: #718096;">Belum ada berita yang diterbitkan atau sesuai dengan pencarian Anda.</p>

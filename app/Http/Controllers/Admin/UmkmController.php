@@ -67,6 +67,7 @@ class UmkmController extends Controller
             'facilities'                  => 'nullable|string',
             'cropped_image'               => 'required|string',
             'supporting_images.*.file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'maps_link'                   => 'nullable|string',
         ]);
 
         $imagePath = null;
@@ -114,6 +115,7 @@ class UmkmController extends Controller
             'facilities'       => $request->facilities,
             'main_image'       => $imagePath,
             'supporting_images' => empty($supportingImages) ? null : $supportingImages,
+            'maps_link'        => $request->maps_link,
             'is_active'        => $request->has('is_active'),
         ]);
 
@@ -156,6 +158,7 @@ class UmkmController extends Controller
             'cropped_image'               => 'nullable|string',
             'supporting_images.*.file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'delete_images'               => 'nullable|array',
+            'maps_link'                   => 'nullable|string',
         ]);
 
         $imagePath = $umkm->main_image;
@@ -222,6 +225,7 @@ class UmkmController extends Controller
             'facilities'       => $request->facilities,
             'main_image'       => $imagePath,
             'supporting_images' => empty($supportingImages) ? null : $supportingImages,
+            'maps_link'        => $request->maps_link,
             'is_active'        => $request->has('is_active'),
         ]);
 

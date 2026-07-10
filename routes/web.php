@@ -42,25 +42,31 @@ Route::view('/index-events', 'user.index_events')->name('index-events');
 Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
 
 // DATA DESA
-Route::get('/profil-desa', function () { return view('user.index_coming_soon'); })->name('profil-desa');
-Route::get('/sotk-desa', function () { return view('user.index_coming_soon'); })->name('sotk-desa');
-Route::get('/visi-misi', function () { return view('user.index_coming_soon'); })->name('visi-misi');
-Route::get('/monografi-desa', function () { return view('user.index_coming_soon'); })->name('monografi-desa');
+use App\Http\Controllers\User\VillageDataController as PublicVillageDataController;
+Route::get('/profil-desa', [PublicVillageDataController::class, 'profil'])->name('profil-desa');
+Route::get('/sotk-desa', [PublicVillageDataController::class, 'sotk'])->name('sotk-desa');
+Route::get('/visi-misi', [PublicVillageDataController::class, 'visiMisi'])->name('visi-misi');
+Route::get('/monografi-desa', [PublicVillageDataController::class, 'monografi'])->name('monografi-desa');
 
 
 // POTENSI DESA
 Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
 Route::get('/pariwisata/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('pariwisata.show');
-Route::get('/umkm', function () { return view('user.index_coming_soon'); })->name('umkm');
-Route::get('/umkm/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('umkm.show');
+use App\Http\Controllers\User\UmkmController as PublicUmkmController;
+Route::get('/umkm', [PublicUmkmController::class, 'index'])->name('umkm');
+Route::get('/umkm/{slug}', [PublicUmkmController::class, 'show'])->name('umkm.show');
 
 // INFORMASI
 use App\Http\Controllers\User\PostController as PublicPostController;
 Route::get('/berita-desa', [PublicPostController::class, 'index'])->name('berita-desa');
 Route::get('/berita-desa/{slug}', [PublicPostController::class, 'show'])->name('berita-desa.show');
-Route::get('/agenda-kegiatan', function () { return view('user.index_coming_soon'); })->name('agenda-kegiatan');
-Route::get('/galeri', function () { return view('user.index_coming_soon'); })->name('galeri');
-Route::get('/dokumen-ppid', function () { return view('user.index_coming_soon'); })->name('dokumen-ppid');
+use App\Http\Controllers\User\AgendaController as PublicAgendaController;
+Route::get('/agenda-kegiatan', [PublicAgendaController::class, 'index'])->name('agenda-kegiatan');
+use App\Http\Controllers\User\GalleryController as PublicGalleryController;
+Route::get('/galeri', [PublicGalleryController::class, 'index'])->name('galeri');
+Route::get('/galeri/{gallery}', [PublicGalleryController::class, 'show'])->name('galeri.show');
+use App\Http\Controllers\User\PpidDocumentController as PublicPpidDocumentController;
+Route::get('/dokumen-ppid', [PublicPpidDocumentController::class, 'index'])->name('dokumen-ppid');
 
 // PELAYANAN\
 Route::get('/layanan-surat', [\App\Http\Controllers\User\ServiceLetterController::class, 'index'])->name('layanan-surat');
