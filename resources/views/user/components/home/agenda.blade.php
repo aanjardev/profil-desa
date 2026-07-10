@@ -16,6 +16,11 @@
             display: flex;
             flex-wrap: wrap;
         }
+        @media (max-width: 767px) {
+            .agenda-empty-card {
+                display: none !important;
+            }
+        }
     </style>
     <div class="container">
         <div class="g-text-center--xs g-margin-b-60--xs">
@@ -51,7 +56,7 @@
             @endforelse
             @if($agendas->count() > 0 && $agendas->count() < 3)
                 @for($i = $agendas->count(); $i < 3; $i++)
-                <div class="col-sm-4 g-margin-b-30--xs g-margin-b-0--md" style="display: flex; padding-bottom: 30px;">
+                <div class="col-sm-4 g-margin-b-30--xs g-margin-b-0--md agenda-empty-card hidden-xs" style="display: flex; padding-bottom: 30px;">
                     <article class="g-bg-color--white g-padding-x-30--xs g-padding-y-30--xs" style="border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); width: 100%; border: 2px dashed #e2e2e2; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                         <i class="ti-calendar g-font-size-30--xs g-color--primary g-margin-b-15--xs block" style="opacity: 0.4;"></i>
                         <h4 class="g-font-size-16--xs g-color--dark g-font-weight--600">Jadwal Kosong</h4>

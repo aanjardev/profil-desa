@@ -118,8 +118,8 @@
         }
     </style>
 
-    <!-- Search Widget -->
-    <div class="sidebar-widget">
+    <!-- Search Widget (hidden on mobile, replaced by top mobile search bar) -->
+    <div class="sidebar-widget hidden-xs">
         <h3 class="sidebar-widget-title">Pencarian</h3>
         <form action="{{ route('umkm') }}" method="GET">
             <div class="input-group">
