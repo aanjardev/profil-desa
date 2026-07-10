@@ -8,11 +8,11 @@
     @endphp
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
         <iframe 
-            src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1&controls=0&loop=1&playlist={{ $videoId }}&modestbranding=1&showinfo=0" 
+            src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1&controls=0&loop=1&playlist={{ $videoId }}&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&disablekb=1&playsinline=1" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen 
-            style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.15);">
         </iframe>
     </div>
     
