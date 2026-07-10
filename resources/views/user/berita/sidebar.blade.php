@@ -6,7 +6,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             border-radius: 12px;
             padding: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .sidebar-link {
             text-decoration: none;

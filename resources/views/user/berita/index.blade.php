@@ -124,7 +124,7 @@
                         Hasil untuk: 
                         @if(request('search')) <strong>"{{ request('search') }}"</strong> @endif
                         @if(request('category')) Kategori <strong>{{ request('category') }}</strong> @endif
-                        @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month(request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
+                        @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month((int)request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
                         <a href="{{ route('berita-desa') }}" class="pull-right g-color--primary" style="font-size: 13px;"><i class="ti-close"></i> Hapus Filter</a>
                     </h4>
                 </div>

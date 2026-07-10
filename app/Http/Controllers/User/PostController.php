@@ -53,7 +53,7 @@ class PostController extends Controller
             ->orderBy('month', 'desc')
             ->get()
             ->map(function($archive) {
-                $archive->month_name = Carbon::create()->month($archive->month)->translatedFormat('F');
+                $archive->month_name = Carbon::create()->month((int)$archive->month)->translatedFormat('F');
                 return $archive;
             });
             
@@ -86,7 +86,7 @@ class PostController extends Controller
             ->orderBy('month', 'desc')
             ->get()
             ->map(function($archive) {
-                $archive->month_name = Carbon::create()->month($archive->month)->translatedFormat('F');
+                $archive->month_name = Carbon::create()->month((int)$archive->month)->translatedFormat('F');
                 return $archive;
             });
 
