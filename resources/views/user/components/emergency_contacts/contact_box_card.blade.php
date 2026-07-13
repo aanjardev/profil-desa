@@ -7,7 +7,12 @@
                         <span class="g-font-size-16--xs g-font-weight--600 text-uppercase">
                             {{ $contact->name }}
                         </span>
-                        <i class="ti-angle-down arrow-icon"></i>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span class="g-font-size-14--xs g-font-weight--600" style="color: #444; font-family: 'Montserrat', sans-serif;">
+                                {{ $contact->phone }}
+                            </span>
+                            <i class="ti-angle-down arrow-icon" style="transition: transform 0.3s ease; font-size: 11px; color: #999;"></i>
+                        </div>
                     </a>
                     <div id="collapseContact-{{ $index }}" class="collapse">
                         <div class="detail-contact-info">                
@@ -27,26 +32,6 @@
                                     <i class="ti-location-pin"></i> 
                                     {{ $contact->address ?? 'Alamat tidak tersedia.' }}
                                 </p>
-                            </div>
-                            <div class="phone-contact-info">
-                                <div class="detail-phone-contact-info">
-                                    <span>
-                                        <i class="ti-headphone-alt"></i>{{ $contact->phone }}
-                                    </span>
-                                </div>                            
-                                <div class="row g-row-col--5">
-                                    <div class="col-xs-12">
-                                        @php
-                                            $cleanPhone = preg_replace('/[^0-9]/', '', $contact->phone);
-                                            if (substr($cleanPhone, 0, 1) === '0') {
-                                                $cleanPhone = '62' . substr($cleanPhone, 1);
-                                            }
-                                        @endphp
-                                        <a href="https://wa.me/{{ $cleanPhone }}?text=Halo%20{{ rawurlencode($contact->name) }},%20saya%20memerlukan%20bantuan%20darurat." target="_blank" rel="noopener noreferrer" class="text-center" style="display: block; padding: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; background-color: #25D366; color: #fff; border-radius: 3px; text-decoration: none;">
-                                            <i class="ti-comments" style="margin-right: 3px;"></i> WhatsApp
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
