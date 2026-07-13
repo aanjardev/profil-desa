@@ -61,9 +61,88 @@
 
             <!-- Pagination (Top) -->
             <div class="g-margin-b-15--xs custom-pagination" style="display: flex; justify-content: flex-end;">
-                <style>
-                    .custom-pagination ul.pagination { margin: 0 !important; }
-                </style>
+            <style>
+                .custom-pagination ul.pagination { margin: 0 !important; }
+
+                /* ===== Mobile Card Table ===== */
+                @media (max-width: 767px) {
+                    .ppid-table thead {
+                        display: none;
+                    }
+                    .ppid-table,
+                    .ppid-table tbody,
+                    .ppid-table tr,
+                    .ppid-table td {
+                        display: block;
+                        width: 100%;
+                    }
+                    .ppid-table tr {
+                        background: #fff;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 10px;
+                        margin-bottom: 16px;
+                        padding: 4px 0;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                        overflow: hidden;
+                    }
+                    /* Hilangkan border stripe bawaan Bootstrap agar card bersih */
+                    .ppid-table.table-striped > tbody > tr:nth-of-type(odd) {
+                        background-color: #fff !important;
+                    }
+                    .ppid-table td {
+                        padding: 10px 16px !important;
+                        border: none !important;
+                        border-bottom: 1px solid #f0f4f8 !important;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 10px;
+                        font-size: 14px;
+                    }
+                    .ppid-table td:last-child {
+                        border-bottom: none !important;
+                    }
+                    /* Label sebelum nilai */
+                    .ppid-table td::before {
+                        content: attr(data-label);
+                        font-weight: 700;
+                        color: #4a5568;
+                        min-width: 110px;
+                        flex-shrink: 0;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        padding-top: 2px;
+                    }
+                    /* Judul word-wrap agar tidak terpotong */
+                    .ppid-table td[data-label="Judul Dokumen"] strong,
+                    .ppid-table td[data-label="Judul Dokumen"] span {
+                        word-break: break-word;
+                        white-space: normal;
+                    }
+                    /* Kategori: di mobile badge tetap normal */
+                    /* Sembunyikan kolom nomor di mobile (tidak terlalu penting) */
+                    .ppid-table td.col-no {
+                        display: none;
+                    }
+                    /* Tombol unduh full-width di mobile */
+                    .ppid-table td[data-label="Aksi"] {
+                        justify-content: center;
+                        padding: 14px 16px !important;
+                        background: #f8f9fa;
+                    }
+                    .ppid-table td[data-label="Aksi"]::before {
+                        display: none;
+                    }
+                    .ppid-table td[data-label="Aksi"] a,
+                    .ppid-table td[data-label="Aksi"] span {
+                        width: 100%;
+                        text-align: center;
+                        justify-content: center;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            </style>
                 @if ($documents->lastPage() > 1)
                     {{ $documents->links('pagination::bootstrap-4') }}
                 @else
@@ -77,7 +156,7 @@
 
             <!-- Table -->
             <div class="table-responsive">
-                <table class="table table-hover table-striped" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                <table class="ppid-table table table-hover table-striped" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
                     <thead class="g-bg-color--dark g-color--white">
                         <tr>
                             <th style="padding: 15px; border-bottom: none; width: 5%;">No</th>
@@ -92,26 +171,26 @@
                     <tbody>
                         @forelse($documents as $index => $doc)
                         <tr>
-                            <td style="padding: 15px; vertical-align: middle;">{{ $documents->firstItem() + $index }}</td>
-                            <td style="padding: 15px; vertical-align: middle; font-weight: 600;">{{ $doc->register_no ?? '-' }}</td>
-                            <td style="padding: 15px; vertical-align: middle;">
+                            <td class="col-no" data-label="No" style="padding: 15px; vertical-align: middle;">{{ $documents->firstItem() + $index }}</td>
+                            <td data-label="Nomor Register" style="padding: 15px; vertical-align: middle; font-weight: 600;">{{ $doc->register_no ?? '-' }}</td>
+                            <td data-label="Judul Dokumen" style="padding: 15px; vertical-align: middle;">
                                 <strong style="display: block; margin-bottom: 5px; color: #2d3748;">{{ $doc->title }}</strong>
                                 @if($doc->description)
                                     <span class="g-font-size-12--xs" style="color: #718096; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $doc->description }}</span>
                                 @endif
                             </td>
-                            <td style="padding: 15px; vertical-align: middle;">{{ $doc->year ?? '-' }}</td>
-                            <td style="padding: 15px; vertical-align: middle;">
+                            <td data-label="Tahun" style="padding: 15px; vertical-align: middle;">{{ $doc->year ?? '-' }}</td>
+                            <td data-label="Kategori" style="padding: 15px; vertical-align: middle;">
                                 @if($doc->category)
-                                    <span class="g-font-size-11--xs g-bg-color--primary-opacity-lightest g-color--primary g-padding-x-10--xs g-padding-y-3--xs g-radius--50">{{ $doc->category }}</span>
+                                    <span class="g-font-size-13--xs g-color--primary g-font-weight--600">{{ $doc->category }}</span>
                                 @else
                                     -
                                 @endif
                             </td>
-                            <td style="padding: 15px; vertical-align: middle;">
+                            <td data-label="Tgl Ditetapkan" style="padding: 15px; vertical-align: middle;">
                                 {{ $doc->established_date ? \Carbon\Carbon::parse($doc->established_date)->translatedFormat('d M Y') : '-' }}
                             </td>
-                            <td style="padding: 15px; vertical-align: middle; text-align: center;">
+                            <td data-label="Aksi" style="padding: 15px; vertical-align: middle; text-align: center;">
                                 @if($doc->file_path)
                                     <a href="{{ asset('storage/'.$doc->file_path) }}" target="_blank" class="s-btn s-btn--xs s-btn--primary-bg g-radius--50" style="padding: 8px 15px; white-space: nowrap;">
                                         <i class="ti-download g-margin-r-5--xs"></i> {{ $doc->file_label ?? 'Unduh' }}

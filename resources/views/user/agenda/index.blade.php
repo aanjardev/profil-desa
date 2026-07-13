@@ -40,6 +40,18 @@
                 @if(isset($agendas) && $agendas->count() > 0)
                     <style>
                         .custom-pagination ul.pagination { margin: 0 !important; }
+                        /* Mobile: header agenda row jadi column */
+                        @media (max-width: 767px) {
+                            .agenda-card-header {
+                                flex-direction: column !important;
+                                align-items: flex-start !important;
+                            }
+                            .agenda-mobile-date {
+                                display: inline-flex !important;
+                                align-items: center;
+                                padding-left: 10px;
+                            }
+                        }
                     </style>
                     
                     <!-- Top Pagination & Info -->
@@ -64,12 +76,20 @@
                         @foreach($agendas as $agenda)
                             <!-- Full Detail Card -->
                             <article style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.05)';">
-                                <div class="g-margin-b-15--xs" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+                                <div class="agenda-card-header g-margin-b-15--xs" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
                                     <div>
-                                        <span class="g-font-size-12--xs g-bg-color--primary-opacity-lightest g-color--primary g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-font-weight--700 g-margin-b-10--xs" style="display: inline-block;"><i class="ti-tag g-margin-r-5--xs"></i>{{ $agenda->category ?? 'Lainnya' }}</span>
+                                        <span class="g-font-size-12--xs g-color--primary g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-font-weight--700 g-margin-b-10--xs" style="display: inline-block; border: 1.5px solid #dc3545; background: rgba(220,53,69,0.06);"><i class="ti-tag g-margin-r-5--xs"></i>{{ $agenda->category ?? 'Lainnya' }}</span>
+                                        {{-- Tanggal 1 baris hanya di mobile --}}
+                                        <span class="visible-xs agenda-mobile-date g-font-size-13--xs" style="display: none; color: #4a5568; margin-bottom: 8px;">
+                                            <i class="ti-calendar g-color--primary g-margin-r-5--xs"></i>
+                                            {{ \Carbon\Carbon::parse($agenda->start_date)->translatedFormat('d F Y') }}
+                                            @if($agenda->end_date && $agenda->end_date != $agenda->start_date)
+                                                &ndash; {{ \Carbon\Carbon::parse($agenda->end_date)->translatedFormat('d F Y') }}
+                                            @endif
+                                        </span>
                                         <h2 class="g-font-size-24--xs g-font-weight--700" style="color: #2d3748; line-height: 1.4; margin-top: 10px; margin-bottom: 5px;">{{ $agenda->title }}</h2>
                                     </div>
-                                    <div class="text-right" style="min-width: 120px;">
+                                    <div class="hidden-xs text-right" style="min-width: 120px;">
                                         <div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; display: inline-block; text-align: center;">
                                             <div style="font-size: 24px; font-weight: 700; color: #dc3545; line-height: 1;">{{ \Carbon\Carbon::parse($agenda->start_date)->format('d') }}</div>
                                             <div style="font-size: 13px; font-weight: 600; color: #4a5568; text-transform: uppercase;">{{ \Carbon\Carbon::parse($agenda->start_date)->translatedFormat('M Y') }}</div>

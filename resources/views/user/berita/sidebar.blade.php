@@ -30,8 +30,8 @@
         }
     </style>
 
-    <!-- Search Widget -->
-    <div class="sidebar-widget">
+    <!-- Search Widget (hidden di mobile, pakai search bar di atas list) -->
+    <div class="sidebar-widget hidden-xs">
         <h3 class="g-font-size-18--xs g-font-weight--700 g-margin-b-20--xs">Pencarian</h3>
         <form action="{{ route('berita-desa') }}" method="GET">
             <div class="input-group">
