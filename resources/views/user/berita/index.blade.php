@@ -13,7 +13,7 @@
         
         <style>
             .marquee-link:hover, .news-title-link:hover {
-                color: #dc3545 !important; /* Red hover color */
+                color: #dc3545 !important;
                 text-decoration: underline !important;
             }
             .marquee-container {
@@ -32,6 +32,24 @@
             @keyframes marquee-anim {
                 0% { transform: translateX(0); }
                 100% { transform: translateX(-50%); }
+            }
+            /* Mobile: samakan main highlight dengan sub-highlight */
+            @media (max-width: 767px) {
+                .main-highlight-overlay {
+                    padding: 40px 20px 15px !important;
+                }
+                .main-highlight-overlay .main-hl-title {
+                    font-size: 16px !important;
+                    margin-bottom: 5px !important;
+                }
+                .main-highlight-overlay .main-hl-date {
+                    font-size: 12px !important;
+                    margin-bottom: 8px !important;
+                }
+                .main-highlight-overlay .main-hl-desc {
+                    font-size: 13px !important;
+                    -webkit-line-clamp: 2 !important;
+                }
             }
         </style>
         
@@ -66,15 +84,15 @@
                 @php $mainHighlight = $highlightPosts[0]; @endphp
                 <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
                     <img src="{{ $mainHighlight->image ? asset('storage/'.$mainHighlight->image) : asset('images/default-image.png') }}" alt="{{ $mainHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
-                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 50px 30px 25px;">
-                        <span class="g-bg-color--primary g-color--white g-font-size-11--xs g-font-weight--700 text-uppercase g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-margin-b-15--xs" style="display: inline-block;">{{ $mainHighlight->category ?? 'Umum' }}</span>
-                        <h2 class="g-font-size-24--xs g-font-size-32--sm g-font-weight--700 g-margin-b-10--xs" style="line-height: 1.3;">
+                    <div class="main-highlight-overlay" style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 50px 30px 25px;">
+                        <span class="g-bg-color--primary g-color--white g-font-size-11--xs g-font-weight--700 text-uppercase g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-margin-b-15--xs hidden-xs" style="display: inline-block;">{{ $mainHighlight->category ?? 'Umum' }}</span>
+                        <h2 class="main-hl-title g-font-size-24--xs g-font-size-32--sm g-font-weight--700 g-margin-b-10--xs" style="line-height: 1.3;">
                             <a href="{{ route('berita-desa.show', $mainHighlight->slug) }}" class="g-color--white news-title-link" style="text-decoration: none;">{{ $mainHighlight->title }}</a>
                         </h2>
-                        <ul class="list-inline g-font-size-13--xs" style="color: #ffffff !important; margin-bottom: 10px;">
-                            <li style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $mainHighlight->created_at->translatedFormat('d M Y') }}</span></li>
-                        </ul>
-                        <p class="g-font-size-14--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
+                        <div class="main-hl-date" style="margin-bottom: 10px;">
+                            <span class="g-font-size-13--xs" style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $mainHighlight->created_at->translatedFormat('d M Y') }}</span></span>
+                        </div>
+                        <p class="main-hl-desc g-font-size-14--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
                             {{ Str::limit(strip_tags($mainHighlight->excerpt ?? $mainHighlight->content), 200) }}
                         </p>
                     </div>
@@ -116,7 +134,19 @@
         <div class="row">
             <!-- Main Content (List) -->
             <div class="col-md-8 g-margin-b-30--xs g-margin-b-0--md">
-                
+
+                <!-- Search Mobile (hanya tampil di mobile, sebelum list berita) -->
+                <div class="visible-xs g-margin-b-25--xs">
+                    <form action="{{ route('berita-desa') }}" method="GET" id="mobile-search-form">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari berita..." value="{{ request('search') }}" style="height: 48px; border-color: #e2e8f0; color: #4a5568; background-color: #fff; border-radius: 8px 0 0 8px;">
+                            <span class="input-group-btn">
+                                <button class="btn s-btn s-btn--primary-bg" type="submit" style="height: 48px; border-radius: 0 8px 8px 0;"><i class="ti-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
                 <!-- Filter Status -->
                 @if(request('search') || request('category') || request('month'))
                 <div class="g-margin-b-30--xs g-bg-color--white g-padding-x-20--xs g-padding-y-20--xs" style="border-radius: 12px; border: 1px solid #e2e8f0;">

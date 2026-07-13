@@ -11,6 +11,7 @@
     <div class="container">
         <div class="g-text-center--xs g-margin-b-60--xs">
             <h2 class="g-font-size-32--xs g-font-size-36--md g-font-weight--700">Berita Terbaru</h2>
+            <span class="section-title-divider"></span>
             <p class="g-color--dark g-font-size-16--xs">Kabar dan kegiatan terbaru dari Desa Tulungrejo.</p>
         </div>
         

@@ -1,4 +1,4 @@
-<div class="g-bg-color--white g-padding-y-80--xs g-padding-y-125--sm">
+<div style="background-color:#ffffff; border-top: 1px solid #ebebeb;" class="g-padding-y-80--xs g-padding-y-125--sm">
     <style>
         .agenda-card {
             transition: all 0.3s ease;
@@ -25,6 +25,7 @@
     <div class="container">
         <div class="g-text-center--xs g-margin-b-60--xs">
             <h2 class="g-font-size-26--xs g-font-size-36--sm g-font-weight--700">Agenda Kegiatan</h2>
+            <span class="section-title-divider"></span>
             <p class="g-font-size-16--xs g-color--dark">Jangan lewatkan berbagai kegiatan menarik di Desa Tulungrejo.</p>
         </div>
         <div class="row row-flex">

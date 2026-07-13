@@ -99,10 +99,11 @@
     }
 </style>
 
-<div class="g-bg-color--sky-light g-padding-y-80--xs g-padding-y-125--sm">
+<div style="background-color:#f5f5f5; border-top: 1px solid #ebebeb;" class="g-padding-y-80--xs g-padding-y-125--sm">
     <div class="container">
         <div class="g-text-center--xs g-margin-b-60--xs">
             <h2 class="g-font-size-26--xs g-font-size-36--sm g-font-weight--700">Galeri Foto</h2>
+            <span class="section-title-divider"></span>
             <p class="g-font-size-16--xs g-color--dark">Momen dan pesona Desa Tulungrejo.</p>
         </div>
         <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center;">
