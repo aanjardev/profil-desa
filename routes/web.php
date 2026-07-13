@@ -50,8 +50,9 @@ Route::get('/monografi-desa', [PublicVillageDataController::class, 'monografi'])
 
 
 // POTENSI DESA
-Route::get('/pariwisata', function () { return view('user.index_coming_soon'); })->name('pariwisata');
-Route::get('/pariwisata/{slug}', function ($slug) { return view('user.index_coming_soon'); })->name('pariwisata.show');
+use App\Http\Controllers\User\TourismController as PublicTourismController;
+Route::get('/pariwisata', [PublicTourismController::class, 'index'])->name('pariwisata');
+Route::get('/pariwisata/{slug}', [PublicTourismController::class, 'show'])->name('pariwisata.show');
 use App\Http\Controllers\User\UmkmController as PublicUmkmController;
 Route::get('/umkm', [PublicUmkmController::class, 'index'])->name('umkm');
 Route::get('/umkm/{slug}', [PublicUmkmController::class, 'show'])->name('umkm.show');

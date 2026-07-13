@@ -301,6 +301,14 @@
             }
         </style>
         
+        <div class="g-margin-b-20--xs" style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #64748b; font-family: 'Montserrat', sans-serif;">
+            <a href="{{ route('beranda') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;"><i class="ti-home"></i> Beranda</a>
+            <span style="color: #cbd5e1;">/</span>
+            <a href="{{ route('umkm') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;">UMKM</a>
+            <span style="color: #cbd5e1;">/</span>
+            <span style="color: #1e293b;">{{ $umkm->name }}</span>
+        </div>
+
         <div class="row umkm-show-row" style="display: flex; flex-wrap: wrap;">
             <!-- Sidebar Info -->
             <div class="col-md-4 g-margin-b-30--xs umkm-sidebar-col">
@@ -409,7 +417,13 @@
                     <div style="border-top: 2px solid #f1f5f9; padding-top: 20px; margin-top: 20px;">
                         <h4 class="g-font-size-12--xs g-font-weight--700 g-margin-b-15--xs text-uppercase" style="color: #94a3b8; letter-spacing: 1px;">Lokasi Peta</h4>
                         <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; aspect-ratio: 4/3; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.02);" class="umkm-embedded-map">
-                            {!! str_replace('<iframe ', '<iframe style="width: 100%; height: 100%; border: 0;" ', $umkm->maps_link) !!}
+                            @php
+                                $iframeCode = $umkm->maps_link;
+                                if (stripos($iframeCode, '<iframe') !== false && stripos($iframeCode, '</iframe>') === false) {
+                                    $iframeCode .= '</iframe>';
+                                }
+                            @endphp
+                            {!! str_replace('<iframe ', '<iframe style="width: 100%; height: 100%; border: 0;" ', $iframeCode) !!}
                         </div>
                     </div>
                     @endif
@@ -456,20 +470,30 @@
                 <div class="umkm-details-box" style="margin-bottom: 0;">
                     <!-- <h2 class="umkm-details-section-title">Galeri Produk</h2> -->
                     
-                    <div class="row" style="display: flex; flex-wrap: wrap;">
-                        @foreach($umkm->supporting_images as $image)
-                            @php
-                                $imagePath = is_array($image) ? ($image['path'] ?? '') : $image;
-                                $imageCaption = is_array($image) ? ($image['caption'] ?? '') : '';
-                            @endphp
-                            @if($imagePath)
-                            <div class="col-sm-6 col-md-4 g-margin-b-20--xs">
-                                <a href="{{ asset('storage/'.$imagePath) }}" class="gallery-card umkm-gallery-popup" title="{{ $imageCaption }}">
-                                    <img src="{{ asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Produk ' . $umkm->name }}">
-                                </a>
-                            </div>
-                            @endif
-                        @endforeach
+                    <div class="swiper-container js__swiper-gallery" style="padding-bottom: 40px; margin-top: 15px;">
+                        <div class="swiper-wrapper umkm-gallery-container">
+                            @foreach($umkm->supporting_images as $image)
+                                @php
+                                    $imagePath = is_array($image) ? ($image['path'] ?? '') : $image;
+                                    $imageCaption = is_array($image) ? ($image['caption'] ?? '') : '';
+                                @endphp
+                                @if($imagePath)
+                                <div class="swiper-slide">
+                                    <div style="padding: 10px;">
+                                        <a href="{{ asset('storage/'.$imagePath) }}" class="gallery-card umkm-gallery-popup" title="{{ $imageCaption }}">
+                                            <img src="{{ asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Produk ' . $umkm->name }}">
+                                        </a>
+                                        @if($imageCaption)
+                                        <p style="margin: 12px 0 0; font-size: 13px; color: #475569; line-height: 1.5; text-align: center; font-weight: 500;">
+                                            {{ $imageCaption }}
+                                        </p>
+                                        @endif
+                                    </div>
+                                </div>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="swiper-pagination js__swiper-pagination"></div>
                     </div>
                 </div>
                 @endif
@@ -485,8 +509,30 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
+        if (typeof Swiper !== 'undefined') {
+            new Swiper('.js__swiper-gallery', {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                pagination: '.js__swiper-pagination',
+                paginationClickable: true,
+                autoplay: 4000,
+                grabCursor: true,
+                breakpoints: {
+                    992: {
+                        slidesPerView: 3,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    480: {
+                        slidesPerView: 1,
+                    }
+                }
+            });
+        }
+
         if($.fn.magnificPopup) {
-            $('.umkm-gallery-popup').magnificPopup({
+            $('.umkm-gallery-container').magnificPopup({
                 type: 'image',
                 gallery: {
                     enabled: true,

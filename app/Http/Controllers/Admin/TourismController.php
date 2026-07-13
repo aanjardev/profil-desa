@@ -50,7 +50,7 @@ class TourismController extends Controller
             'description' => 'required|string',
             'opening_hours' => 'nullable|string|max:255',
             'location' => 'required|string|max:255',
-            'maps_link' => 'nullable|url|max:255',
+            'maps_link' => 'nullable|string',
             'facilities' => 'nullable|string',
             'contact_person' => 'nullable|string|max:255',
             'cropped_image' => 'required|string',
@@ -58,10 +58,13 @@ class TourismController extends Controller
             'tickets' => 'nullable|array',
             'tickets.*.name' => 'required_with:tickets|string|max:255',
             'tickets.*.price' => 'nullable|string|max:255',
+            'tickets.*.description' => 'nullable|string|max:500',
             'spots' => 'nullable|array',
             'spots.*.name' => 'required_with:spots|string|max:255',
             'spots.*.price' => 'nullable|string|max:255',
             'spots.*.description' => 'nullable|string|max:500',
+            'spots.*.order_link' => 'nullable|url|max:255',
+            'spots.*.image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'spots.*.order_link' => 'nullable|url|max:255',
             'digital_map_link' => 'nullable|url|max:255',
             'instagram_link' => 'nullable|url|max:255',
@@ -99,12 +102,21 @@ class TourismController extends Controller
             $count++;
         }
 
+        $spots = $request->spots ?? [];
+        foreach ($spots as $index => &$spot) {
+            if (isset($spot['image']) && $request->hasFile("spots.{$index}.image")) {
+                $spot['image_path'] = $request->file("spots.{$index}.image")->store('tourisms/spots', 'public');
+            }
+            unset($spot['image']);
+            unset($spot['old_image']);
+        }
+
         Tourism::create([
             'name' => $request->name,
             'slug' => $slug,
             'description' => $request->description,
             'tickets' => $request->tickets,
-            'spots' => $request->spots,
+            'spots' => empty($spots) ? null : $spots,
             'opening_hours' => $request->opening_hours,
             'location' => $request->location,
             'maps_link' => $request->maps_link,
@@ -148,7 +160,7 @@ class TourismController extends Controller
             'description' => 'required|string',
             'opening_hours' => 'nullable|string|max:255',
             'location' => 'required|string|max:255',
-            'maps_link' => 'nullable|url|max:255',
+            'maps_link' => 'nullable|string',
             'facilities' => 'nullable|string',
             'contact_person' => 'nullable|string|max:255',
             'cropped_image' => 'nullable|string',
@@ -157,10 +169,14 @@ class TourismController extends Controller
             'tickets' => 'nullable|array',
             'tickets.*.name' => 'required_with:tickets|string|max:255',
             'tickets.*.price' => 'nullable|string|max:255',
+            'tickets.*.description' => 'nullable|string|max:500',
             'spots' => 'nullable|array',
             'spots.*.name' => 'required_with:spots|string|max:255',
             'spots.*.price' => 'nullable|string|max:255',
             'spots.*.description' => 'nullable|string|max:500',
+            'spots.*.order_link' => 'nullable|url|max:255',
+            'spots.*.image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'spots.*.old_image' => 'nullable|string',
             'spots.*.order_link' => 'nullable|url|max:255',
             'digital_map_link' => 'nullable|url|max:255',
             'instagram_link' => 'nullable|url|max:255',
@@ -217,12 +233,38 @@ class TourismController extends Controller
             }
         }
 
+        $spots = $request->spots ?? [];
+        $newSpotImagePaths = [];
+        foreach ($spots as $index => &$spot) {
+            if (isset($spot['image']) && $request->hasFile("spots.{$index}.image")) {
+                if (!empty($spot['old_image'])) {
+                    Storage::disk('public')->delete($spot['old_image']);
+                }
+                $spot['image_path'] = $request->file("spots.{$index}.image")->store('tourisms/spots', 'public');
+            } else {
+                $spot['image_path'] = $spot['old_image'] ?? null;
+            }
+            if (!empty($spot['image_path'])) {
+                $newSpotImagePaths[] = $spot['image_path'];
+            }
+            unset($spot['image']);
+            unset($spot['old_image']);
+        }
+
+        // Clean up removed spot images
+        $oldSpots = $tourism->spots ?? [];
+        foreach ($oldSpots as $oldSpot) {
+            if (!empty($oldSpot['image_path']) && !in_array($oldSpot['image_path'], $newSpotImagePaths)) {
+                Storage::disk('public')->delete($oldSpot['image_path']);
+            }
+        }
+
         $tourism->update([
             'name' => $request->name,
             'slug' => $slug,
             'description' => $request->description,
             'tickets' => $request->tickets,
-            'spots' => $request->spots,
+            'spots' => empty($spots) ? null : $spots,
             'opening_hours' => $request->opening_hours,
             'location' => $request->location,
             'maps_link' => $request->maps_link,
@@ -252,6 +294,14 @@ class TourismController extends Controller
         if ($tourism->supporting_images) {
             foreach ($tourism->supporting_images as $img) {
                 Storage::disk('public')->delete($img['path']);
+            }
+        }
+
+        if ($tourism->spots) {
+            foreach ($tourism->spots as $spot) {
+                if (!empty($spot['image_path'])) {
+                    Storage::disk('public')->delete($spot['image_path']);
+                }
             }
         }
 
