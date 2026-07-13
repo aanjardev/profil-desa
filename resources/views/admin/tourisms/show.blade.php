@@ -61,9 +61,14 @@
                     <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Daftar Harga Tiket</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         @foreach($tourism->tickets as $ticket)
-                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex justify-between items-center">
-                                <span class="font-bold text-gray-800">{{ $ticket['name'] }}</span>
-                                <span class="text-blue-600 font-semibold">{{ $ticket['price'] ?? 'Gratis' }}</span>
+                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col gap-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-gray-800">{{ $ticket['name'] }}</span>
+                                    <span class="text-blue-600 font-semibold">{{ is_numeric($ticket['price'] ?? null) ? 'Rp ' . number_format((float)$ticket['price'], 0, ',', '.') : ($ticket['price'] ?? 'Gratis') }}</span>
+                                </div>
+                                @if(!empty($ticket['description']))
+                                    <p class="text-xs text-gray-500">{{ $ticket['description'] }}</p>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -76,22 +81,29 @@
                     <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Spot & Wahana Dalam Area</h3>
                     <div class="space-y-3">
                         @foreach($tourism->spots as $spot)
-                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-                                <div class="flex justify-between items-start mb-1">
-                                    <h4 class="font-bold text-gray-800">{{ $spot['name'] }}</h4>
-                                    <span class="text-emerald-600 font-semibold text-sm bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">{{ $spot['price'] ?? 'Gratis' }}</span>
+                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex gap-4 items-start">
+                                @if(!empty($spot['image_path']))
+                                <div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-gray-200 bg-white">
+                                    <img src="{{ asset('storage/' . $spot['image_path']) }}" class="w-full h-full object-cover" alt="{{ $spot['name'] }}">
                                 </div>
-                                @if(isset($spot['description']) && $spot['description'])
-                                    <p class="text-sm text-gray-500 mt-2">{{ $spot['description'] }}</p>
                                 @endif
-                                @if(isset($spot['order_link']) && $spot['order_link'])
-                                    <div class="mt-3">
-                                        <a href="{{ $spot['order_link'] }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-semibold rounded-md hover:bg-emerald-700 transition-colors">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                                            Pesan Online
-                                        </a>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h4 class="font-bold text-gray-800">{{ $spot['name'] }}</h4>
+                                        <span class="text-emerald-600 font-semibold text-sm bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 whitespace-nowrap">{{ is_numeric($spot['price'] ?? null) ? 'Rp ' . number_format((float)$spot['price'], 0, ',', '.') : ($spot['price'] ?? 'Gratis') }}</span>
                                     </div>
-                                @endif
+                                    @if(isset($spot['description']) && $spot['description'])
+                                        <p class="text-sm text-gray-500 mt-2">{{ $spot['description'] }}</p>
+                                    @endif
+                                    @if(isset($spot['order_link']) && $spot['order_link'])
+                                        <div class="mt-3">
+                                            <a href="{{ $spot['order_link'] }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-semibold rounded-md hover:bg-emerald-700 transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                                Pesan Online
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -153,12 +165,30 @@
                     </div>
                     @endif
 
-                    @if($tourism->maps_link)
+                    @if($tourism->maps_link && !(Str::startsWith($tourism->maps_link, '<iframe') || Str::contains($tourism->maps_link, '<iframe')))
                     <div class="pt-2">
                         <a href="{{ $tourism->maps_link }}" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-white border border-blue-200 text-blue-700 text-sm font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
                             Buka di Google Maps
                         </a>
+                    </div>
+                    @endif
+
+                    @if($tourism->maps_link && (Str::startsWith($tourism->maps_link, '<iframe') || Str::contains($tourism->maps_link, '<iframe')))
+                    <div class="pt-2">
+                        <div class="flex items-center gap-2 text-blue-800 font-bold mb-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            Lokasi Peta
+                        </div>
+                        <div class="rounded-lg overflow-hidden border border-gray-200 aspect-[4/3] w-full">
+                            @php
+                                $iframeCode = $tourism->maps_link;
+                                if (stripos($iframeCode, '<iframe') !== false && stripos($iframeCode, '</iframe>') === false) {
+                                    $iframeCode .= '</iframe>';
+                                }
+                            @endphp
+                            {!! str_replace('<iframe ', '<iframe style="width: 100%; height: 100%; border: 0;" ', $iframeCode) !!}
+                        </div>
                     </div>
                     @endif
 

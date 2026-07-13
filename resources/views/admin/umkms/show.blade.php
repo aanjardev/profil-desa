@@ -97,7 +97,13 @@
                 <div class="mt-8">
                     <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Peta Lokasi</h3>
                     <div class="rounded-xl overflow-hidden shadow-xs border border-gray-200 aspect-video w-full [&_iframe]:w-full [&_iframe]:h-full">
-                        {!! $umkm->maps_link !!}
+                        @php
+                            $iframeCode = $umkm->maps_link;
+                            if (stripos($iframeCode, '<iframe') !== false && stripos($iframeCode, '</iframe>') === false) {
+                                $iframeCode .= '</iframe>';
+                            }
+                        @endphp
+                        {!! $iframeCode !!}
                     </div>
                 </div>
                 @endif

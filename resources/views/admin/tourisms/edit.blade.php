@@ -75,6 +75,10 @@
                                     <label class="block text-xs font-bold text-gray-600 mb-1">Harga (Opsional)</label>
                                     <input type="text" :name="'tickets['+index+'][price]'" x-model="ticket.price" class="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-md" placeholder="Contoh: Rp 15.000">
                                 </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">Keterangan (Opsional)</label>
+                                    <input type="text" :name="'tickets['+index+'][description]'" x-model="ticket.description" class="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-md" placeholder="Contoh: Termasuk makan siang">
+                                </div>
                             </div>
                             <button type="button" @click="tickets.splice(index, 1)" class="p-2 mt-5 text-red-500 hover:bg-red-50 rounded-md transition-colors" title="Hapus">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -116,6 +120,34 @@
                                     <label class="block text-xs font-bold text-gray-600 mb-1">Link Pesan Wahana Online (Opsional)</label>
                                     <input type="url" :name="'spots['+index+'][order_link]'" x-model="spot.order_link" class="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-md" placeholder="https://...">
                                 </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">Gambar Wahana (Opsional)</label>
+                                    <input type="hidden" :name="'spots['+index+'][old_image]'" :value="spot.image_path">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Preview Box -->
+                                        <div class="w-16 h-16 rounded-md bg-gray-100 border border-gray-300 flex items-center justify-center overflow-hidden shrink-0 relative" :class="{'bg-white': spot.preview || spot.image_path}">
+                                            <template x-if="spot.preview">
+                                                <img :src="spot.preview" class="w-full h-full object-cover">
+                                            </template>
+                                            <template x-if="!spot.preview && spot.image_path">
+                                                <img :src="'/storage/' + spot.image_path" class="w-full h-full object-cover">
+                                            </template>
+                                            <template x-if="!spot.preview && !spot.image_path">
+                                                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            </template>
+                                        </div>
+                                        
+                                        <!-- Upload Button -->
+                                        <div class="flex-1">
+                                            <label class="cursor-pointer inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-semibold rounded text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                                                <span x-text="(spot.preview || spot.image_path) ? 'Ganti Foto' : 'Pilih Foto'"></span>
+                                                <input type="file" :name="'spots['+index+'][image]'" class="sr-only" accept="image/*"
+                                                       @change="const file = $event.target.files[0]; if (file) { if(file.size > 2097152) { alert('Maksimal 2MB!'); $event.target.value = ''; return; } spot.preview = URL.createObjectURL(file); }">
+                                            </label>
+                                            <p class="text-[10px] text-gray-500 mt-1">Maks 2MB (Opsional)</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <button type="button" @click="spots.splice(index, 1)" class="p-2 mt-5 text-red-500 hover:bg-red-50 rounded-md transition-colors" title="Hapus">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -141,9 +173,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label for="maps_link" class="block text-sm font-bold text-gray-700 mb-1">Link Google Maps (Opsional)</label>
-                            <input type="url" name="maps_link" id="maps_link" value="{{ old('maps_link', $tourism->maps_link) }}" maxlength="255"
+                            <p class="text-xs text-gray-500 mb-2">Bisa diisi URL biasa atau disematkan script <code>&lt;iframe&gt;</code> dari Google Maps.</p>
+                            <input type="text" name="maps_link" id="maps_link" value="{{ old('maps_link', $tourism->maps_link) }}"
                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
-                                   placeholder="https://maps.google.com/...">
+                                   placeholder="https://maps.google.com/... atau <iframe src=...">
                             @error('maps_link')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                         </div>
                         <div>

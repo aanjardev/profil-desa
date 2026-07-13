@@ -48,7 +48,7 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('pariwisata', 'umkm') ? 'active-page' : '' }}">POTENSI DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('pariwisata*', 'umkm*') ? 'active-page' : '' }}">POTENSI DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('pariwisata') }}">Pariwisata</a></li>
                                 <li><a href="{{ route('umkm') }}">UMKM</a></li>
