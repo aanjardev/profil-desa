@@ -97,19 +97,22 @@
     }
     .lembaga-card__logo-wrap img { max-height: 100%; max-width: 100%; object-fit: contain; padding: 20px; }
     .lembaga-card__logo-wrap .lembaga-placeholder-icon { font-size: 46px; color: #cfd2d8; }
-    .lembaga-card__body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+    .lembaga-card__body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; }
     .lembaga-badge {
-        display: inline-block;
+        display: block;
+        box-sizing: border-box;
         font-size: 11px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: .5px;
-        padding: 4px 10px;
-        border-radius: 20px;
+        padding: 7px 14px;
+        border-radius: 4px 0 0 4px;
         color: #fff;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        margin-right: -24px;
+        text-align: left;
     }
-    .lembaga-card__desc { color: #767676; font-size: 14px; line-height: 1.7; margin-bottom: 16px; flex: 1; }
+    .lembaga-card__desc { color: #767676; font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
     .lembaga-card__link {
         font-size: 13px;
         font-weight: 700;
@@ -121,6 +124,22 @@
     .lembaga-empty { text-align: center; padding: 80px 20px; color: #9a9a9a; }
     .lembaga-cat-section { display: none; }
     .lembaga-cat-section.-is-visible { display: block; }
+
+    /* Grid kartu: pastikan tinggi kolom seragam meski kontennya beda (ada/tidak ada logo) */
+    .lembaga-grid-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .lembaga-grid-row > [class*="col-"] {
+        display: flex;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .lembaga-card__logo-wrap {
+        flex-shrink: 0;
+    }
 </style>
 
 {{-- Nav Kategori --}}
@@ -131,10 +150,10 @@
                 Semua
                 <span class="count-dot">{{ $institutions->flatten()->count() }}</span>
             </div>
-            @foreach($typeLabels as $type => $label)
+            @foreach($institutions as $type => $group)
                 <div class="lembaga-nav-item" data-cat="{{ $type }}" data-color="{{ $publicTypeColors[$type] ?? '#6b7280' }}">
-                    {{ $label }}
-                    <span class="count-dot">{{ $institutions[$type]->count() ?? 0 }}</span>
+                    {{ $typeLabels[$type] ?? ucfirst($type) }}
+                    <span class="count-dot">{{ $group->count() }}</span>
                 </div>
             @endforeach
         </div>
@@ -152,49 +171,42 @@
             <p>Data lembaga desa akan segera ditambahkan oleh admin.</p>
         </div>
     @else
-        @foreach($typeLabels as $type => $label)
+        @foreach($institutions as $type => $group)
             <div class="lembaga-cat-section {{ $loop->first ? '-is-visible' : '' }}" data-cat-section="{{ $type }}">
                 <div class="lembaga-section-title">
                     <p class="text-uppercase g-font-size-13--xs g-font-weight--700 g-letter-spacing--2 g-margin-b-10--xs"
                        style="color: {{ $publicTypeColors[$type] ?? '#6b7280' }};">
                         Kategori
                     </p>
-                    <h2 class="g-font-size-26--xs g-font-size-30--sm">{{ $label }}</h2>
+                    <h2 class="g-font-size-26--xs g-font-size-30--sm">{{ $typeLabels[$type] ?? ucfirst($type) }}</h2>
                 </div>
 
-                @if($institutions[$type]->isEmpty())
-                    <div class="lembaga-empty" style="padding: 50px 20px;">
-                        <p>Belum ada lembaga pada kategori {{ $label }}.</p>
-                    </div>
-                @else
-                    <div class="row g-row-col--0">
-                        @foreach($institutions[$type] as $institution)
-                            <div class="col-md-4 col-sm-6 g-full-width--xs g-margin-b-30--xs">
-                                <div class="lembaga-card">
+                <div class="row lembaga-grid-row">
+                    @foreach($group as $institution)
+                        <div class="col-md-4 col-sm-6 g-full-width--xs g-margin-b-30--xs">
+                            <div class="lembaga-card">
+                                @if($institution->logo)
                                     <div class="lembaga-card__logo-wrap">
-                                        @if($institution->logo)
-                                            <img src="{{ Storage::url($institution->logo) }}" alt="{{ $institution->name }}">
-                                        @else
-                                            <i class="ti-home lembaga-placeholder-icon"></i>
-                                        @endif
+                                        <img src="{{ Storage::url($institution->logo) }}" alt="{{ $institution->name }}"
+                                             onerror="this.closest('.lembaga-card__logo-wrap').style.display='none';">
                                     </div>
-                                    <div class="lembaga-card__body">
-                                        <span class="lembaga-badge" style="background-color: {{ $publicTypeColors[$type] ?? '#6b7280' }};">
-                                            {{ $label }}
-                                        </span>
-                                        <h3 class="g-font-size-18--xs g-margin-b-10--xs">{{ $institution->name }}</h3>
-                                        @if($institution->description)
-                                            <p class="lembaga-card__desc">{{ \Illuminate\Support\Str::limit(strip_tags($institution->description), 110) }}</p>
-                                        @endif
-                                        <a href="{{ route('kelembagaan.show', $institution) }}" class="lembaga-card__link">
-                                            Lihat Detail <i class="ti-arrow-right" style="font-size: 11px; margin-left: 3px;"></i>
-                                        </a>
-                                    </div>
+                                @endif
+                                <div class="lembaga-card__body">
+                                    <span class="lembaga-badge" style="background-color: {{ $publicTypeColors[$type] ?? '#6b7280' }};">
+                                        {{ $typeLabels[$type] ?? ucfirst($type) }}
+                                    </span>
+                                    <h3 class="g-font-size-18--xs g-margin-b-10--xs">{{ $institution->name }}</h3>
+                                    @if($institution->description)
+                                        <p class="lembaga-card__desc">{{ \Illuminate\Support\Str::limit(strip_tags($institution->description), 110) }}</p>
+                                    @endif
+                                    <a href="{{ route('kelembagaan.show', $institution) }}" class="lembaga-card__link">
+                                        Lihat Detail <i class="ti-arrow-right" style="font-size: 11px; margin-left: 3px;"></i>
+                                    </a>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                @endif
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endforeach
     @endif

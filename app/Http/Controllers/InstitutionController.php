@@ -16,12 +16,9 @@ class InstitutionController extends Controller
         $typeLabels = AdminInstitutionController::TYPE_LABELS;
         $typeColors = AdminInstitutionController::TYPE_COLORS;
 
-        $all = Institution::query()->active()->with('members')
+        // Hanya kategori yang benar-benar punya lembaga aktif yang akan ditampilkan
+        $institutions = Institution::query()->active()->with('members')
             ->orderBy('type')->orderBy('name')->get()->groupBy('type');
-
-        // Pastikan semua kategori tetap muncul di nav walau belum ada datanya
-        $institutions = collect(array_keys($typeLabels))
-            ->mapWithKeys(fn ($type) => [$type => $all->get($type, collect())]);
 
         return view('user.team', compact('institutions', 'typeLabels', 'typeColors'));
     }
@@ -40,6 +37,6 @@ class InstitutionController extends Controller
         $typeLabels = AdminInstitutionController::TYPE_LABELS;
         $typeColors = AdminInstitutionController::TYPE_COLORS;
 
-        return view('user.instutions-show', compact('institution', 'typeLabels', 'typeColors'));
+        return view('user.institution-show', compact('institution', 'typeLabels', 'typeColors'));
     }
 }
