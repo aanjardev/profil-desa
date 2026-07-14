@@ -120,6 +120,14 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-1">URL Twitter</label>
                     <input type="url" name="twitter" value="{{ old('twitter', $webSetting->twitter) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://twitter.com/nama-desa" maxlength="255">
                 </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                        URL Linktree
+                        <span class="ml-1 inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-green-100 text-green-700">Linktree</span>
+                    </label>
+                    <input type="url" name="linktree" value="{{ old('linktree', $webSetting->linktree) }}" class="w-full rounded-lg border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 text-sm" placeholder="https://linktr.ee/nama-desa" maxlength="255">
+                    <span class="text-[11px] text-gray-400 mt-1 block">Linktree adalah halaman yang mengumpulkan semua link penting desa.</span>
+                </div>
             </div>
         </div>
 

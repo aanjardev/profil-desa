@@ -24,12 +24,20 @@ class Tourism extends Model
         'main_image',
         'supporting_images',
         'is_active',
+        'is_featured',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active'         => 'boolean',
+        'is_featured'       => 'boolean',
         'supporting_images' => 'array',
-        'tickets' => 'array',
-        'spots' => 'array',
+        'tickets'           => 'array',
+        'spots'             => 'array',
     ];
+
+    // Scope untuk item yang disematkan di beranda
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
 }

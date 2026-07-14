@@ -60,6 +60,7 @@ class WebSettingController extends Controller
             'youtube' => 'nullable|string|max:255',
             'youtube_video_url' => 'nullable|string|max:255',
             'twitter' => 'nullable|string|max:255',
+            'linktree' => 'nullable|string|max:255',
             // statistics
             'stat_luas_wilayah' => 'nullable|string|max:255',
             'stat_jumlah_penduduk' => 'nullable|string|max:255',

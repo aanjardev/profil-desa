@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TourismController;
 use App\Http\Controllers\Admin\UmkmController;
 use App\Http\Controllers\Admin\EmergencyContactController;
+use App\Http\Controllers\Admin\HomepageFeaturedController;
 
 Route::redirect('/', '/beranda');
 
@@ -124,6 +125,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('umkms', UmkmController::class);
     Route::resource('contact-services', ContactServiceController::class);
     Route::resource('emergency-contacts', EmergencyContactController::class);
+    Route::get('homepage-featured', [HomepageFeaturedController::class, 'index'])->name('homepage-featured.index');
+    Route::post('homepage-featured', [HomepageFeaturedController::class, 'update'])->name('homepage-featured.update');
     
     Route::middleware(['role:superadmin'])->group(function () {
         Route::post('users/email', [UserController::class, 'storeEmail'])->name('users.email.store');

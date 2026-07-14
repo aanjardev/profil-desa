@@ -20,9 +20,16 @@ class HomeController extends Controller
         // Fetch 7 latest Berita (3 for slider, 4 for list)
         $berita = Post::published()->latest()->take(7)->get();
         
-        // Fetch Tourism & UMKM
-        $wisata = Tourism::where('is_active', true)->latest()->take(3)->get();
-        $umkm = Umkm::where('is_active', true)->latest()->take(3)->get();
+        // Fetch Tourism & UMKM — prioritas yang disematkan admin, fallback 3 terbaru
+        $wisata = Tourism::where('is_active', true)->where('is_featured', true)->latest()->take(3)->get();
+        if ($wisata->isEmpty()) {
+            $wisata = Tourism::where('is_active', true)->latest()->take(3)->get();
+        }
+
+        $umkm = Umkm::where('is_active', true)->where('is_featured', true)->latest()->take(3)->get();
+        if ($umkm->isEmpty()) {
+            $umkm = Umkm::where('is_active', true)->latest()->take(3)->get();
+        }
         
         // Fetch Agendas
         $agendas = Agenda::where('start_date', '>=', now()->format('Y-m-d'))->orderBy('start_date')->take(3)->get();

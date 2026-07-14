@@ -41,6 +41,7 @@ class MenuHelper
                         'subItems' => [
                             ['name' => 'Pariwisata', 'path' => '/admin/tourisms'],
                             ['name' => 'UMKM', 'path' => '/admin/umkms'],
+                            ['name' => 'Highlight Beranda', 'path' => '/admin/homepage-featured'],
                         ]
                     ],
                     [

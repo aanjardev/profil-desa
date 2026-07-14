@@ -23,10 +23,18 @@ class Umkm extends Model
         'supporting_images',
         'maps_link',
         'is_active',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active'         => 'boolean',
+        'is_featured'       => 'boolean',
         'supporting_images' => 'array',
     ];
+
+    // Scope untuk item yang disematkan di beranda
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
 }

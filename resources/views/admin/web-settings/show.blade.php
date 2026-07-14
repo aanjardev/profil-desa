@@ -164,6 +164,18 @@
                             <span class="text-gray-400 italic">Belum diatur</span>
                         @endif
                     </div>
+                    <div class="flex items-center gap-2.5 text-sm">
+                        <span class="w-6 text-gray-400 font-semibold text-xs shrink-0" title="Linktree">
+                            <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="inline">
+                                <path d="m13.73635 5.85251 4.00467-4.11665 2.3248 2.3808-4.20064 4.00466h5.9085v3.30473h-5.9365l4.22865 4.10766-2.3248 2.3338L12.0005 12.099l-5.74052 5.76852-2.3248-2.3248 4.22864-4.10766h-5.9375V8.12132h5.9085L3.93417 4.11666l2.3248-2.3808 4.00468 4.11665V0h3.4727zm-3.4727 10.30614h3.4727V24h-3.4727z"/>
+                            </svg>
+                        </span>
+                        @if($webSetting->linktree)
+                            <a href="{{ $webSetting->linktree }}" target="_blank" class="text-green-600 hover:underline font-medium truncate">{{ $webSetting->linktree }}</a>
+                        @else
+                            <span class="text-gray-400 italic">Belum diatur</span>
+                        @endif
+                    </div>
                     <div class="flex items-center gap-2.5 text-sm mt-3 pt-3 border-t border-gray-100">
                         <span class="text-gray-400 font-semibold text-xs w-24">Video Profil:</span>
                         @if($webSetting->youtube_video_url)
