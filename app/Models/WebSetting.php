@@ -29,6 +29,7 @@ class WebSetting extends Model
         'youtube',
         'youtube_video_url',
         'twitter',
+        'linktree',
         'updated_at',
     ];
 
