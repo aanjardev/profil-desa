@@ -357,140 +357,51 @@ fieldset[disabled] .s-btn {
 /*----------------------------------
   Online Administration
 ------------------------------------*/
+/* Card Container Utama Menu */
 .online_administration_list_menu {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
-  border-radius: 4px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+  border-radius: 12px; 
   overflow: hidden; 
   background: #fff;
+  padding: 25px; 
 }
 
-.online_administration_list_menu > a {
-  padding: 18px 20px; 
-  font-weight: 600; 
-  font-size: 14px; 
-  border: none; 
-  border-bottom: 1px solid #eee; 
-  color: #555; 
-  transition: all 0.2s ease;
-}
-
-.online_administration_list_menu > i {
-  margin-top: 3px; 
-  font-size: 11px;
-}
-
-.online_administration_content {
-  padding: 40px; 
-  border-radius: 4px; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
-  min-height: 400px; 
-  display: flex; 
-  flex-direction: column; 
-  justify-content: space-between;
-}
-
-.online_administratioon_tab_content > h3 {
-  color: #333; 
-  margin-bottom: 10px;
-}
-
-.online_administration_tab_content > p {
-  font-size: 14px; 
-  color: #666; 
-  line-height: 1.7;
-}
-
-.online_administration_description {
-  padding: 40px 0;
-  border: 2px dashed #f5f5f5; 
-  border-radius: 4px;
-}
-
-.online_administratioon_description > i {
-  color: #ccc; 
-  display: block; 
-  margin-bottom: 10px;
-}
-
-.online_administratioon_description > p {
-  margin-bottom: 0;
-}
-
-.online_administration_detail_1 {
-  margin-top: 40px; 
-  padding-top: 20px; 
-  border-top: 1px dashed #eee;
-}
-
-.online_administration_detail_2 {
-  display: flex; 
-  align-items: center; 
-  flex-wrap: wrap;
-}
-
-.online_administration_name_hours > p {
-  margin-bottom: 3px; 
-  font-size: 13px; 
-  color: #888;
-}
-
-.online_administration_name_hours > p > i {
-  margin-right: 5px;
-}
-
-.online_administration_phone > a {
-  padding: 12px 20px; 
-  background-color: #25D366; 
-  color: #fff; 
-  font-weight: 600; 
-  text-transform: uppercase; 
-  font-size: 12px; 
-  border-radius: 4px; 
-  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2); 
-  text-decoration: none; 
-  display: block;
-}
-
-.online_administration_phone > a > i {
-  margin-right: 5px; 
-  font-size: 14px;
-}
-
-.online_administration_phone > button {
-  padding: 12px 20px; 
-  background-color: #ccc; 
-  color: #fff; 
-  font-weight: 600; 
-  text-transform: uppercase; 
-  font-size: 12px; 
-  border-radius: 4px; 
-  border: none; 
-  cursor: not-allowed;
-}
-
-.online_administration_not_available {
-  padding: 80px 0;
-}
-
-.online_administration_not_available_detail {
-  max-width: 550px; 
-  margin: 0 auto;
-}
-
-.online_administration_not_available_detail > i {
-  color: #ccc; 
-  display: block; 
-  margin-bottom: 20px;
-}
-
-.online_administration_not_available_detail > h3 {
-  color: #444; 
+/* Judul Layanan Administrasi Online & Divider Line */
+.online_administration_menu_title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b; /* Warna biru gelap Slate */
   font-family: 'Montserrat', sans-serif;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0; /* Garis divider tipis abu-abu */
 }
 
-.online_administration_not_available_detail > a {
-  line-height: 1.6; 
-  margin-bottom: 0;
+/* Elemen List Link */
+.online_administration_list_menu > a {
+  display: block;
+  padding: 12px 16px; 
+  font-weight: 600; 
+  font-size: 14px; 
+  border: none; 
+  border-radius: 8px; 
+  color: #64748b; 
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+
+/* Item Menu Aktif */
+.online_administration_list_menu > a.active {
+  background-color: #f8fafc !important; /* Latar belakang abu-abu tipis */
+  color: #dc3545 !important; /* Menggunakan warna cyan identitas utama web desa */
+}
+
+/* Efek Hover */
+.online_administration_list_menu > a:hover:not(.active) {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
 }
 
 /*----------------------------------
@@ -572,7 +483,7 @@ fieldset[disabled] .s-btn {
 
 .contact-box-card {
   border-radius: 4px; 
-  border-left: 4px solid #17bedb; 
+  border-left: 4px solid rgb(220, 53, 69); 
   box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
   transition: all 0.3s ease; 
   overflow: hidden;
@@ -632,7 +543,7 @@ fieldset[disabled] .s-btn {
 }
 
 .category-contact-info > span {
-  background-color: #17bedb; 
+  background-color: rgb(220, 53, 69); 
   color: white; 
   font-size: 13px; 
   font-family: 'Montserrat', sans-serif;
