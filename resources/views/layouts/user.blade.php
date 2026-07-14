@@ -69,8 +69,13 @@
             if(!isset($setting)) {
                 $setting = \App\Models\WebSetting::first();
             }
+            // Ambil nomor administrasi (bisa WA) dari contact_services, bukan nomor telepon kabel desa
+            $contactServicePhone = \App\Models\ContactService::where('is_active', true)
+                ->whereNotNull('phone')
+                ->orderBy('order_num')
+                ->value('phone');
         @endphp
-        @include('user.components.floating-wa')
+        @include('user.components.floating-wa', ['contactServicePhone' => $contactServicePhone])
 
         <script type="text/javascript" src="{{ asset('23/js/components/header-sticky.min.js') }}"></script>
         <script src="{{ asset('23/js/components/navbar-mobile.js') }}"></script>
