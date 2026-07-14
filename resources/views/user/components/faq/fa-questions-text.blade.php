@@ -7,8 +7,8 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 g-margin-b-40--xs">
                 
                     <div style="margin-bottom: 20px;">
-                        <h3 class="g-font-size-15--xs g-font-weight--600 text-uppercase" style="color: #333; font-family: 'Montserrat', sans-serif; border-bottom: 2px solid #17bedb; display: inline-block; padding-bottom: 4px; margin: 0;">
-                            <i class="ti-bookmark-alt" style="color: #17bedb; margin-right: 6px;"></i>{{ $category ?? 'Umum' }}
+                        <h3 class="g-font-size-15--xs g-font-weight--600 text-uppercase" style="color: #333; font-family: 'Montserrat', sans-serif; border-bottom: 2px solid rgb(220, 53, 69); display: inline-block; padding-bottom: 4px; margin: 0;">
+                            <i class="ti-bookmark-alt" style="color: rgb(220, 53, 69); margin-right: 6px;"></i>{{ $category ?? 'Umum' }}
                         </h3>
                     </div>
 
@@ -18,11 +18,11 @@
                         @endphp
                         
                         <div class="g-margin-b-10--xs">
-                            <div class="g-bg-color--white faq-box-card" style="border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: all 0.3s ease; overflow: hidden; border-left: 4px solid #17bedb;">
+                            <div class="g-bg-color--white faq-box-card" style="border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: all 0.3s ease; overflow: hidden; border-left: 4px solid rgb(220, 53, 69);">
                                 
                                 <a href="#collapseFaq-{{ $uniqueId }}" data-toggle="collapse" aria-expanded="false" class="collapsed toggle-faq-link" style="display: block; padding: 15px 15px; text-decoration: none; color: #333; position: relative;">
                                     <span class="g-font-size-15--xs g-font-weight--600" style="line-height: 1.4; padding-right: 20px; display: block; font-family: 'Montserrat', sans-serif;">
-                                        <span style="color: #17bedb; margin-right: 2px;">Q:</span> {{ $faq->question }}
+                                        <span style="color: rgb(220, 53, 69); margin-right: 2px;">Q:</span> {{ $faq->question }}
                                     </span>
                                     <i class="ti-angle-down arrow-icon" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); transition: transform 0.3s ease; font-size: 9px; color: #999;"></i>
                                 </a>
