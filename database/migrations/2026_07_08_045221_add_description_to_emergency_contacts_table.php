@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('emergency_contacts', function (Blueprint $table) {
-            $table->text('description')->nullable()->after('phone');
-        });
+        // Kolom ini sudah ada di migration awal (create_emergency_contacts_table).
+        // Guard ini mencegah error "Duplicate column" jika migrasi dijalankan dari awal.
+        if (!Schema::hasColumn('emergency_contacts', 'description')) {
+            Schema::table('emergency_contacts', function (Blueprint $table) {
+                $table->text('description')->nullable()->after('phone');
+            });
+        }
     }
 
     /**
