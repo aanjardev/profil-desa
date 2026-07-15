@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('phone', 20);
             $table->string('category', 100)->nullable();
-            $table->string('description')->nullable();
             $table->string('address', 255)->nullable();
             $table->integer('order_num')->nullable()->default(0);
             $table->boolean('is_active')->default(true);

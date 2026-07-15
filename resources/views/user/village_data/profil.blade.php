@@ -35,7 +35,6 @@
         background: #f8f9fa;
         color: #dc3545 !important;
     }
-    /* CSS scroll offset — ensures anchor targets clear the sticky header */
     #profil-singkat, #sejarah, #geografis, #wilayah-dusun {
         scroll-margin-top: 130px;
     }
@@ -46,7 +45,7 @@
             position: sticky !important;
             top: 100px !important;
             z-index: 999;
-            background: #f8fafc !important; /* Matches g-bg-color--sky-light background */
+            background: #f8fafc !important;
             padding-top: 10px !important;
             padding-bottom: 10px !important;
             margin-bottom: 25px !important;
@@ -77,7 +76,6 @@
             padding: 8px 4px !important;
             font-size: 12px !important;
         }
-        /* Mobile: larger scroll offset to clear both sticky header + tab bar */
         #profil-singkat, #sejarah, #geografis, #wilayah-dusun {
             scroll-margin-top: 220px;
         }

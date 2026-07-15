@@ -416,6 +416,7 @@ fieldset[disabled] .s-btn {
 
 .not-available-faq > p {
   font-family: 'Montserrat', sans-serif;
+  color: #dc3545;
 }
 
 .toggle-faq-link[aria-expanded="true"] .arrow-icon {
@@ -640,11 +641,12 @@ fieldset[disabled] .s-btn {
   margin-bottom: 0;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
+  color: #dc3545;
 }
 
 .toggle-collapse-link[aria-expanded="true"] .arrow-icon {
   transform: translateY(-50%) rotate(-180deg) !important;
-  color: #17bedb !important;
+  color: #dc3545 !important;
 }
 
 .col-md-4:hover .g-bg-color--white {

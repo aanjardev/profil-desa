@@ -1,5 +1,5 @@
 <!--========== PROMO BLOCK ==========-->
-<div class="g-padding-y-80--xs" style="background: url('{{ asset('23/img/1920x1080/06.jpg') }}') 50% 0 no-repeat fixed; background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
     
