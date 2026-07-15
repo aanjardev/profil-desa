@@ -4,9 +4,7 @@
                 <div class="col-md-4 col-sm-5 g-margin-b-30--xs g-margin-b-0--md">
                     <div class="list-group vertical-tabs-wrapper" role="tablist" style="box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 4px; overflow: hidden; background: #fff;">
                         @foreach($letters as $key => $letter)
-                            {{-- UBAH DISINI: Hapus display flex bawaan bootstrap jika ada, pastikan teks bisa wrap otomatis --}}
                             <a href="#letter-tab-{{ $letter->id }}" class="list-group-item vertical-tab-letter-item {{ $key === 0 ? 'active' : '' }}" data-toggle="tab" role="tab" style="padding: 18px 20px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; border: none; border-bottom: 1px solid #eee; color: #555; transition: all 0.2s ease; white-space: normal; word-wrap: break-word; line-height: 1.5;">
-                                {{-- Cek apakah kolomnya benar 'name' atau 'title' --}}
                                 {{ $letter->letter_name ?? 'Nama Surat Tidak Ditemukan' }}
                                 <i class="ti-angle-right pull-right" style="margin-top: 3px; font-size: 11px;"></i>
                             </a>
