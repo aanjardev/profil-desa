@@ -355,6 +355,33 @@ fieldset[disabled] .s-btn {
 }
 
 /*----------------------------------
+  Service Letter
+------------------------------------*/
+.vertical-tab-letter-item.active {
+        background-color: #dc3545 !important;
+        color: #fff !important;
+        border-left: 4px solid #0bb2cf;
+    }
+    .vertical-tab-letter-item:hover:not(.active) {
+        background-color: #fcfcfc !important;
+        color: #dc3545 !important;
+        padding-left: 25px !important;
+    }
+    .vertical-tab-letter-item i {
+        color: #bbb;
+        transition: color 0.2s;
+    }
+    .vertical-tab-letter-item.active i {
+        color: #fff;
+    }
+    .letter-requirements-content ul {
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .letter-requirements-content li {
+        list-style-type: disc !important;
+    }
+/*----------------------------------
   Online Administration
 ------------------------------------*/
 /* Card Container Utama Menu */
