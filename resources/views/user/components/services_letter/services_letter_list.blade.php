@@ -37,13 +37,13 @@
                                 <div style="padding-top: 20px; padding-bottom: 15px; border-top: 1px dashed #e2e8f0;">
                                     <div class="row" style="display: flex; align-items: center;">
                                         <div class="col-xs-6">
-                                            <p style="margin-bottom: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Estimasi Waktu</p>
+                                            <p style="margin-bottom: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1e293b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Estimasi Waktu</p>
                                             <span style="font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; color: #1e293b;">
                                                 <i class="ti-timer" style="color: #dc3545; margin-right: 5px;"></i> {{ $letter->estimated_time ?? 'Tidak ditentukan' }}
                                             </span>
                                         </div>
                                         <div class="col-xs-6">
-                                            <p style="margin-bottom: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Biaya Layanan</p>
+                                            <p style="margin-bottom: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1e293b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Biaya Layanan</p>
                                             <span style="font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; color: #25D366;">
                                                 <i class="ti-wallet" style="margin-right: 5px;"></i> {{ $letter->fee ?? 'Gratis' }}
                                             </span>
