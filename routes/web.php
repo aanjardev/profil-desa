@@ -29,17 +29,9 @@ use App\Http\Controllers\User\HomeController;
 
 // User Routes
 Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
-
 Route::view('/about', 'user.about')->name('about');
-Route::view('/services', 'user.services')->name('services');
 Route::get('/kelembagaan', [PublicInstitutionController::class, 'index'])->name('kelembagaan');
 Route::get('/kelembagaan/{institution}', [PublicInstitutionController::class, 'show'])->name('kelembagaan.show');
-Route::view('/events', 'user.events')->name('events');
-Route::view('/contacts', 'user.contacts')->name('contacts');
-Route::view('/index-lawyer', 'user.index_lawyer')->name('index-lawyer');
-Route::view('/index-portfolio', 'user.index_portfolio')->name('index-portfolio');
-Route::view('/index-app-landing', 'user.index_app_landing')->name('index-app-landing');
-Route::view('/index-events', 'user.index_events')->name('index-events');
 Route::view('/index-coming-soon', 'user.index_coming_soon')->name('index-coming-soon');
 
 // DATA DESA

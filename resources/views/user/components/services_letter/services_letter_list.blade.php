@@ -24,7 +24,7 @@
                                         <h3 class="g-font-size-22--xs g-font-weight--600" style="font-family: 'Montserrat', sans-serif; color: #333; margin-bottom: 5px;">
                                             {{ $letter->name }}
                                         </h3>
-                                        <span style="font-size: 12px; text-transform: uppercase; color: #17bedb; font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 0.5px;">Persyaratan Dokumen:</span>
+                                        <span style="font-size: 12px; text-transform: uppercase; color: #dc3545; font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 0.5px;">Persyaratan Dokumen:</span>
                                     </div>
 
                                     <div class="letter-requirements-content" style="color: #555; font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.8;">
@@ -42,7 +42,7 @@
                                         <div class="col-xs-6">
                                             <p style="margin-bottom: 2px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #999; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Estimasi Waktu</p>
                                             <span style="font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; color: #333;">
-                                                <i class="ti-timer" style="color: #17bedb; margin-right: 5px;"></i> {{ $letter->processing_time ?? 'Tidak ditentukan' }} {{-- Sesuaikan kolom estimasi waktu --}}
+                                                <i class="ti-timer" style="color: #dc3545; margin-right: 5px;"></i> {{ $letter->processing_time ?? 'Tidak ditentukan' }} {{-- Sesuaikan kolom estimasi waktu --}}
                                             </span>
                                         </div>
                                         <div class="col-xs-6">
@@ -64,7 +64,7 @@
                 <div class="col-xs-12 text-center" style="padding: 80px 0;">
                     <i class="ti-files g-font-size-60--xs" style="font-family: 'Montserrat', sans-serif; color: #ccc; display: block; margin-bottom: 20px;"></i>
                     <h3 class="g-font-size-20--xs g-font-weight--600" style="color: #444; font-family: 'Montserrat', sans-serif;">Data Belum Tersedia</h3>
-                    <p class="g-font-size-14--xs g-color--gray-dark" style="font-family: 'Montserrat', sans-serif; max-width: 500px; margin: 0 auto; line-height: 1.6;">
+                    <p class="g-font-size-14--xs g-color--gray-dark" style="font-family: 'Montserrat', sans-serif; max-width: 500px; color: #dc3545; margin: 0 auto; line-height: 1.6;">
                         Belum ada jenis layanan surat yang di-up oleh pihak admin pelayanan Desa Tulungrejo.
                     </p>
                 </div>
@@ -77,8 +77,8 @@
 <script>
     $(document).ready(function() {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var targetHash = $(e.target).attr("href"); // Dapat '#letter-tab-X'
-            var metaTargetHash = targetHash + "-meta"; // Menjadi '#letter-tab-X-meta'
+            var targetHash = $(e.target).attr("href");
+            var metaTargetHash = targetHash + "-meta";
             $('.tab-content ' + metaTargetHash).tab('show');
         });
     });
@@ -87,13 +87,13 @@
 
 <style>
     .vertical-tab-letter-item.active {
-        background-color: #17bedb !important;
+        background-color: #dc3545 !important;
         color: #fff !important;
         border-left: 4px solid #0bb2cf;
     }
     .vertical-tab-letter-item:hover:not(.active) {
         background-color: #fcfcfc !important;
-        color: #17bedb !important;
+        color: #dc3545 !important;
         padding-left: 25px !important;
     }
     .vertical-tab-letter-item i {

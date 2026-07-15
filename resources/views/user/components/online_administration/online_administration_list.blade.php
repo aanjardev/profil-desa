@@ -1,5 +1,4 @@
 <div class="container g-padding-y-80--xs">
-    {{-- Memeriksa apakah data serviceInfo ada di database --}}
     @if($serviceInfo)
         <div class="row">
             <!-- Sisi Kiri: Menu Tab -->
@@ -7,7 +6,6 @@
                 <div class="online_administration_list_menu">
                     <div class="online_administration_menu_title">Layanan Administrasi Online</div>
                     @foreach($menus as $key => $menu)
-                        {{-- Hapus i class ikon panah kanan agar bersih sesuai navigasi sebelumnya --}}
                         <a href="#tab-{{ $menu['id'] }}" class="list-group-item vertical-tab-item {{ $key === 0 ? 'active' : '' }}" data-toggle="tab" role="tab">
                             {{ $menu['title'] }}
                         </a>
@@ -21,7 +19,6 @@
                     
                     <div class="tab-only-content">
                         <div class="g-margin-b-30--xs">
-                            {{-- MODIFIKASI JUDUL: Aksen Garis Vertikal Merah Khas Mockup --}}
                             <div style="display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px;">
                                 <div style="width: 4px; height: 26px; background-color: #dc3545; border-radius: 2px; margin-right: 12px;"></div>
                                 <h3 style="font-size: 22px; font-weight: 700; color: #1e293b; margin: 0; font-family: 'Montserrat', sans-serif;">
@@ -29,7 +26,6 @@
                                 </h3>
                             </div>
                             
-                            {{-- Kondisi jika deskripsi ada, render teks dengan jarak rapi --}}
                             @if($serviceInfo->description)
                                 <p style="white-space: pre-line; font-size: 14px; color: #475569; line-height: 1.8; font-family: 'Montserrat', sans-serif;">
                                     {{ $serviceInfo->description }}
@@ -43,7 +39,6 @@
                         </div>
                     </div>
 
-                    <!-- Bagian Bawah Card: Kontak & Jam Operasional -->
                     <div style="margin-top: 40px; padding-top: 25px; border-top: 1px dashed #e2e8f0;">
                         <div class="row" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between;">
                             
@@ -57,7 +52,6 @@
                                 </p>
                             </div>
                          
-                            {{-- MODIFIKASI TOMBOL WA: Berupa Teks Link Merah Sejajar --}}
                             <div class="col-sm-5 col-xs-12 text-right" style="text-align: right;">
                                 @if($serviceInfo->phone)
                                     @php
@@ -90,9 +84,9 @@
         <div class="row online_administration_not_available">
             <div class="col-xs-12 text-center">
                 <div class="online_administration_not_available_detail">
-                    <i class="ti-folder g-font-size-60--xs"></i>
-                    <h3 class="g-font-size-20--xs g-font-weight--600">Layanan Belum Di-up</h3>
-                    <p class="g-font-size-14--xs g-color--gray-dark" style="line-height: 1.6; margin-bottom: 0; font-family: 'Montserrat', sans-serif;">
+                    <i class="ti-folder g-font-size-50--xs"></i>
+                    <h3 class="g-font-size-20--xs g-font-weight--500">Layanan Belum Di-up</h3>
+                    <p class="g-font-size-14--xs g-color--gray-dark" style="line-height: 1.6; margin-bottom: 0; font-family: 'Montserrat', sans-serif; color: #dc3545;">
                         Layanan administrasi online saat ini belum di-up atau dikonfigurasi aktif oleh pihak admin pelayanan Desa Tulungrejo.
                     </p>
                 </div>
