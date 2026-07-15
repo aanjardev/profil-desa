@@ -37,6 +37,15 @@ class InstitutionController extends Controller
         $typeLabels = AdminInstitutionController::TYPE_LABELS;
         $typeColors = AdminInstitutionController::TYPE_COLORS;
 
-        return view('user.institution-show', compact('institution', 'typeLabels', 'typeColors'));
+        // Lembaga lain di kategori yang sama, buat pengisi sidebar & bantu eksplorasi
+        $relatedInstitutions = Institution::query()
+            ->active()
+            ->ofType($institution->type)
+            ->where('id', '!=', $institution->id)
+            ->orderBy('name')
+            ->limit(5)
+            ->get();
+
+        return view('user.institution-show', compact('institution', 'typeLabels', 'typeColors', 'relatedInstitutions'));
     }
 }
