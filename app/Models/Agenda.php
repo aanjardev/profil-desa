@@ -21,7 +21,7 @@ class Agenda extends Model
         'organizer',
         'contact_person',
         'image',
-        'status',
+
         'is_active',
     ];
 }

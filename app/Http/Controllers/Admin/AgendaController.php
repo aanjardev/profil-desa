@@ -84,7 +84,7 @@ class AgendaController extends Controller
             'audience' => 'nullable|string|max:255',
             'organizer' => 'nullable|string|max:255',
             'contact_person' => 'nullable|string|max:255',
-            'status' => 'required|in:draft,published,cancelled',
+
         ]);
 
         $data = $request->all();
@@ -131,7 +131,7 @@ class AgendaController extends Controller
             'audience' => 'nullable|string|max:255',
             'organizer' => 'nullable|string|max:255',
             'contact_person' => 'nullable|string|max:255',
-            'status' => 'required|in:draft,published,cancelled',
+
         ]);
 
         $data = $request->all();

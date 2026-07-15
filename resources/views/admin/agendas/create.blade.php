@@ -121,16 +121,6 @@
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Status</h3>
                 
                 <div class="space-y-4">
-                    <div>
-                        <label for="status" class="block text-sm font-bold text-gray-700 mb-1">Status Publikasi</label>
-                        <select name="status" id="status" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
-                            <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Dipublikasikan</option>
-                            <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
-                        </select>
-                        @error('status')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                    </div>
-
                     <div class="flex items-center">
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" name="is_active" value="1" class="sr-only peer" {{ old('is_active', true) ? 'checked' : '' }}>

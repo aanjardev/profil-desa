@@ -10,12 +10,10 @@
             <div>
                 <div class="flex flex-wrap items-center gap-2 mb-3">
                     <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide rounded-md">{{ $agenda->audience }}</span>
-                    @if($agenda->status === 'published')
-                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wide rounded-md">Dipublikasikan</span>
-                    @elseif($agenda->status === 'draft')
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold uppercase tracking-wide rounded-md">Draft</span>
+                    @if($agenda->is_active)
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wide rounded-md">Aktif</span>
                     @else
-                        <span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wide rounded-md">Dibatalkan</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold uppercase tracking-wide rounded-md">Tidak Aktif</span>
                     @endif
                 </div>
                 <h2 class="text-2xl font-bold text-gray-900 leading-tight">{{ $agenda->title }}</h2>
