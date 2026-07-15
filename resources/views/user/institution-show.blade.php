@@ -104,6 +104,7 @@
         background: #fff;
         border-bottom: 1px solid #eee;
         margin-top: 36px;
+        box-shadow: 0 4px 12px rgba(20,20,30,.04);
     }
     .lp-subnav__inner { display: flex; gap: 6px; overflow-x: auto; }
     .lp-subnav a {
@@ -129,10 +130,47 @@
     .lp-desc { font-size: 15.5px; line-height: 1.9; color: #4a4c50; white-space: pre-line; }
 
     /* ===== Sidebar kecil (opsional info tambahan) ===== */
-    .lp-side-box { background: #f8f9fb; border-radius: 12px; padding: 22px; }
+    .lp-side-box { background: #f8f9fb; border-radius: 12px; padding: 22px; margin-bottom: 20px; }
     .lp-side-box__label { font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #9a9ca0; margin-bottom: 10px; }
+    .lp-sticky-wrap { position: sticky; top: 70px; }
+    .lp-sticky-wrap .lp-side-box:last-child { margin-bottom: 0; }
 
-    /* ===== Kartu pengurus ===== */
+    /* ===== Lembaga terkait ===== */
+    .lp-related-list { list-style: none; margin: 0 0 14px; padding: 0; }
+    .lp-related-item {
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #ecedf0;
+        text-decoration: none;
+        color: #2d2f33;
+        font-size: 13.5px;
+        transition: color .2s ease;
+    }
+    .lp-related-list li:last-child .lp-related-item { border-bottom: none; }
+    .lp-related-item:hover { color: var(--lp-accent); text-decoration: none; }
+    .lp-related-item__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lp-accent); flex-shrink: 0; }
+    .lp-related-item__name { flex: 1; }
+    .lp-related-item i { font-size: 11px; color: #c3c5c9; }
+    .lp-related-more {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+        color: var(--lp-accent); text-decoration: none;
+    }
+    .lp-related-more:hover { text-decoration: underline; color: var(--lp-accent); }
+
+    /* ===== CTA box ===== */
+    .lp-cta-box { background: linear-gradient(135deg, var(--lp-accent) 0%, #1c1c1e 140%); }
+    .lp-cta-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: #fff; color: #1c1c1e;
+        font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+        padding: 11px 18px; border-radius: 8px;
+        text-decoration: none;
+        transition: transform .2s ease;
+    }
+    .lp-cta-btn:hover { transform: translateY(-2px); text-decoration: none; color: #1c1c1e; }
+
+    .lp-empty { color: #9a9ca0; font-size: 14px; padding: 20px 0; }
     .lp-member { text-align: center; }
     .lp-member__photo {
         width: 108px; height: 108px; border-radius: 50%;
@@ -167,13 +205,32 @@
     .lp-gallery__item:hover img { transform: scale(1.07); }
     .lp-gallery__item i { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #cfd2d8; }
 
-    .lp-empty { color: #9a9ca0; font-size: 14px; padding: 20px 0; }
-
     @media (max-width: 767px) {
-        .lp-hero { padding: 70px 0 80px; }
-        .lp-hero__title { font-size: 28px; }
-        .lp-infocard { flex-direction: column; align-items: flex-start; margin-top: -40px; }
+        .lp-hero { padding: 60px 0 70px; }
+        .lp-hero__title { font-size: 26px; }
+        .lp-hero__eyebrow { font-size: 11px; }
+        .lp-infocard { flex-direction: column; align-items: flex-start; margin-top: -36px; padding: 22px; gap: 16px; }
+        .lp-infocard__logo { width: 68px; height: 68px; }
         .lp-infocard__back { width: 100%; justify-content: center; }
+        .lp-sticky-wrap { position: static; margin-top: 8px; }
+
+        .lp-subnav { margin-top: 24px; }
+        .lp-subnav a { margin-right: 22px; padding: 13px 4px; font-size: 12px; }
+
+        .lp-content { padding: 44px 0 60px; }
+        .lp-section { margin-bottom: 44px; }
+        .lp-section__title { font-size: 19px; margin-bottom: 20px; }
+        .lp-subnav a:first-child { margin-left: 0; }
+
+        .lp-member__photo { width: 84px; height: 84px; }
+        .lp-member__name { font-size: 13.5px; }
+
+        .lp-side-box { padding: 18px; }
+        .lp-cta-btn { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 420px) {
+        .lp-hero__title { font-size: 22px; }
+        .lp-infocard { margin-top: -28px; padding: 18px; }
     }
 </style>
 
@@ -214,8 +271,8 @@
     <!-- Sticky sub navigation -->
     <div class="lp-subnav">
         <div class="lp-subnav__inner">
-            <a href="#tentang" class="lp-subnav-link is-active">Tentang</a>
-            @if($hasMembers)<a href="#pengurus" class="lp-subnav-link">Pengurus</a>@endif
+            @if($hasMembers)<a href="#pengurus" class="lp-subnav-link {{ !$hasMembers ? '' : 'is-active' }}">Pengurus</a>@endif
+            <a href="#tentang" class="lp-subnav-link {{ $hasMembers ? '' : 'is-active' }}">Tentang</a>
             @if($hasGallery)<a href="#galeri" class="lp-subnav-link">Galeri</a>@endif
         </div>
     </div>
@@ -225,15 +282,6 @@
 <div class="container lp-content">
     <div class="row">
         <div class="col-md-8 g-full-width--xs">
-
-            <div class="lp-section" id="tentang">
-                <h2 class="lp-section__title"><i class="ti-info-alt"></i> Tentang Lembaga</h2>
-                @if($institution->description)
-                    <p class="lp-desc">{{ $institution->description }}</p>
-                @else
-                    <p class="lp-empty">Belum ada deskripsi untuk lembaga ini.</p>
-                @endif
-            </div>
 
             @if($hasMembers)
                 <div class="lp-section" id="pengurus">
@@ -258,6 +306,15 @@
                 </div>
             @endif
 
+            <div class="lp-section" id="tentang">
+                <h2 class="lp-section__title"><i class="ti-info-alt"></i> Tentang Lembaga</h2>
+                @if($institution->description)
+                    <p class="lp-desc">{{ $institution->description }}</p>
+                @else
+                    <p class="lp-empty">Belum ada deskripsi untuk lembaga ini.</p>
+                @endif
+            </div>
+
             @if($hasGallery)
                 <div class="lp-section" id="galeri">
                     <h2 class="lp-section__title"><i class="ti-gallery"></i> Galeri Foto</h2>
@@ -278,24 +335,56 @@
         </div>
 
         <div class="col-md-4 g-full-width--xs">
-            <div class="lp-side-box">
-                <p class="lp-side-box__label">Ringkasan</p>
-                <p style="font-size:14px; color:#55575c; margin:0 0 14px;">
-                    <strong>{{ $institution->name }}</strong> tergabung dalam kategori
-                    <strong>{{ $typeLabels[$institution->type] ?? ucfirst($institution->type) }}</strong>.
-                </p>
-                @if($hasMembers)
-                    <p style="font-size:14px; color:#55575c; margin:0 0 8px;">
-                        <i class="ti-user" style="color:var(--lp-accent); margin-right:6px;"></i>
-                        {{ $institution->members->count() }} pengurus/anggota terdaftar
+            <div class="lp-sticky-wrap">
+                <div class="lp-side-box">
+                    <p class="lp-side-box__label">Ringkasan</p>
+                    <p style="font-size:14px; color:#55575c; margin:0 0 14px;">
+                        <strong>{{ $institution->name }}</strong> tergabung dalam kategori
+                        <strong>{{ $typeLabels[$institution->type] ?? ucfirst($institution->type) }}</strong>.
                     </p>
+                    @if($hasMembers)
+                        <p style="font-size:14px; color:#55575c; margin:0 0 8px;">
+                            <i class="ti-user" style="color:var(--lp-accent); margin-right:6px;"></i>
+                            {{ $institution->members->count() }} pengurus/anggota terdaftar
+                        </p>
+                    @endif
+                    @if($institution->contact_person)
+                        <p style="font-size:14px; color:#55575c; margin:0;">
+                            <i class="ti-comment-alt" style="color:var(--lp-accent); margin-right:6px;"></i>
+                            Narahubung: {{ $institution->contact_person }}
+                        </p>
+                    @endif
+                </div>
+
+                @if($relatedInstitutions->count())
+                    <div class="lp-side-box lp-related-box">
+                        <p class="lp-side-box__label">Lembaga Lain di Kategori Ini</p>
+                        <ul class="lp-related-list">
+                            @foreach($relatedInstitutions as $related)
+                                <li>
+                                    <a href="{{ route('kelembagaan.show', $related) }}" class="lp-related-item">
+                                        <span class="lp-related-item__dot"></span>
+                                        <span class="lp-related-item__name">{{ $related->name }}</span>
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <a href="{{ route('kelembagaan') }}?type={{ $institution->type }}" class="lp-related-more">
+                            Lihat semua kategori ini <i class="ti-arrow-right"></i>
+                        </a>
+                    </div>
                 @endif
-                @if($institution->contact_person)
-                    <p style="font-size:14px; color:#55575c; margin:0;">
-                        <i class="ti-comment-alt" style="color:var(--lp-accent); margin-right:6px;"></i>
-                        Narahubung: {{ $institution->contact_person }}
+
+                <div class="lp-side-box lp-cta-box">
+                    <p class="lp-side-box__label" style="color:rgba(255,255,255,.7);">Butuh Informasi Lain?</p>
+                    <p style="font-size:14px; color:#fff; margin:0 0 16px; line-height:1.7;">
+                        Lihat daftar lengkap lembaga desa lainnya atau hubungi kantor desa untuk informasi lebih lanjut.
                     </p>
-                @endif
+                    <a href="{{ route('kelembagaan') }}" class="lp-cta-btn">
+                        <i class="ti-layout-grid2"></i> Semua Kelembagaan
+                    </a>
+                </div>
             </div>
         </div>
     </div>
