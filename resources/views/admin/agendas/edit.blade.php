@@ -86,13 +86,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label for="start_time" class="block text-sm font-bold text-gray-700 mb-1">Jam Mulai (Opsional)</label>
-                            <input type="time" name="start_time" id="start_time" value="{{ old('start_time', $agenda->start_time) }}"
+                            <input type="time" name="start_time" id="start_time" value="{{ old('start_time', $agenda->start_time ? \Carbon\Carbon::parse($agenda->start_time)->format('H:i') : '') }}"
                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
                             @error('start_time')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                         </div>
                         <div>
                             <label for="end_time" class="block text-sm font-bold text-gray-700 mb-1">Jam Selesai (Opsional)</label>
-                            <input type="time" name="end_time" id="end_time" value="{{ old('end_time', $agenda->end_time) }}"
+                            <input type="time" name="end_time" id="end_time" value="{{ old('end_time', $agenda->end_time ? \Carbon\Carbon::parse($agenda->end_time)->format('H:i') : '') }}"
                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
                             @error('end_time')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                         </div>
@@ -122,16 +122,6 @@
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Status</h3>
                 
                 <div class="space-y-4">
-                    <div>
-                        <label for="status" class="block text-sm font-bold text-gray-700 mb-1">Status Publikasi</label>
-                        <select name="status" id="status" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
-                            <option value="published" {{ old('status', $agenda->status) == 'published' ? 'selected' : '' }}>Dipublikasikan</option>
-                            <option value="draft" {{ old('status', $agenda->status) == 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="cancelled" {{ old('status', $agenda->status) == 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
-                        </select>
-                        @error('status')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                    </div>
-
                     <div class="flex items-center">
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" name="is_active" value="1" class="sr-only peer" {{ old('is_active', $agenda->is_active) ? 'checked' : '' }}>

@@ -137,20 +137,15 @@
                         <div class="text-sm text-gray-700 line-clamp-2">{{ $agenda->location }}</div>
                     </td>
                     <td class="px-6 py-4">
-                        @if($agenda->status === 'published')
+                        @if($agenda->is_active)
                             <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold">
                                 <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-                                Publik
-                            </div>
-                        @elseif($agenda->status === 'draft')
-                            <div class="flex items-center gap-1.5 text-gray-500 text-xs font-semibold">
-                                <div class="w-1.5 h-1.5 rounded-full bg-gray-400"></div>
-                                Draft
+                                Aktif
                             </div>
                         @else
-                            <div class="flex items-center gap-1.5 text-red-600 text-xs font-semibold">
-                                <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                                Batal
+                            <div class="flex items-center gap-1.5 text-gray-500 text-xs font-semibold">
+                                <div class="w-1.5 h-1.5 rounded-full bg-gray-400"></div>
+                                Tidak Aktif
                             </div>
                         @endif
                     </td>

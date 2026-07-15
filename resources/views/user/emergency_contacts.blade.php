@@ -3,6 +3,8 @@
 <!--========== PAGE CONTENT ==========-->
 @include('user.components.emergency_contacts.page_header_emergency_contacts')
 
-@include('user.components.emergency_contacts.contact_box_card')
+<div class="g-bg-color--sky-light">
+    @include('user.components.emergency_contacts.contact_box_card')
+</div>
 <!--========== END PAGE CONTENT ==========-->
 @endsection
