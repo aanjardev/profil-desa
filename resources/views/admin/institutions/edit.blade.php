@@ -3,6 +3,13 @@
 @section('page_title', 'Edit Lembaga Desa')
 @section('page_subtitle', 'Perbarui data lembaga dan susunan pengurusnya.')
 
+@push('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
+@endpush
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+@endpush
+
 @section('content')
 <form action="{{ route('admin.institutions.update', $institution->id) }}" method="POST" enctype="multipart/form-data"
       x-data="{
@@ -29,7 +36,46 @@
               this.members.splice(index, 1);
           },
           deletedImages: [],
-      }">
+          showCropper: false,
+          cropper: null,
+          currentMemberIndex: null,
+          initCropper() {
+              this.$watch('showCropper', value => {
+                  if (value) {
+                      this.$nextTick(() => {
+                          const image = document.getElementById('cropperImage');
+                          if(this.cropper) this.cropper.destroy();
+                          this.cropper = new Cropper(image, {
+                              aspectRatio: 1,
+                              viewMode: 1,
+                              dragMode: 'move',
+                              autoCropArea: 1,
+                          });
+                      });
+                  }
+              });
+          },
+          applyCrop() {
+              if(this.cropper && this.currentMemberIndex !== null) {
+                  const canvas = this.cropper.getCroppedCanvas({
+                      width: 500,
+                      height: 500
+                  });
+                  canvas.toBlob((blob) => {
+                      let file = new File([blob], 'photo.jpg', { type: 'image/jpeg', lastModified: new Date().getTime() });
+                      let container = new DataTransfer();
+                      container.items.add(file);
+                      let member = this.members[this.currentMemberIndex];
+                      let input = document.getElementById('ep_' + member.id);
+                      input.files = container.files;
+                      member.photoPreview = URL.createObjectURL(file);
+                      member.removePhoto = false;
+                      this.showCropper = false;
+                      this.currentMemberIndex = null;
+                  }, 'image/jpeg');
+              }
+          }
+      }" x-init="initCropper()">
     @csrf
     @method('PUT')
     <input type="hidden" name="remove_logo" :value="removeLogo ? '1' : '0'">
@@ -348,7 +394,7 @@
                                     <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </div>
                                 <input type="file" :name="'members[' + index + '][photo]'" :id="'ep_' + member.id" accept="image/*" class="sr-only"
-                                       @change="const f=$event.target.files[0];if(f){if(f.size>2097152){alert('Maks 2MB!');return;}member.photoPreview=URL.createObjectURL(f);member.removePhoto=false;}">
+                                       @change="const f=$event.target.files[0]; if(f){ if(f.size>2097152){alert('Maks 2MB!');$event.target.value='';return;} const reader = new FileReader(); reader.onload = (e) => { document.getElementById('cropperImage').src = e.target.result; currentMemberIndex = index; showCropper = true; }; reader.readAsDataURL(f); }">
                                 <button x-show="member.photoPreview && !member.removePhoto && member.dbId" type="button"
                                         @click="member.removePhoto=true;member.photoPreview=''"
                                         class="w-full mt-1 text-[10px] text-red-500 text-center hover:text-red-700 flex items-center justify-center gap-0.5">
@@ -404,6 +450,25 @@
     <div class="mt-6 flex lg:hidden gap-3">
         <a href="{{ route('admin.institutions.index') }}" class="flex-1 px-4 py-3 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors">Batal</a>
         <button type="submit" class="flex-1 px-4 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm">Simpan Perubahan</button>
+    </div>
+
+    <!-- Modal Cropper -->
+    <div x-show="showCropper" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" x-cloak>
+        <div class="bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-lg" @click.away="showCropper = false">
+            <div class="flex items-center justify-between p-4 border-b border-gray-100">
+                <h3 class="text-sm font-bold text-gray-900">Sesuaikan Foto</h3>
+                <button type="button" @click="showCropper = false" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-4 bg-gray-50 flex justify-center max-h-[60vh] overflow-hidden">
+                <img id="cropperImage" class="max-w-full block">
+            </div>
+            <div class="p-4 border-t border-gray-100 flex justify-end gap-2 bg-white">
+                <button type="button" @click="showCropper = false" class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                <button type="button" @click="applyCrop()" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">Gunakan Foto</button>
+            </div>
+        </div>
     </div>
 </form>
 

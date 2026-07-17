@@ -175,7 +175,7 @@
         </div>
     @else
         @foreach($institutions as $type => $group)
-            <div class="lembaga-cat-section {{ $loop->first ? '-is-visible' : '' }}" data-cat-section="{{ $type }}">
+            <div class="lembaga-cat-section -is-visible" data-cat-section="{{ $type }}">
                 <div class="lembaga-section-title">
                     <p class="text-uppercase g-font-size-13--xs g-font-weight--700 g-letter-spacing--2 g-margin-b-10--xs"
                        style="color: {{ $publicTypeColors[$type] ?? '#6b7280' }};">
