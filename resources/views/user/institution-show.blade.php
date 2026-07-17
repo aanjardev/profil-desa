@@ -206,12 +206,14 @@
     .lp-gallery__item i { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #cfd2d8; }
 
     @media (max-width: 767px) {
+        .container { padding-left: 20px !important; padding-right: 20px !important; }
         .lp-hero { padding: 60px 0 70px; }
         .lp-hero__title { font-size: 26px; }
         .lp-hero__eyebrow { font-size: 11px; }
-        .lp-infocard { flex-direction: column; align-items: flex-start; margin-top: -36px; padding: 22px; gap: 16px; }
+        .lp-infocard { margin-top: -36px; padding: 22px; gap: 16px; }
         .lp-infocard__logo { width: 68px; height: 68px; }
-        .lp-infocard__back { width: 100%; justify-content: center; }
+        .lp-infocard__body { flex: 1; min-width: 150px; }
+        .lp-infocard__back { width: 100%; justify-content: center; margin-top: 4px; }
         .lp-sticky-wrap { position: static; margin-top: 8px; }
 
         .lp-subnav { margin-top: 24px; }
@@ -288,7 +290,7 @@
                     <h2 class="lp-section__title"><i class="ti-id-badge"></i> Pengurus &amp; Anggota</h2>
                     <div class="row">
                         @foreach($institution->members as $member)
-                            <div class="col-sm-4 col-xs-6 g-full-width--xs g-margin-b-30--xs lp-member">
+                            <div class="col-sm-4 col-xs-6 g-margin-b-30--xs lp-member">
                                 <div class="lp-member__photo">
                                     @if($member->photo)
                                         <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->name }}"
@@ -320,7 +322,7 @@
                     <h2 class="lp-section__title"><i class="ti-gallery"></i> Galeri Foto</h2>
                     <div class="row">
                         @foreach($institution->images as $img)
-                            <div class="col-sm-4 col-xs-6 g-full-width--xs g-margin-b-20--xs">
+                            <div class="col-sm-4 col-xs-6 g-margin-b-20--xs">
                                 <a href="{{ Storage::url($img['path']) }}" target="_blank" class="lp-gallery__item">
                                     <img src="{{ Storage::url($img['path']) }}" alt="Galeri {{ $institution->name }}"
                                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
