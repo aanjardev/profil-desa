@@ -43,17 +43,78 @@
                     {!! $post->content !!}
                 </div>
 
-                <!-- Supporting Images -->
+                <!-- Supporting Images Slider -->
                 @if($post->images && $post->images->count() > 0)
-                    <div class="g-margin-t-40--xs">
-                        <div style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
-                            @foreach($post->images as $img)
-                                <a href="{{ asset('storage/'.$img->image_path) }}" class="supporting-image-popup" style="flex: 0 0 80%; max-width: 300px; scroll-snap-align: start; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: block;">
-                                    <img src="{{ asset('storage/'.$img->image_path) }}" alt="{{ $img->caption ?? 'Gambar Pendukung' }}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
+                <div class="g-margin-t-40--xs">
+                    <h5 class="g-font-weight--700 g-margin-b-15--xs" style="font-size: 15px; color: #444; border-left: 4px solid #1a73e8; padding-left: 10px;">Galeri Foto</h5>
+
+                    <div id="supportSlider" style="position: relative; user-select: none;">
+                        <!-- Slides -->
+                        <div id="supportSliderTrack" style="position: relative;">
+                            @foreach($post->images as $i => $img)
+                            <div class="support-slide" data-index="{{ $i }}"
+                                 style="display: {{ $i === 0 ? 'block' : 'none' }};">
+                                <!-- Image -->
+                                <a href="{{ asset('storage/'.$img->image_path) }}" class="supporting-image-popup"
+                                   style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.13);">
+                                    <img src="{{ asset('storage/'.$img->image_path) }}"
+                                         alt="{{ $img->caption ?? 'Gambar Pendukung' }}"
+                                         style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;">
                                 </a>
+                                <!-- Caption -->
+                                @if($img->caption)
+                                <div style="text-align: center; margin-top: 12px; padding: 8px 16px; background: #f8f9fa; border-radius: 8px; border: 1px solid #eee;">
+                                    <span style="font-size: 13px; color: #555; font-style: italic; line-height: 1.5;">
+                                        <i class="ti-image" style="margin-right: 5px; color: #1a73e8;"></i>{{ $img->caption }}
+                                    </span>
+                                </div>
+                                @else
+                                <div style="text-align: center; margin-top: 10px;">
+                                    <span style="font-size: 12px; color: #aaa; font-style: italic;">Foto {{ $i + 1 }} dari {{ $post->images->count() }}</span>
+                                </div>
+                                @endif
+                            </div>
                             @endforeach
                         </div>
+
+                        @if($post->images->count() > 1)
+                        <!-- Nav Arrows -->
+                        <button onclick="supportSlide(-1)" aria-label="Sebelumnya"
+                                style="position: absolute; top: calc(50% - 30px); left: -18px; transform: translateY(-50%); z-index: 10;
+                                       width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+                                       background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+                                       display: flex; align-items: center; justify-content: center; transition: background .2s;"
+                                onmouseover="this.style.background='#1a73e8'; this.querySelector('svg').style.color='#fff'"
+                                onmouseout="this.style.background='#fff'; this.querySelector('svg').style.color='#555'">
+                            <svg style="width:16px;height:16px;color:#555;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button onclick="supportSlide(1)" aria-label="Berikutnya"
+                                style="position: absolute; top: calc(50% - 30px); right: -18px; transform: translateY(-50%); z-index: 10;
+                                       width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+                                       background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+                                       display: flex; align-items: center; justify-content: center; transition: background .2s;"
+                                onmouseover="this.style.background='#1a73e8'; this.querySelector('svg').style.color='#fff'"
+                                onmouseout="this.style.background='#fff'; this.querySelector('svg').style.color='#555'">
+                            <svg style="width:16px;height:16px;color:#555;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+
+                        <!-- Dot Indicators -->
+                        <div id="supportDots" style="display: flex; justify-content: center; gap: 7px; margin-top: 16px; flex-wrap: wrap;">
+                            @foreach($post->images as $i => $img)
+                            <button onclick="supportGoTo({{ $i }})" aria-label="Slide {{ $i + 1 }}"
+                                    class="support-dot"
+                                    data-dot="{{ $i }}"
+                                    style="width: 9px; height: 9px; border-radius: 50%; border: none; cursor: pointer; padding: 0; transition: all .2s;
+                                           background: {{ $i === 0 ? '#1a73e8' : '#ddd' }}; transform: {{ $i === 0 ? 'scale(1.3)' : 'scale(1)' }};"></button>
+                            @endforeach
+                        </div>
+                        @endif
                     </div>
+                </div>
                 @endif
 
                 <!-- Tags & Share -->
@@ -120,6 +181,37 @@
             toast.style.display = 'none'; 
         }, 3000);
     }
+
+    // ---- Supporting Images Slider ----
+    var _supportIndex = 0;
+
+    function supportGoTo(index) {
+        var slides = document.querySelectorAll('.support-slide');
+        if (!slides.length) return;
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        slides[_supportIndex].style.display = 'none';
+        slides[index].style.display = 'block';
+
+        // Update dots
+        var dots = document.querySelectorAll('.support-dot');
+        if (dots[_supportIndex]) {
+            dots[_supportIndex].style.background = '#ddd';
+            dots[_supportIndex].style.transform = 'scale(1)';
+        }
+        if (dots[index]) {
+            dots[index].style.background = '#1a73e8';
+            dots[index].style.transform = 'scale(1.3)';
+        }
+
+        _supportIndex = index;
+    }
+
+    function supportSlide(dir) {
+        supportGoTo(_supportIndex + dir);
+    }
+    // ---- End Slider ----
 
     $(document).ready(function() {
         if($.fn.magnificPopup) {
