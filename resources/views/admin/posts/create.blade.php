@@ -2,10 +2,88 @@
 
 @push('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+<style>
+    .EasyMDEContainer .CodeMirror {
+        border-radius: 0 0 0.5rem 0.5rem;
+        font-size: 0.875rem;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        min-height: 280px;
+        background-color: #f9fafb;
+    }
+    .EasyMDEContainer .CodeMirror-focused {
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        border-color: #3b82f6;
+    }
+    .EasyMDEContainer .editor-toolbar {
+        border-radius: 0.5rem 0.5rem 0 0;
+        background: #f9fafb;
+        border-color: #e5e7eb;
+        opacity: 1;
+    }
+    .EasyMDEContainer .editor-toolbar button {
+        color: #374151;
+    }
+    .EasyMDEContainer .editor-toolbar button:hover,
+    .EasyMDEContainer .editor-toolbar button.active {
+        background: #e0e7ff;
+        border-color: #c7d2fe;
+        color: #4f46e5;
+    }
+    .EasyMDEContainer .editor-toolbar i.separator {
+        border-color: #d1d5db;
+    }
+    .EasyMDEContainer .editor-preview {
+        background: #ffffff;
+        font-size: 0.875rem;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    .EasyMDEContainer .editor-preview h1,
+    .EasyMDEContainer .editor-preview h2,
+    .EasyMDEContainer .editor-preview h3 {
+        font-weight: 700;
+        margin: 0.75rem 0 0.4rem;
+        color: #111827;
+    }
+    .EasyMDEContainer .editor-preview p { margin-bottom: 0.75rem; }
+    .EasyMDEContainer .editor-preview ul,
+    .EasyMDEContainer .editor-preview ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+    .EasyMDEContainer .editor-preview blockquote {
+        border-left: 3px solid #6366f1;
+        padding-left: 1rem;
+        color: #6b7280;
+        font-style: italic;
+    }
+    .EasyMDEContainer .editor-statusbar { font-size: 0.75rem; color: #9ca3af; }
+</style>
 @endpush
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const easyMDE = new EasyMDE({
+            element: document.getElementById('content'),
+            placeholder: 'Tulis isi artikel secara detail di sini...\n\nGunakan toolbar di atas untuk memformat teks: **tebal**, *miring*, # Judul, dll.',
+            spellChecker: false,
+            autosave: { enabled: false },
+            status: ['lines', 'words'],
+            toolbar: [
+                'bold', 'italic', 'strikethrough', '|',
+                'heading-1', 'heading-2', 'heading-3', '|',
+                'unordered-list', 'ordered-list', 'quote', '|',
+                'link', 'horizontal-rule', '|',
+                'preview', 'side-by-side', 'fullscreen', '|',
+                'guide'
+            ],
+            previewRender: function(plainText) {
+                return this.parent.markdown(plainText);
+            },
+        });
+    });
+</script>
 @endpush
 
 @section('page_title', 'Tulis Artikel Baru')
@@ -52,13 +130,14 @@
                     </div>
 
                     <div>
-                        <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center justify-between mb-2">
                             <label for="content" class="block text-sm font-bold text-gray-700">Isi Konten <span class="text-red-500">*</span></label>
-                            <span class="text-[11px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded font-medium">Mendukung Markdown</span>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded font-semibold">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12C21.35 6 22 6.63 22 7.41v9.18c0 .78-.65 1.41-1.44 1.41zM9.09 15V9l2.72 3.3L14.5 9v6h1.91V9h-1.91l-2.69 3.2L9.12 9H7.21v6h1.88zm9.09-3h-1.83V9h-1.88v3h-1.83l2.77 3 2.77-3z"/></svg>
+                                Markdown Editor
+                            </span>
                         </div>
-                        <textarea name="content" id="content" rows="12" required maxlength="10000"
-                                  class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
-                                  placeholder="Tulis isi artikel secara detail di sini...">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" required maxlength="10000">{{ old('content') }}</textarea>
                         @error('content')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
 
