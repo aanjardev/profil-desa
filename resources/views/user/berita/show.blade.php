@@ -40,7 +40,7 @@
 
                 <!-- Content -->
                 <div class="g-font-size-16--xs g-color--dark" style="line-height: 1.8; text-align: justify;">
-                    {!! $post->content !!}
+                    {!! Str::markdown($post->content) !!}
                 </div>
 
                 <!-- Supporting Images Slider -->
