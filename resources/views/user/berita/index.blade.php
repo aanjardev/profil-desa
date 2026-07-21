@@ -93,7 +93,7 @@
                             <span class="g-font-size-13--xs" style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $mainHighlight->created_at->translatedFormat('d M Y') }}</span></span>
                         </div>
                         <p class="main-hl-desc g-font-size-14--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
-                            {{ Str::limit(strip_tags($mainHighlight->excerpt ?? $mainHighlight->content), 200) }}
+                            {{ Str::limit(strip_tags(Str::markdown($mainHighlight->excerpt ?? $mainHighlight->content)), 200) }}
                         </p>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                                     <span class="g-font-size-12--xs" style="color: #ffffff !important;"><i class="ti-time g-margin-r-5--xs" style="color: #ffffff !important;"></i> <span style="color: #ffffff !important;">{{ $subHighlight->created_at->translatedFormat('d M Y') }}</span></span>
                                 </div>
                                 <p class="g-font-size-13--xs g-color--white-opacity" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; margin-bottom: 0;">
-                                    {{ Str::limit(strip_tags($subHighlight->excerpt ?? $subHighlight->content), 120) }}
+                                    {{ Str::limit(strip_tags(Str::markdown($subHighlight->excerpt ?? $subHighlight->content)), 120) }}
                                 </p>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                                         <a href="{{ route('berita-desa.show', $post->slug) }}" class="news-title-link" style="color: #2d3748; text-decoration: none;">{{ $post->title }}</a>
                                     </h3>
                                     <p class="g-font-size-14--xs" style="color: #718096; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; text-align: justify;">
-                                        {{ Str::limit(strip_tags($post->excerpt ?? $post->content), 300) }}
+                                        {{ Str::limit(strip_tags(Str::markdown($post->excerpt ?? $post->content)), 300) }}
                                     </p>
                                 </div>
                             </article>

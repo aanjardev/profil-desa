@@ -45,7 +45,7 @@
                                         <h3 class="g-font-size-22--xs g-font-size-28--md g-font-weight--700 g-margin-b-10--xs">
                                             <a href="{{ route('berita-desa.show', $utama->slug) }}" class="g-color--white g-color--primary--hover berita-title-hover" style="text-decoration: none; line-height: 1.3;">{{ $utama->title }}</a>
                                         </h3>
-                                        <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-0--xs" style="margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify;">{{ Str::limit(strip_tags($utama->excerpt ?? $utama->content), 200) }}</p>
+                                        <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-0--xs" style="margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify;">{{ Str::limit(strip_tags(Str::markdown($utama->excerpt ?? $utama->content)), 200) }}</p>
                                     </div>
                                 </article>
                             </div>
@@ -72,7 +72,7 @@
                                     <h3 class="g-font-size-15--xs g-font-weight--700 g-margin-b-5--xs" style="line-height: 1.4;">
                                         <a href="{{ route('berita-desa.show', $post->slug) }}" class="g-color--dark g-color--primary--hover berita-title-hover" style="text-decoration: none;">{{ $post->title }}</a>
                                     </h3>
-                                    <p class="g-font-size-12--xs g-color--dark g-margin-b-0--xs hidden-xs" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify;">{{ Str::limit(strip_tags($post->excerpt ?? $post->content), 120) }}</p>
+                                    <p class="g-font-size-12--xs g-color--dark g-margin-b-0--xs hidden-xs" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: justify;">{{ Str::limit(strip_tags(Str::markdown($post->excerpt ?? $post->content)), 120) }}</p>
                                 </div>
                             </article>
                         @endforeach
