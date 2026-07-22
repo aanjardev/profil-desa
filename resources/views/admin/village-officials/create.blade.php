@@ -6,17 +6,7 @@
 @section('content')
 <form action="{{ route('admin.village-officials.store') }}" method="POST" enctype="multipart/form-data"
       x-data="{
-          photoPreview: null,
-          parentId: '{{ old('parent_id', '') }}',
-          level: '{{ old('level', 1) }}',
-          updateLevelFromParent(parentId, parentLevel) {
-              this.parentId = parentId;
-              if (!parentId) {
-                  this.level = 1;
-              } else {
-                  this.level = parseInt(parentLevel) + 1;
-              }
-          }
+          photoPreview: null
       }">
     @csrf
 
@@ -122,51 +112,61 @@
                         @error('position')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
                 </div>
-            </div>
-
-            {{-- Posisi dalam Struktur --}}
+            </div>            {{-- Tipe Jabatan --}}
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h3 class="text-base font-bold text-gray-900 mb-2 border-b border-gray-100 pb-3">Posisi dalam Struktur Organisasi</h3>
-                <p class="text-xs text-gray-500 mb-5">Pilih atasan langsung (parent). Level akan otomatis disesuaikan. Kosongkan jika ini Kepala Desa (level puncak).</p>
+                <h3 class="text-base font-bold text-gray-900 mb-2 border-b border-gray-100 pb-3">Tipe Jabatan</h3>
+                <p class="text-xs text-gray-500 mb-5">Pilih tipe jabatan. Posisi garis dan hierarki akan diatur di halaman Desain SOTK Visual.</p>
 
                 <div class="space-y-5">
-                    {{-- Parent --}}
                     <div>
-                        <label for="parent_id" class="block text-sm font-bold text-gray-700 mb-1">Atasan / Parent</label>
-                        <select name="parent_id" id="parent_id"
-                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
-                                @change="updateLevelFromParent($event.target.value, $event.target.selectedOptions[0].dataset.level || 0)">
-                            @if(!isset($hasLevel1) || !$hasLevel1)
-                                <option value="" data-level="0">— Tidak ada (Level 1 / Puncak) —</option>
-                            @endif
-                            @foreach($potentialParents as $parent)
-                                <option value="{{ $parent->id }}"
-                                        data-level="{{ $parent->level }}"
-                                        {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
-                                    [Level {{ $parent->level }}] {{ $parent->position }} — {{ $parent->name }}
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/30 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                                <input type="radio" name="type" value="eksekutif" {{ old('type', 'eksekutif') === 'eksekutif' ? 'checked' : '' }} class="accent-blue-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Eksekutif</span>
+                                    <span class="text-[10px] text-gray-400">Kades, Sekdes, Kasi, Kaur</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50/30 transition-colors has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                <input type="radio" name="type" value="legislatif" {{ old('type') === 'legislatif' ? 'checked' : '' }} class="accent-purple-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Legislatif</span>
+                                    <span class="text-[10px] text-gray-400">BPD &amp; anggotanya</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50/30 transition-colors has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50">
+                                <input type="radio" name="type" value="kasun" {{ old('type') === 'kasun' ? 'checked' : '' }} class="accent-amber-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Kasun</span>
+                                    <span class="text-[10px] text-gray-400">Kepala Dusun</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-gray-300 hover:bg-gray-50/30 transition-colors has-[:checked]:border-gray-400 has-[:checked]:bg-gray-50">
+                                <input type="radio" name="type" value="staf" {{ old('type') === 'staf' ? 'checked' : '' }} class="accent-gray-500">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Staf</span>
+                                    <span class="text-[10px] text-gray-400">Staf pendukung</span>
+                                </div>
+                            </label>
+                        </div>
+                        @error('type')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                    </div>
+                    </div>
+
+                    {{-- Atasan (Untuk Staf) --}}
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Atasan (Khusus Staf) <span class="text-red-500">*</span></label>
+                        <select name="parent_id" 
+                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm text-gray-700">
+                            <option value="">Pilih Atasan (Jika Staf)</option>
+                            @foreach(\App\Models\VillageOfficial::where('type', 'eksekutif')->orderBy('level')->orderBy('order_num')->get() as $parent)
+                                <option value="{{ $parent->id }}" {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
+                                    {{ $parent->name }} - {{ $parent->position }}
                                 </option>
                             @endforeach
                         </select>
+                        <p class="mt-1 text-[10px] text-gray-500">Pilih atasan jika perangkat ini adalah staf dari Kasi/Kaur tertentu.</p>
                         @error('parent_id')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                    </div>
-
-                    {{-- Level (readonly, derived) --}}
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Level Hierarki <span class="text-red-500">*</span></label>
-                        <div class="grid grid-cols-3 gap-3">
-                            @foreach([1 => ['label' => 'Level 1', 'sub' => 'Kepala / Pimpinan', 'color' => 'amber'], 2 => ['label' => 'Level 2', 'sub' => 'Sekdes / Kasie', 'color' => 'blue'], 3 => ['label' => 'Level 3', 'sub' => 'Staff / Staf', 'color' => 'emerald']] as $lv => $info)
-                            <label class="cursor-not-allowed opacity-80">
-                                <input type="radio" value="{{ $lv }}" class="sr-only peer" disabled
-                                       x-bind:checked="level == {{ $lv }}"
-                                       {{ old('level', 1) == $lv ? 'checked' : '' }}>
-                                <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-{{ $info['color'] }}-500 peer-checked:bg-{{ $info['color'] }}-50 transition-all text-center">
-                                    <span class="text-sm font-bold text-gray-800 block">{{ $info['label'] }}</span>
-                                    <span class="text-xs text-gray-400">{{ $info['sub'] }}</span>
-                                </div>
-                            </label>
-                            @endforeach
-                        </div>
-                        @error('level')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
                 </div>
 
@@ -175,11 +175,11 @@
                     <div class="flex items-start gap-2">
                         <svg class="w-4 h-4 text-blue-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <p class="text-xs text-blue-700 leading-relaxed">
-                            Urutan tampil otomatis diletakkan di posisi terakhir. Atur urutan dengan cara <strong>drag & drop</strong> di halaman daftar perangkat setelah data disimpan.
+                            Bagan SOTK publik akan dibuat secara otomatis berdasarkan <strong>Jabatan</strong> yang Anda isi. Pastikan penulisan jabatan sesuai (contoh: Kepala Desa, Sekretaris Desa, Kasi Kesra, Kaur Umum, Staf Kasi Kesra, Kasun Gondang).
                         </p>
                     </div>
                 </div>
-            </div>
+            </div>  </div>
 
             {{-- Tombol Aksi (Simpan & Batal) --}}
             <div class="flex gap-3">

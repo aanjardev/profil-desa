@@ -61,6 +61,9 @@
     <div class="p-4 flex-1 flex flex-col">
         <h4 class="font-bold text-gray-900 text-sm leading-tight line-clamp-2">{{ $official->name }}</h4>
         <p class="text-xs font-semibold text-blue-600 mt-1 line-clamp-1">{{ $official->position }}</p>
+        <span class="mt-1.5 inline-flex self-start items-center px-2 py-0.5 rounded-md text-[10px] font-bold border {{ $official->type_badge_class }}">
+            {{ $official->type_label }}
+        </span>
         @if($official->nip)
             <p class="text-[11px] text-gray-400 mt-1 font-mono">NIP: {{ $official->nip }}</p>
         @endif

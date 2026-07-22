@@ -7,17 +7,7 @@
 <form action="{{ route('admin.village-officials.update', $villageOfficial->id) }}" method="POST" enctype="multipart/form-data"
       x-data="{
           photoPreview: '{{ $villageOfficial->photo ? asset('storage/' . $villageOfficial->photo) : '' }}',
-          removePhoto: false,
-          parentId: '{{ old('parent_id', $villageOfficial->parent_id ?? '') }}',
-          level: '{{ old('level', $villageOfficial->level) }}',
-          updateLevelFromParent(parentId, parentLevel) {
-              this.parentId = parentId;
-              if (!parentId) {
-                  this.level = 1;
-              } else {
-                  this.level = parseInt(parentLevel) + 1;
-              }
-          }
+          removePhoto: false
       }">
     @csrf
     @method('PUT')
@@ -145,47 +135,61 @@
                 </div>
             </div>
 
-            {{-- Posisi dalam Struktur --}}
+            {{-- Tipe Jabatan --}}
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h3 class="text-base font-bold text-gray-900 mb-2 border-b border-gray-100 pb-3">Posisi dalam Struktur Organisasi</h3>
-                <p class="text-xs text-gray-500 mb-5">Pilih atasan langsung. Level akan otomatis disesuaikan. Kosongkan jika ini adalah pimpinan tertinggi.</p>
-
+                <h3 class="text-base font-bold text-gray-900 mb-2 border-b border-gray-100 pb-3">Tipe Jabatan</h3>
+                
                 <div class="space-y-5">
                     <div>
-                        <label for="parent_id" class="block text-sm font-bold text-gray-700 mb-1">Atasan / Parent</label>
-                        <select name="parent_id" id="parent_id"
-                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
-                                @change="updateLevelFromParent($event.target.value, $event.target.selectedOptions[0].dataset.level || 0)">
-                            @if(!isset($hasLevel1) || !$hasLevel1 || (old('parent_id', $villageOfficial->parent_id) == ''))
-                                <option value="" data-level="0">— Tidak ada (Level 1 / Puncak) —</option>
-                            @endif
-                            @foreach($potentialParents as $parent)
-                                <option value="{{ $parent->id }}"
-                                        data-level="{{ $parent->level }}"
-                                        {{ old('parent_id', $villageOfficial->parent_id) == $parent->id ? 'selected' : '' }}>
-                                    [Level {{ $parent->level }}] {{ $parent->position }} — {{ $parent->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('parent_id')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Level Hierarki <span class="text-red-500">*</span></label>
-                        <div class="grid grid-cols-3 gap-3">
-                            @foreach([1 => ['label' => 'Level 1', 'sub' => 'Kepala / Pimpinan', 'color' => 'amber'], 2 => ['label' => 'Level 2', 'sub' => 'Sekdes / Kasie', 'color' => 'blue'], 3 => ['label' => 'Level 3', 'sub' => 'Staff / Staf', 'color' => 'emerald']] as $lv => $info)
-                            <label class="cursor-not-allowed opacity-80">
-                                <input type="radio" value="{{ $lv }}" class="sr-only peer" disabled
-                                       x-bind:checked="level == {{ $lv }}"
-                                       {{ old('level', $villageOfficial->level) == $lv ? 'checked' : '' }}>
-                                <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-{{ $info['color'] }}-500 peer-checked:bg-{{ $info['color'] }}-50 transition-all text-center">
-                                    <span class="text-sm font-bold text-gray-800 block">{{ $info['label'] }}</span>
-                                    <span class="text-xs text-gray-400">{{ $info['sub'] }}</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/30 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                                <input type="radio" name="type" value="eksekutif" {{ old('type', $villageOfficial->type) === 'eksekutif' ? 'checked' : '' }} class="accent-blue-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Eksekutif</span>
+                                    <span class="text-[10px] text-gray-400">Kades, Sekdes, Kasi, Kaur</span>
                                 </div>
                             </label>
-                            @endforeach
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50/30 transition-colors has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                <input type="radio" name="type" value="legislatif" {{ old('type', $villageOfficial->type) === 'legislatif' ? 'checked' : '' }} class="accent-purple-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Legislatif</span>
+                                    <span class="text-[10px] text-gray-400">BPD &amp; anggotanya</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50/30 transition-colors has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50">
+                                <input type="radio" name="type" value="kasun" {{ old('type', $villageOfficial->type) === 'kasun' ? 'checked' : '' }} class="accent-amber-600">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Kasun</span>
+                                    <span class="text-[10px] text-gray-400">Kepala Dusun</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-gray-300 hover:bg-gray-50/30 transition-colors has-[:checked]:border-gray-400 has-[:checked]:bg-gray-50">
+                                <input type="radio" name="type" value="staf" {{ old('type', $villageOfficial->type) === 'staf' ? 'checked' : '' }} class="accent-gray-500">
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block">Staf</span>
+                                    <span class="text-[10px] text-gray-400">Staf pendukung</span>
+                                </div>
+                            </label>
                         </div>
-                        @error('level')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                        @error('type')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                    </div>
+                    
+                    {{-- Atasan (Untuk Staf) --}}
+                    <div class="mt-4">
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Atasan (Khusus Staf) <span class="text-red-500">*</span></label>
+                        <select name="parent_id" 
+                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm text-gray-700">
+                            <option value="">Pilih Atasan (Jika Staf)</option>
+                            @foreach(\App\Models\VillageOfficial::where('type', 'eksekutif')->orderBy('level')->orderBy('order_num')->get() as $parent)
+                                @if($parent->id != $villageOfficial->id)
+                                    <option value="{{ $parent->id }}" {{ old('parent_id', $villageOfficial->parent_id) == $parent->id ? 'selected' : '' }}>
+                                        {{ $parent->name }} - {{ $parent->position }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <p class="mt-1 text-[10px] text-gray-500">Pilih atasan jika perangkat ini adalah staf dari Kasi/Kaur tertentu.</p>
+                        @error('parent_id')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
                 </div>
             </div>
