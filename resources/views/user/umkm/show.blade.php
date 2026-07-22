@@ -533,6 +533,7 @@
 
         if($.fn.magnificPopup) {
             $('.umkm-gallery-container').magnificPopup({
+                delegate: 'a.umkm-gallery-popup',
                 type: 'image',
                 gallery: {
                     enabled: true,

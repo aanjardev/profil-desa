@@ -357,13 +357,6 @@
                                 <a href="{{ route('umkm.show', $umkm->slug) }}">{{ $umkm->name }}</a>
                             </h3>
                             
-                            @if($umkm->owner_name)
-                            <div>
-                                <span class="umkm-meta-owner">
-                                    <i class="ti-user"></i> {{ $umkm->owner_name }}
-                                </span>
-                            </div>
-                            @endif
                             
                             @if($umkm->location)
                             <p class="umkm-meta-item umkm-meta-location">
