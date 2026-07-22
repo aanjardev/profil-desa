@@ -129,15 +129,20 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div x-data="{ contentLength: {{ strlen(old('content', '')) }} }">
                         <div class="flex items-center justify-between mb-2">
                             <label for="content" class="block text-sm font-bold text-gray-700">Isi Konten <span class="text-red-500">*</span></label>
-                            <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded font-semibold">
-                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12C21.35 6 22 6.63 22 7.41v9.18c0 .78-.65 1.41-1.44 1.41zM9.09 15V9l2.72 3.3L14.5 9v6h1.91V9h-1.91l-2.69 3.2L9.12 9H7.21v6h1.88zm9.09-3h-1.83V9h-1.88v3h-1.83l2.77 3 2.77-3z"/></svg>
-                                Markdown Editor
-                            </span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[11px] font-bold" :class="contentLength >= 65000 ? 'text-red-500' : 'text-gray-400'">
+                                    <span x-text="contentLength"></span> / 65000 char
+                                </span>
+                                <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded font-semibold">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M20.56 18H3.44C2.65 18 2 17.37 2 16.59V7.41C2 6.63 2.65 6 3.44 6h17.12C21.35 6 22 6.63 22 7.41v9.18c0 .78-.65 1.41-1.44 1.41zM9.09 15V9l2.72 3.3L14.5 9v6h1.91V9h-1.91l-2.69 3.2L9.12 9H7.21v6h1.88zm9.09-3h-1.83V9h-1.88v3h-1.83l2.77 3 2.77-3z"/></svg>
+                                    Markdown Editor
+                                </span>
+                            </div>
                         </div>
-                        <textarea name="content" id="content" required maxlength="10000">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" required maxlength="65000" @input="contentLength = $event.target.value.length" class="w-full min-h-[300px] p-4 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm font-mono leading-relaxed resize-y" placeholder="Tulis konten artikel di sini (mendukung Markdown)...">{{ old('content') }}</textarea>
                         @error('content')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
 

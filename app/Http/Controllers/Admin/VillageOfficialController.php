@@ -14,26 +14,14 @@ class VillageOfficialController extends Controller
      */
     public function index()
     {
-        // Level 1: Kepala Desa (root) - Harus level 1 dan parent_id null
-        $level1 = VillageOfficial::whereNull('parent_id')
-            ->where('level', 1)
-            ->orderBy('order_num')
-            ->get();
-
-        // Level 2: Sekdes, Kasie, dll.
-        $level2 = VillageOfficial::where('level', 2)
+        $officials = VillageOfficial::orderBy('level')
             ->orderBy('order_num')
             ->with('parent')
             ->get();
+            
+        $groupedOfficials = $officials->groupBy('level');
 
-        // Level 3: Staff dan seterusnya (agar tidak hilang jika level > 3)
-        $level3 = VillageOfficial::where('level', '>=', 3)
-            ->orderBy('level')
-            ->orderBy('order_num')
-            ->with('parent')
-            ->get();
-
-        return view('admin.village-officials.index', compact('level1', 'level2', 'level3'));
+        return view('admin.village-officials.index', compact('groupedOfficials', 'officials'));
     }
 
     /**
@@ -41,15 +29,11 @@ class VillageOfficialController extends Controller
      */
     public function create()
     {
-        // Calon parent: level 1 dan 2 saja
-        $potentialParents = VillageOfficial::whereIn('level', [1, 2])
-            ->orderBy('level')
+        $potentialParents = VillageOfficial::orderBy('level')
             ->orderBy('order_num')
             ->get();
 
-        $hasLevel1 = VillageOfficial::whereNull('parent_id')->where('level', 1)->exists();
-
-        return view('admin.village-officials.create', compact('potentialParents', 'hasLevel1'));
+        return view('admin.village-officials.create', compact('potentialParents'));
     }
 
     /**
@@ -63,6 +47,7 @@ class VillageOfficialController extends Controller
             'position'  => 'required|string|max:150',
             'parent_id' => 'nullable|exists:village_officials,id',
             'status'    => 'required|in:aktif,tidak_aktif',
+            'type'      => 'required|in:eksekutif,legislatif,kasun,staf',
             'order_num' => 'nullable|integer|min:0',
             'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -71,29 +56,43 @@ class VillageOfficialController extends Controller
         if ($request->parent_id) {
             $parent = VillageOfficial::find($request->parent_id);
             $level = $parent ? $parent->level + 1 : 1;
-        } else {
-            // Mencegah lebih dari 1 Kepala Desa (Level 1)
-            if (VillageOfficial::whereNull('parent_id')->where('level', 1)->exists()) {
-                return back()->withInput()->withErrors(['parent_id' => 'Level 1 (Kepala Desa) sudah ada. Silakan pilih atasan untuk perangkat ini.']);
-            }
         }
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'nip'       => 'nullable|string|max:50',
+            'position'  => 'required|string|max:150',
+            'parent_id' => 'nullable|exists:village_officials,id',
+            'status'    => 'required|in:aktif,tidak_aktif',
+            'type'      => 'required|in:eksekutif,legislatif,kasun,staf',
+            'order_num' => 'nullable|integer|min:0',
+            'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
 
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('village-officials', 'public');
         }
 
-        // Auto-set order_num: last in its level
+        // Hitung level
+        $level = 1;
+        if (!empty($validated['parent_id'])) {
+            $parent = VillageOfficial::find($validated['parent_id']);
+            if ($parent) {
+                $level = $parent->level + 1;
+            }
+        }
+        
         $maxOrder = VillageOfficial::where('level', $level)->max('order_num') ?? 0;
 
         VillageOfficial::create([
-            'parent_id' => $request->parent_id,
+            'parent_id' => $validated['parent_id'] ?? null,
             'level'     => $level,
             'name'      => $request->name,
             'nip'       => $request->nip,
             'position'  => $request->position,
             'photo'     => $photoPath,
             'status'    => $request->status,
+            'type'      => $request->type ?? 'eksekutif',
             'order_num' => $request->order_num ?? ($maxOrder + 1),
         ]);
 
@@ -106,15 +105,12 @@ class VillageOfficialController extends Controller
      */
     public function edit(VillageOfficial $villageOfficial)
     {
-        $potentialParents = VillageOfficial::whereIn('level', [1, 2])
-            ->where('id', '!=', $villageOfficial->id)
+        $potentialParents = VillageOfficial::where('id', '!=', $villageOfficial->id)
             ->orderBy('level')
             ->orderBy('order_num')
             ->get();
-            
-        $hasLevel1 = VillageOfficial::whereNull('parent_id')->where('level', 1)->where('id', '!=', $villageOfficial->id)->exists();
 
-        return view('admin.village-officials.edit', compact('villageOfficial', 'potentialParents', 'hasLevel1'));
+        return view('admin.village-officials.edit', compact('villageOfficial', 'potentialParents'));
     }
 
     /**
@@ -128,6 +124,7 @@ class VillageOfficialController extends Controller
             'position'  => 'required|string|max:150',
             'parent_id' => 'nullable|exists:village_officials,id',
             'status'    => 'required|in:aktif,tidak_aktif',
+            'type'      => 'required|in:eksekutif,legislatif,kasun,staf',
             'order_num' => 'nullable|integer|min:0',
             'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -136,11 +133,6 @@ class VillageOfficialController extends Controller
         if ($request->parent_id) {
             $parent = VillageOfficial::find($request->parent_id);
             $level = $parent ? $parent->level + 1 : 1;
-        } else {
-            // Mencegah lebih dari 1 Kepala Desa (Level 1) kecuali dirinya sendiri
-            if (VillageOfficial::whereNull('parent_id')->where('level', 1)->where('id', '!=', $villageOfficial->id)->exists()) {
-                return back()->withInput()->withErrors(['parent_id' => 'Level 1 (Kepala Desa) sudah ada. Silakan pilih atasan untuk perangkat ini.']);
-            }
         }
 
         $photoPath = $villageOfficial->photo;
@@ -166,6 +158,7 @@ class VillageOfficialController extends Controller
             'position'  => $request->position,
             'photo'     => $photoPath,
             'status'    => $request->status,
+            'type'      => $request->type ?? $villageOfficial->type,
             'order_num' => $request->order_num ?? $villageOfficial->order_num,
         ]);
 

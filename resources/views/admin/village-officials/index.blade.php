@@ -24,9 +24,9 @@
         <div>
             <p class="text-sm text-gray-500 mt-0.5">
                 Total: 
-                <span class="font-bold text-gray-800">{{ $level1->count() + $level2->count() + $level3->count() }} perangkat</span>
+                <span class="font-bold text-gray-800">{{ $officials->count() }} perangkat</span>
                 &nbsp;•&nbsp;
-                <span class="text-emerald-600 font-semibold">{{ $level1->where('status','aktif')->count() + $level2->where('status','aktif')->count() + $level3->where('status','aktif')->count() }} aktif</span>
+                <span class="text-emerald-600 font-semibold">{{ $officials->where('status','aktif')->count() }} aktif</span>
             </p>
         </div>
         <div class="flex items-center gap-3">
@@ -53,77 +53,33 @@
     Urutan berhasil disimpan.
 </div>
 
-{{-- Level 1: Kepala Desa --}}
-<div class="mb-8">
-    <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-            <span class="text-amber-600 font-black text-sm">1</span>
-        </div>
-        <div>
-            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Level 1 — Kepala Desa / Pimpinan</h2>
-            <p class="text-xs text-gray-400 mt-0.5">{{ $level1->count() }} perangkat • parent_id kosong</p>
-        </div>
-    </div>
-
-    <div id="sortable-level1" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" data-level="1">
-        @forelse($level1 as $official)
-            @include('admin.village-officials._card', ['official' => $official])
-        @empty
-            <div class="col-span-full py-10 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl text-gray-400">
-                <svg class="w-10 h-10 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                <p class="text-sm">Belum ada perangkat level 1</p>
-            </div>
-        @endforelse
-    </div>
-</div>
-
-{{-- Level 2: Sekdes, Kasie, Kaur --}}
+@foreach($groupedOfficials as $level => $levelOfficials)
 <div class="mb-8">
     <div class="flex items-center gap-3 mb-4">
         <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-            <span class="text-blue-600 font-black text-sm">2</span>
+            <span class="text-blue-600 font-black text-sm">{{ $level }}</span>
         </div>
         <div>
-            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Level 2 — Sekretaris / Kepala Seksi / Kaur</h2>
-            <p class="text-xs text-gray-400 mt-0.5">{{ $level2->count() }} perangkat • di bawah level 1</p>
+            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wider">
+                @if($level == 1) Level 1 — Puncak / Root
+                @else Level {{ $level }} @endif
+            </h2>
+            <p class="text-xs text-gray-400 mt-0.5">{{ $levelOfficials->count() }} perangkat • @if($level == 1) tidak memiliki atasan @else di bawah level {{ $level - 1 }} @endif</p>
         </div>
     </div>
 
-    <div id="sortable-level2" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" data-level="2">
-        @forelse($level2 as $official)
-            @include('admin.village-officials._card', ['official' => $official])
-        @empty
-            <div class="col-span-full py-10 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl text-gray-400">
-                <svg class="w-10 h-10 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                <p class="text-sm">Belum ada perangkat level 2</p>
-            </div>
-        @endforelse
-    </div>
-</div>
-
-{{-- Level 3: Staff --}}
-<div class="mb-8">
-    <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
-            <span class="text-emerald-600 font-black text-sm">3</span>
-        </div>
-        <div>
-            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Level 3 — Staff / Pelaksana</h2>
-            <p class="text-xs text-gray-400 mt-0.5">{{ $level3->count() }} perangkat • di bawah level 2 (dan seterusnya)</p>
-        </div>
-    </div>
-
-    <div id="sortable-level3" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" data-level="3">
-        @forelse($level3 as $official)
+    <div id="sortable-level{{ $level }}" class="sortable-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" data-level="{{ $level }}">
+        @forelse($levelOfficials as $official)
             @include('admin.village-officials._card', ['official' => $official])
         @empty
             <div class="col-span-full py-10 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl text-gray-400">
                 <svg class="w-10 h-10 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <p class="text-sm">Belum ada perangkat level 3</p>
+                <p class="text-sm">Belum ada perangkat level {{ $level }}</p>
             </div>
         @endforelse
     </div>
 </div>
+@endforeach
 
 {{-- SortableJS Logic --}}
 @push('scripts')
@@ -169,9 +125,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        ['sortable-level1', 'sortable-level2', 'sortable-level3'].forEach(id => {
-            const el = document.getElementById(id);
-            if (!el) return;
+        document.querySelectorAll('.sortable-container').forEach(el => {
             Sortable.create(el, {
                 animation: 180,
                 ghostClass: 'sortable-ghost',

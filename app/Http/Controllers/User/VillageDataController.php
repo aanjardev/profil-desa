@@ -25,15 +25,8 @@ class VillageDataController extends Controller
 
     public function sotk()
     {
-        // For organizational structure, fetch by levels and order_num
-        // Level 1: Kepala, Level 2: Pejabat, Level 3: Staff
-        $officials = VillageOfficial::aktif()->ordered()->get();
-        
-        $kepala = $officials->where('level', 1);
-        $pejabat = $officials->where('level', 2);
-        $staff = $officials->where('level', 3);
-
-        return view('user.village_data.sotk', compact('kepala', 'pejabat', 'staff'));
+        $officials = VillageOfficial::aktif()->orderBy('level')->orderBy('order_num')->get();
+        return view('user.village_data.sotk', compact('officials'));
     }
 
     public function visiMisi()

@@ -62,7 +62,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'required|string|max:65000',
             'category' => 'required|string|max:255',
             'cropped_image' => 'required|string',
             
@@ -150,7 +150,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'required|string|max:65000',
             'category' => 'required|string|max:255',
             'cropped_image' => 'nullable|string',
             

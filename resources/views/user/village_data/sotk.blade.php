@@ -2,10 +2,14 @@
 
 @section('title', 'SOTK Desa')
 
+@push('scripts')
+{{-- Include LeaderLine library for drawing lines --}}
+<script src="https://cdn.jsdelivr.net/npm/leader-line-new@1.1.9/leader-line.min.js"></script>
+@endpush
+
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
 <div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
-    <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
     
     <div class="container text-center" style="position: relative; z-index: 2;">
@@ -20,26 +24,44 @@
     <div class="container">
         
         <style>
+            .org-tree-container {
+                overflow-x: auto;
+                padding-bottom: 20px;
+                display: flex;
+                justify-content: center;
+                min-width: 100%;
+            }
+            .canvas-content {
+                position: relative;
+                width: 3000px;
+                height: 1500px;
+                transform-origin: 0 0;
+            }
+            
+            /* ── Official Card ──────────────────────────────────── */
             .official-card {
+                position: absolute;
                 background: #fff;
                 border-radius: 12px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.06);
                 border: 1px solid #e2e8f0;
                 overflow: hidden;
                 text-align: center;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
-                height: 100%;
-                max-width: 240px;
-                margin: 0 auto;
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                z-index: 2;
+                padding: 15px;
             }
             .official-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 28px rgba(0,0,0,0.12);
             }
             .official-photo-wrapper {
-                width: 210px;
-                height: 280px;
-                margin: 15px auto 15px;
+                width: 140px;
+                height: 175px;
+                margin: 0 auto 10px;
                 border-radius: 8px;
                 overflow: hidden;
                 border: 2px solid #edf2f7;
@@ -54,117 +76,258 @@
                 object-fit: cover;
             }
             .official-photo-placeholder {
-                font-size: 50px;
+                font-size: 40px;
                 color: #cbd5e0;
             }
+            .node-type-badge {
+                font-size: 10px;
+                padding: 3px 8px;
+                border-radius: 12px;
+                display: inline-block;
+                margin-bottom: 10px;
+                font-weight: bold;
+                letter-spacing: 0.05em;
+            }
+
+            /* ── Legend ─────────────────────────────────────────── */
+            .org-legend {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 24px;
+                justify-content: center;
+            }
+            .org-legend-item {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                background: #fff;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 6px 14px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #374151;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            }
+            .org-legend-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            /* ── Line info ─────────────────────────────────── */
+            .line-info {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+                justify-content: center;
+                margin-top: 20px;
+                font-size: 12px;
+                color: #6b7280;
+            }
+            .line-info-item {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .line-solid { width: 30px; height: 2px; background: #64748b; }
+            .line-dashed { width: 30px; height: 2px; border-top: 2px dashed #9ca3af; }
         </style>
 
-        <!-- KEPALA DESA -->
-        @if($kepala->count() > 0)
-        <div class="g-margin-b-60--xs text-center">
-            <h2 class="g-font-size-24--xs g-font-weight--700 g-margin-b-30--xs" style="color: #2d3748; position: relative; display: inline-block;">
-                Kepala Desa
-                <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 40px; height: 3px; background: #dc3545; border-radius: 2px;"></span>
-            </h2>
-            <div class="row" style="display: flex; justify-content: center; flex-wrap: wrap;">
-                @foreach($kepala as $official)
-                <div class="col-sm-6 col-md-4 g-margin-b-30--xs">
-                    <div class="official-card">
-                        <div class="official-photo-wrapper">
-                            @if($official->photo)
-                                <img src="{{ asset('storage/'.$official->photo) }}" alt="{{ $official->name }}" class="official-photo">
-                            @else
-                                <i class="ti-user official-photo-placeholder"></i>
-                            @endif
-                        </div>
-                        <div class="g-padding-x-20--xs g-padding-b-25--xs">
-                            <h3 class="g-font-size-18--xs g-font-weight--700 g-margin-b-5--xs" style="color: #2d3748;">{{ $official->name }}</h3>
-                            <p class="g-font-size-14--xs g-color--primary g-font-weight--600 g-margin-b-5--xs">{{ $official->position }}</p>
-                            @if($official->nip)
-                                <p class="g-font-size-12--xs" style="color: #a0aec0; margin-bottom: 0;">NIP/NIPD: {{ $official->nip }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
+        @php
+            // Grouping logic
+            $kades = $officials->first(fn($o) => stripos($o->position, 'Kepala Desa') !== false);
+            $sekdes = $officials->first(fn($o) => stripos($o->position, 'Sekretaris') !== false);
+            
+            // Kasi & Kaur (Ensure they are not Staff)
+            $kasis = $officials->filter(fn($o) => stripos($o->position, 'Kasi') !== false && $o->type !== 'staf' && stripos($o->position, 'Staf') === false)->values();
+            $kaurs = $officials->filter(fn($o) => stripos($o->position, 'Kaur') !== false && $o->type !== 'staf' && stripos($o->position, 'Staf') === false)->values();
+            
+            // Kasuns
+            $kasuns = $officials->filter(fn($o) => stripos($o->position, 'Kasun') !== false || stripos($o->position, 'Dusun') !== false || $o->type === 'kasun')->values();
+            
+            // Staffs
+            $stafs = $officials->filter(fn($o) => $o->type === 'staf' || stripos($o->position, 'Staf') !== false);
+            
+            $nodes = [];
 
-        <!-- PEJABAT / KEPALA SEKSI -->
-        @if($pejabat->count() > 0)
-        <div class="g-margin-b-60--xs">
-            <div class="text-center">
-                <h2 class="g-font-size-24--xs g-font-weight--700 g-margin-b-40--xs" style="color: #2d3748; position: relative; display: inline-block;">
-                    Sekretaris & Kepala Seksi / Urusan
-                    <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 40px; height: 3px; background: #dc3545; border-radius: 2px;"></span>
-                </h2>
-            </div>
-            <div class="row" style="display: flex; justify-content: center; flex-wrap: wrap;">
-                @foreach($pejabat as $official)
-                <div class="col-sm-6 col-md-4 g-margin-b-30--xs">
-                    <div class="official-card">
-                        <div class="official-photo-wrapper">
-                            @if($official->photo)
-                                <img src="{{ asset('storage/'.$official->photo) }}" alt="{{ $official->name }}" class="official-photo">
-                            @else
-                                <i class="ti-user official-photo-placeholder"></i>
-                            @endif
-                        </div>
-                        <div class="g-padding-x-20--xs g-padding-b-25--xs">
-                            <h3 class="g-font-size-18--xs g-font-weight--700 g-margin-b-5--xs" style="color: #2d3748;">{{ $official->name }}</h3>
-                            <p class="g-font-size-14--xs g-color--primary g-font-weight--600 g-margin-b-5--xs">{{ $official->position }}</p>
-                            @if($official->nip)
-                                <p class="g-font-size-12--xs" style="color: #a0aec0; margin-bottom: 0;">NIP/NIPD: {{ $official->nip }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
+            // KADES
+            if ($kades) $nodes[] = ['obj' => $kades, 'x' => 440, 'y' => 0];
 
-        <!-- STAF -->
-        @if($staff->count() > 0)
-        <div class="g-margin-b-20--xs">
-            <div class="text-center">
-                <h2 class="g-font-size-24--xs g-font-weight--700 g-margin-b-40--xs" style="color: #2d3748; position: relative; display: inline-block;">
-                    Staf & Kepala Dusun
-                    <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 40px; height: 3px; background: #dc3545; border-radius: 2px;"></span>
-                </h2>
-            </div>
-            <div class="row" style="display: flex; justify-content: center; flex-wrap: wrap;">
-                @foreach($staff as $official)
-                <div class="col-sm-6 col-md-3 g-margin-b-30--xs">
-                    <div class="official-card">
-                        <div class="official-photo-wrapper" style="width: 180px; height: 240px; margin-top: 15px;">
-                            @if($official->photo)
-                                <img src="{{ asset('storage/'.$official->photo) }}" alt="{{ $official->name }}" class="official-photo">
-                            @else
-                                <i class="ti-user official-photo-placeholder" style="font-size: 40px;"></i>
-                            @endif
-                        </div>
-                        <div class="g-padding-x-15--xs g-padding-b-20--xs">
-                            <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-5--xs" style="color: #2d3748;">{{ $official->name }}</h3>
-                            <p class="g-font-size-13--xs g-color--primary g-font-weight--600 g-margin-b-5--xs">{{ $official->position }}</p>
-                            @if($official->nip)
-                                <p class="g-font-size-11--xs" style="color: #a0aec0; margin-bottom: 0;">NIP/NIPD: {{ $official->nip }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
+            // SEKDES
+            if ($sekdes) $nodes[] = ['obj' => $sekdes, 'x' => 1160, 'y' => 340];
 
-        @if($kepala->isEmpty() && $pejabat->isEmpty() && $staff->isEmpty())
-        <div class="text-center g-padding-y-60--xs g-bg-color--white" style="border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-            <i class="ti-id-badge g-font-size-40--xs g-color--primary g-margin-b-15--xs" style="display: block;"></i>
-            <h4 class="g-font-size-20--xs g-margin-b-10--xs" style="color: #2d3748;">Data SOTK Belum Tersedia</h4>
-            <p class="g-font-size-15--xs" style="color: #718096; margin-bottom: 0;">Struktur Organisasi dan Tata Kerja saat ini sedang dalam pembaruan.</p>
-        </div>
+            // KASI (X: 200, 440, 680)
+            $kasiXs = [200, 440, 680];
+            foreach($kasis->take(3) as $i => $kasi) {
+                $x = $kasiXs[$i];
+                $nodes[] = ['obj' => $kasi, 'x' => $x, 'y' => 680];
+                
+                // Find staff for this Kasi
+                $staff = $stafs->where('parent_id', $kasi->id)->first();
+                if ($staff) $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020];
+            }
+
+            // KAUR (X: 920, 1160, 1400)
+            $kaurXs = [920, 1160, 1400];
+            foreach($kaurs->take(3) as $i => $kaur) {
+                $x = $kaurXs[$i];
+                $nodes[] = ['obj' => $kaur, 'x' => $x, 'y' => 680];
+                
+                // Find staff for this Kaur
+                $staff = $stafs->where('parent_id', $kaur->id)->first();
+                if ($staff) $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020];
+            }
+
+            // KASUNS
+            $kasunCount = $kasuns->count();
+            $kasunXs = [];
+            if ($kasunCount > 0) {
+                if ($kasunCount == 1) $kasunXs = [800];
+                else if ($kasunCount == 2) $kasunXs = [400, 1200];
+                else {
+                    $step = 1200 / ($kasunCount - 1);
+                    for ($i=0; $i<$kasunCount; $i++) {
+                        $kasunXs[] = 200 + ($step * $i);
+                    }
+                }
+                
+                foreach($kasuns as $i => $kasun) {
+                    $nodes[] = ['obj' => $kasun, 'x' => $kasunXs[$i], 'y' => 1360];
+                }
+            }
+        @endphp
+
+        @if($officials->count() > 0)
+            {{-- Org Chart --}}
+            <div class="org-tree-container" id="canvas-container" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; position: relative; width: 100%; overflow: hidden; padding-top: 20px;">
+                
+                <div class="canvas-content" id="canvas-area" style="width: 1600px; height: 1700px; position: relative; transform-origin: top left;">
+                    
+                    {{-- FIXED LINES --}}
+                    <div class="sotk-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+                        <!-- Main Vertical Line -->
+                        <div style="position: absolute; left: 440px; top: 280px; width: 2px; height: 1040px; background: #64748b;"></div>
+                        
+                        <!-- Sekdes Branch (Dashed) -->
+                        <div style="position: absolute; left: 440px; top: 310px; width: 720px; height: 2px; border-top: 2px dashed #64748b;"></div>
+                        <!-- Drop to Sekdes -->
+                        <div style="position: absolute; left: 1160px; top: 310px; width: 2px; height: 30px; background: #64748b;"></div>
+                        
+                        <!-- Kasi Horizontal -->
+                        <div style="position: absolute; left: 200px; top: 640px; width: 480px; height: 2px; background: #64748b;"></div>
+                        <!-- Kasi Drops -->
+                        <div style="position: absolute; left: 200px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 680px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        
+                        <!-- Sekdes Vertical Drop (for Kaurs) -->
+                        <div style="position: absolute; left: 1160px; top: 620px; width: 2px; height: 20px; background: #64748b;"></div>
+                        <!-- Kaur Horizontal -->
+                        <div style="position: absolute; left: 920px; top: 640px; width: 480px; height: 2px; background: #64748b;"></div>
+                        <!-- Kaur Drops -->
+                        <div style="position: absolute; left: 920px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 1160px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 1400px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        
+                        <!-- Staff Lines -->
+                        @foreach($nodes as $node)
+                            @if($node['obj']->type === 'staf')
+                                <div style="position: absolute; left: {{ $node['x'] }}px; top: {{ $node['y'] - 60 }}px; width: 2px; height: 60px; background: #64748b;"></div>
+                            @endif
+                        @endforeach
+                        
+                        <!-- Kasuns Lines -->
+                        @if($kasunCount > 0)
+                            <div style="position: absolute; left: {{ $kasunXs[0] }}px; top: 1320px; width: {{ end($kasunXs) - $kasunXs[0] }}px; height: 2px; background: #64748b;"></div>
+                            @foreach($kasunXs as $kx)
+                                <div style="position: absolute; left: {{ $kx }}px; top: 1320px; width: 2px; height: 40px; background: #64748b;"></div>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    {{-- CARDS --}}
+                    @foreach($nodes as $node)
+                        @php
+                            $official = $node['obj'];
+                            $borderTop = match($official->type) {
+                                'legislatif' => '#9333ea',
+                                'kasun' => '#d97706',
+                                'staf' => '#94a3b8',
+                                default => '#3b82f6',
+                            };
+                        @endphp
+                        
+                        <div class="official-card"
+                             style="border-top: 3px solid {{ $borderTop }}; left: {{ $node['x'] - 100 }}px; top: {{ $node['y'] }}px; height: 280px; position: absolute; z-index: 10;">
+                            <div class="official-photo-wrapper">
+                                @if($official->photo)
+                                    <img src="{{ asset('storage/'.$official->photo) }}" class="official-photo">
+                                @else
+                                    <div class="official-photo-placeholder flex items-center justify-center">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                @endif
+                            </div>
+                            <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-5--xs" style="color: #2d3748; line-height: 1.2;">{{ $official->name }}</h3>
+                            <p class="g-font-size-12--xs g-font-weight--600 g-margin-b-5--xs" style="color: {{ $borderTop }};">{{ $official->position }}</p>
+                            @if($official->nip)
+                                <p class="g-font-size-11--xs" style="color: #a0aec0; margin-bottom: 0;">NIP: {{ $official->nip }}</p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Line info --}}
+            <div class="line-info">
+                <div class="line-info-item">
+                    <span class="line-solid"></span>
+                    Garis Komando
+                </div>
+                <div class="line-info-item">
+                    <span class="line-dashed"></span>
+                    Garis Koordinasi
+                </div>
+            </div>
+            
+            <script>
+                function resizeSotk() {
+                    const container = document.getElementById('canvas-container');
+                    const area = document.getElementById('canvas-area');
+                    if (!container || !area) return;
+                    
+                    const containerWidth = container.clientWidth;
+                    // Base width of the canvas is 1600px
+                    let scale = containerWidth / 1600;
+                    
+                    let translateX = 0;
+                    if (scale > 1) {
+                        scale = 1; 
+                        // Center it if the container is wider than 1600px
+                        translateX = (containerWidth - 1600) / 2;
+                    }
+
+                    area.style.transform = `translateX(${translateX}px) scale(${scale})`;
+                    
+                    // Update container height based on scaled area
+                    const scaledHeight = 1700 * scale;
+                    container.style.height = `${scaledHeight + 40}px`; // 40px for padding
+                }
+
+                window.addEventListener('resize', resizeSotk);
+                window.addEventListener('load', resizeSotk);
+                
+                // Run immediately as well
+                resizeSotk();
+            </script>
+        @else
+            <div class="text-center g-padding-y-60--xs g-bg-color--white" style="border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <i class="ti-id-badge g-font-size-40--xs g-color--primary g-margin-b-15--xs" style="display: block;"></i>
+                <h4 class="g-font-size-20--xs g-margin-b-10--xs" style="color: #2d3748;">Data SOTK Belum Tersedia</h4>
+                <p class="g-font-size-15--xs" style="color: #718096; margin-bottom: 0;">Bagan Struktur Organisasi dan Tata Kerja belum didesain oleh Admin.</p>
+            </div>
         @endif
         
     </div>
