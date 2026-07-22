@@ -299,10 +299,18 @@
 
                             @if($tourism->tickets && is_array($tourism->tickets) && count($tourism->tickets) > 0)
                                 @php
-                                    $cheapest = min(array_column($tourism->tickets, 'price'));
+                                    $prices = [];
+                                    foreach($tourism->tickets as $ticket) {
+                                        $pStr = $ticket['price'] ?? '';
+                                        $pNum = (float) preg_replace('/[^0-9]/', '', $pStr);
+                                        if ($pNum > 0) {
+                                            $prices[] = $pNum;
+                                        }
+                                    }
+                                    $cheapest = count($prices) > 0 ? min($prices) : 0;
                                 @endphp
                                 <p class="wisata-meta-item" style="margin-top: 8px; font-weight: 600; color: #10b981;">
-                                    <i class="ti-ticket" style="color: #10b981;"></i> {{ $cheapest > 0 ? 'Mulai Rp ' . number_format((float)$cheapest, 0, ',', '.') : 'Gratis / Free' }}
+                                    <i class="ti-ticket" style="color: #10b981;"></i> {{ $cheapest > 0 ? 'Mulai Rp ' . number_format($cheapest, 0, ',', '.') : 'Gratis / Free' }}
                                 </p>
                             @endif
 
