@@ -15,21 +15,22 @@
                         <p style="white-space: pre-line; font-size: 15px; color: #475569; line-height: 1.8; font-family: 'Montserrat', sans-serif; margin-bottom: 30px;">
                             {{ $serviceInfo->description }}
                         </p>
-                    @else
-                        <div class="text-center" style="padding: 30px 0; border: 2px dashed #f1f5f9; border-radius: 8px; margin-bottom: 30px;">
-                            <i class="ti-info-alt g-font-size-26--xs" style="color: #cbd5e1; display: block; margin-bottom: 10px;"></i>
-                            <p class="g-font-size-13--xs" style="color: #64748b; font-family: 'Montserrat', sans-serif; margin-bottom: 0;">Detail informasi persyaratan belum di-upload oleh admin pelayanan.</p>
-                        </div>
                     @endif
 
+                    @if($serviceInfo->officer_name || $serviceInfo->office_hours)
                     <div style="padding: 25px; background: #f8fafc; border-radius: 10px; margin-bottom: 35px; border: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 10px;">
+                        @if($serviceInfo->officer_name)
                         <p style="margin-bottom: 0; font-size: 14px; color: #64748b; font-family: 'Montserrat', sans-serif;">
-                            <i class="ti-user" style="color: #94a3b8; margin-right: 6px;"></i> Petugas: <strong style="color: #1e293b;">{{ $serviceInfo->officer_name ?? 'Belum Ditentukan' }}</strong>
+                            <i class="ti-user" style="color: #94a3b8; margin-right: 6px;"></i> Petugas: <strong style="color: #1e293b;">{{ $serviceInfo->officer_name }}</strong>
                         </p>
+                        @endif
+                        @if($serviceInfo->office_hours)
                         <p style="margin-bottom: 0; font-size: 14px; color: #64748b; font-family: 'Montserrat', sans-serif;">
-                            <i class="ti-time" style="color: #94a3b8; margin-right: 6px;"></i> Jam Operasional: <span style="color: #dc3545; font-weight: 600;">{{ $serviceInfo->office_hours ?? '-' }}</span>
+                            <i class="ti-time" style="color: #94a3b8; margin-right: 6px;"></i> Jam Operasional: <span style="color: #dc3545; font-weight: 600;">{{ $serviceInfo->office_hours }}</span>
                         </p>
+                        @endif
                     </div>
+                    @endif
                  
                     <div class="text-center">
                         @if($serviceInfo->phone)
