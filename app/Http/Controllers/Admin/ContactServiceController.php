@@ -13,8 +13,8 @@ class ContactServiceController extends Controller
      */
     public function index()
     {
-        // Cukup ambil data pertama, jika kosong biarkan bernilai null (jangan di-create otomatis)
-        $service = ContactService::first();
+        // Cukup ambil data pertama, jika kosong, buat instance baru agar tidak error property on null di view
+        $service = ContactService::first() ?? new ContactService();
 
         return view('admin.contact-services.index', compact('service'));
     }
