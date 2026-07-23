@@ -152,7 +152,7 @@
             $nodes = [];
 
             // KADES
-            if ($kades) $nodes[] = ['obj' => $kades, 'x' => 440, 'y' => 0];
+            if ($kades) $nodes[] = ['obj' => $kades, 'x' => 800, 'y' => 0];
 
             // SEKDES
             if ($sekdes) $nodes[] = ['obj' => $sekdes, 'x' => 1160, 'y' => 340];
@@ -215,17 +215,18 @@
                     {{-- FIXED LINES --}}
                     <div class="sotk-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
                         <!-- Main Vertical Line -->
-                        <div style="position: absolute; left: 440px; top: 280px; width: 2px; height: 1040px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 800px; top: 280px; width: 2px; height: 1040px; background: #64748b;"></div>
                         
                         <!-- Sekdes Branch (Solid) -->
-                        <div style="position: absolute; left: 440px; top: 310px; width: 720px; height: 2px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 800px; top: 310px; width: 360px; height: 2px; background: #64748b;"></div>
                         <!-- Drop to Sekdes -->
                         <div style="position: absolute; left: 1160px; top: 310px; width: 2px; height: 30px; background: #64748b;"></div>
                         
                         <!-- Kasi Horizontal -->
-                        <div style="position: absolute; left: 200px; top: 640px; width: 480px; height: 2px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 200px; top: 640px; width: 600px; height: 2px; background: #64748b;"></div>
                         <!-- Kasi Drops -->
                         <div style="position: absolute; left: 200px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 440px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
                         <div style="position: absolute; left: 680px; top: 640px; width: 2px; height: 40px; background: #64748b;"></div>
                         
                         <!-- Sekdes Vertical Drop (for Kaurs) -->
