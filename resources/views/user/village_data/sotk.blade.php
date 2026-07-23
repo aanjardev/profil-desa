@@ -156,7 +156,7 @@
             if ($kades) $nodes[] = ['obj' => $kades, 'x' => 800, 'y' => 0];
 
             // BPD
-            if ($bpd) $nodes[] = ['obj' => $bpd, 'x' => 440, 'y' => 0];
+            if ($bpd) $nodes[] = ['obj' => $bpd, 'x' => 440, 'y' => 60];
 
             // SEKDES
             if ($sekdes) $nodes[] = ['obj' => $sekdes, 'x' => 1160, 'y' => 340];
@@ -233,7 +233,7 @@
                     <div class="sotk-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
                         <!-- BPD Coordination Line (Dashed) -->
                         @if(isset($bpd) && $bpd && isset($kades) && $kades)
-                        <div style="position: absolute; left: 640px; top: 140px; width: 160px; height: 2px; border-top: 2px dashed #9ca3af;"></div>
+                        <div style="position: absolute; left: 440px; top: 140px; width: 360px; height: 2px; border-top: 2px dashed #9ca3af;"></div>
                         @endif
 
                         <!-- Main Vertical Line -->
