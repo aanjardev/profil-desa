@@ -95,6 +95,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Resources
     Route::get('village-identities/edit-key/{key}', [VillageIdentityController::class, 'editKey'])->name('village-identities.edit-key');
     Route::resource('village-identities', VillageIdentityController::class);
+    Route::get('village-officials/builder', [\App\Http\Controllers\Admin\SotkBuilderController::class, 'index'])->name('village-officials.builder');
+    Route::post('village-officials/builder/save', [\App\Http\Controllers\Admin\SotkBuilderController::class, 'save'])->name('village-officials.builder.save');
+    Route::post('village-officials/builder/settings', [\App\Http\Controllers\Admin\SotkBuilderController::class, 'saveSettings'])->name('village-officials.builder.settings');
     Route::post('village-officials/reorder', [VillageOfficialController::class, 'reorder'])->name('village-officials.reorder');
     Route::resource('village-officials', VillageOfficialController::class);
     Route::resource('institutions', InstitutionController::class);

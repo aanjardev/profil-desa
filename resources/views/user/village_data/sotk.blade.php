@@ -27,8 +27,6 @@
             .org-tree-container {
                 overflow-x: auto;
                 padding-bottom: 20px;
-                display: flex;
-                justify-content: center;
                 min-width: 100%;
             }
             .canvas-content {
@@ -59,8 +57,8 @@
                 box-shadow: 0 12px 28px rgba(0,0,0,0.12);
             }
             .official-photo-wrapper {
-                width: 140px;
-                height: 175px;
+                width: 135px;
+                height: 180px;
                 margin: 0 auto 10px;
                 border-radius: 8px;
                 overflow: hidden;
@@ -200,19 +198,27 @@
             }
         @endphp
 
-        @if($officials->count() > 0)
+        @php $web_setting = \App\Models\WebSetting::first(); @endphp
+        
+        @if($web_setting && $web_setting->sotk_type === 'image' && $web_setting->sotk_image_path)
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm text-center">
+                <img src="{{ asset('storage/'.$web_setting->sotk_image_path) }}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm border border-gray-100" alt="Struktur SOTK Desa">
+            </div>
+        @else
+            @if($officials->count() > 0)
             {{-- Org Chart --}}
-            <div class="org-tree-container" id="canvas-container" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; position: relative; width: 100%; overflow: hidden; padding-top: 20px;">
+            <div class="org-tree-container" id="canvas-container" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; width: 100%; overflow-x: auto; padding: 20px 0;">
                 
-                <div class="canvas-content" id="canvas-area" style="width: 1600px; height: 1700px; position: relative; transform-origin: top left;">
+                <div id="canvas-wrapper" style="position: relative; overflow: hidden; margin: 0 auto;">
+                    <div class="canvas-content" id="canvas-area" style="width: 1600px; height: 1700px; position: absolute; top: 0; left: 0; transform-origin: top left;">
                     
                     {{-- FIXED LINES --}}
                     <div class="sotk-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
                         <!-- Main Vertical Line -->
                         <div style="position: absolute; left: 440px; top: 280px; width: 2px; height: 1040px; background: #64748b;"></div>
                         
-                        <!-- Sekdes Branch (Dashed) -->
-                        <div style="position: absolute; left: 440px; top: 310px; width: 720px; height: 2px; border-top: 2px dashed #64748b;"></div>
+                        <!-- Sekdes Branch (Solid) -->
+                        <div style="position: absolute; left: 440px; top: 310px; width: 720px; height: 2px; background: #64748b;"></div>
                         <!-- Drop to Sekdes -->
                         <div style="position: absolute; left: 1160px; top: 310px; width: 2px; height: 30px; background: #64748b;"></div>
                         
@@ -278,10 +284,11 @@
                         </div>
                     @endforeach
                 </div>
+                </div>
             </div>
 
             {{-- Line info --}}
-            <div class="line-info">
+            <!-- <div class="line-info">
                 <div class="line-info-item">
                     <span class="line-solid"></span>
                     Garis Komando
@@ -290,30 +297,43 @@
                     <span class="line-dashed"></span>
                     Garis Koordinasi
                 </div>
-            </div>
+            </div> -->
             
             <script>
                 function resizeSotk() {
                     const container = document.getElementById('canvas-container');
+                    const wrapper = document.getElementById('canvas-wrapper');
                     const area = document.getElementById('canvas-area');
-                    if (!container || !area) return;
+                    if (!container || !wrapper || !area) return;
                     
                     const containerWidth = container.clientWidth;
                     // Base width of the canvas is 1600px
                     let scale = containerWidth / 1600;
                     
-                    let translateX = 0;
+                    // Set a minimum scale so text doesn't become too small to read on mobile
+                    if (scale < 0.65) {
+                        scale = 0.65;
+                    }
+                    
                     if (scale > 1) {
                         scale = 1; 
-                        // Center it if the container is wider than 1600px
-                        translateX = (containerWidth - 1600) / 2;
                     }
 
-                    area.style.transform = `translateX(${translateX}px) scale(${scale})`;
-                    
-                    // Update container height based on scaled area
+                    const scaledWidth = 1600 * scale;
                     const scaledHeight = 1700 * scale;
-                    container.style.height = `${scaledHeight + 40}px`; // 40px for padding
+
+                    area.style.transform = `scale(${scale})`;
+                    
+                    // Update wrapper size based on scaled area so scrollbars are accurate
+                    wrapper.style.width = `${scaledWidth}px`;
+                    wrapper.style.height = `${scaledHeight}px`;
+                    
+                    // If the container is wider than our scaled chart, center it using margin
+                    if (containerWidth > scaledWidth) {
+                        wrapper.style.margin = '0 auto';
+                    } else {
+                        wrapper.style.margin = '0';
+                    }
                 }
 
                 window.addEventListener('resize', resizeSotk);
@@ -328,6 +348,7 @@
                 <h4 class="g-font-size-20--xs g-margin-b-10--xs" style="color: #2d3748;">Data SOTK Belum Tersedia</h4>
                 <p class="g-font-size-15--xs" style="color: #718096; margin-bottom: 0;">Bagan Struktur Organisasi dan Tata Kerja belum didesain oleh Admin.</p>
             </div>
+        @endif
         @endif
         
     </div>

@@ -30,6 +30,8 @@ class WebSetting extends Model
         'youtube_video_url',
         'twitter',
         'linktree',
+        'sotk_type',
+        'sotk_image_path',
         'updated_at',
     ];
 

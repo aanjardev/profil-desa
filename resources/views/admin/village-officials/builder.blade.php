@@ -9,6 +9,43 @@
 @endpush
 
 @section('content')
+
+@if(session('success'))
+    <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        {{ session('success') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+        <ul class="list-disc pl-5 text-sm">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<div x-data="{ tab: '{{ session('success') || $errors->any() ? 'settings' : 'builder' }}' }">
+    <!-- Tabs Header -->
+    <div class="border-b border-gray-200 mb-6">
+        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+            <button @click="tab = 'builder'"
+                    :class="tab === 'builder' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                    class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                <i class="ti-layout-grid2 mr-1"></i> Builder SOTK Interaktif
+            </button>
+            <button @click="tab = 'settings'"
+                    :class="tab === 'settings' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                    class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                <i class="ti-image mr-1"></i> Upload Gambar SOTK & Pengaturan
+            </button>
+        </nav>
+    </div>
+
+    <!-- Tab 1: Builder -->
+    <div x-show="tab === 'builder'">
 <style>
     #canvas-container {
         position: relative;
@@ -63,8 +100,8 @@
     }
     
     .org-node-photo-wrapper {
-        width: 140px;
-        height: 175px;
+        width: 135px;
+        height: 180px;
         margin: 0 auto 10px;
         border-radius: 8px;
         overflow: hidden;
@@ -233,6 +270,102 @@
         @endforeach
     </div>
 </div>
+    </div>
+
+    <!-- Tab 2: Settings & Image Upload -->
+    <div x-show="tab === 'settings'" x-cloak>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                <h3 class="text-base font-bold text-gray-800">Pengaturan Tampilan SOTK Publik</h3>
+                <p class="text-sm text-gray-500 mt-1">Pilih metode tampilan SOTK yang akan dilihat oleh masyarakat di website desa.</p>
+            </div>
+            <div class="p-6">
+                <form action="{{ route('admin.village-officials.builder.settings') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-3">Tipe Tampilan SOTK</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data="{ sotkType: '{{ old('sotk_type', $settings->sotk_type) }}' }">
+                            <!-- Option 1: Builder -->
+                            <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none transition-colors"
+                                   :class="sotkType === 'builder' ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/20' : 'border-gray-300 hover:border-gray-400'">
+                                <input type="radio" name="sotk_type" value="builder" class="sr-only" x-model="sotkType">
+                                <span class="flex flex-1">
+                                    <span class="flex flex-col">
+                                        <span class="block text-sm font-bold text-gray-900 mb-1">Gunakan Diagram Builder</span>
+                                        <span class="mt-1 flex items-center text-xs text-gray-500 leading-relaxed">
+                                            Sistem akan menampilkan SOTK interaktif dari data perangkat desa (Tab 1).
+                                        </span>
+                                    </span>
+                                </span>
+                                <!-- Check icon -->
+                                <svg class="h-5 w-5 text-blue-600" :class="sotkType === 'builder' ? 'opacity-100' : 'opacity-0'" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+
+                            <!-- Option 2: Image -->
+                            <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none transition-colors"
+                                   :class="sotkType === 'image' ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/20' : 'border-gray-300 hover:border-gray-400'">
+                                <input type="radio" name="sotk_type" value="image" class="sr-only" x-model="sotkType">
+                                <span class="flex flex-1">
+                                    <span class="flex flex-col">
+                                        <span class="block text-sm font-bold text-gray-900 mb-1">Gunakan Gambar SOTK</span>
+                                        <span class="mt-1 flex items-center text-xs text-gray-500 leading-relaxed">
+                                            Sistem hanya akan menampilkan 1 (satu) gambar SOTK statis secara utuh.
+                                        </span>
+                                    </span>
+                                </span>
+                                <!-- Check icon -->
+                                <svg class="h-5 w-5 text-blue-600" :class="sotkType === 'image' ? 'opacity-100' : 'opacity-0'" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Upload Gambar SOTK <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded ml-2">Opsional jika pilih Builder</span></label>
+                        
+                        @if($settings->sotk_image_path)
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-2">Gambar saat ini:</p>
+                            <img src="{{ asset('storage/'.$settings->sotk_image_path) }}" class="h-48 w-auto rounded-lg border border-gray-200 object-contain bg-gray-50 shadow-sm" alt="SOTK">
+                        </div>
+                        @endif
+
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="space-y-1 text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="flex text-sm text-gray-600 justify-center">
+                                    <label for="sotk_image" class="relative cursor-pointer bg-white rounded-md font-bold text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 px-2 py-1">
+                                        <span>Upload file gambar baru</span>
+                                        <input id="sotk_image" name="sotk_image" type="file" class="sr-only" accept="image/*"
+                                               onchange="document.getElementById('file-name').textContent = this.files[0].name">
+                                    </label>
+                                </div>
+                                <p class="text-xs text-gray-500">PNG, JPG, WEBP up to 2MB</p>
+                                <p id="file-name" class="text-xs font-semibold text-blue-600 mt-2"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4 border-t border-gray-100">
+                        <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition shadow-sm">
+                            Simpan Pengaturan SOTK
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    [x-cloak] { display: none !important; }
+</style>
 
 <script>
     // Initial data from server

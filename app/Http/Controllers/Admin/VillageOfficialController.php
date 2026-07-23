@@ -66,10 +66,21 @@ class VillageOfficialController extends Controller
             'type'      => 'required|in:eksekutif,legislatif,kasun,staf',
             'order_num' => 'nullable|integer|min:0',
             'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'cropped_image' => 'nullable|string',
         ]);
 
         $photoPath = null;
-        if ($request->hasFile('photo')) {
+        if ($request->filled('cropped_image')) {
+            $image_parts = explode(";base64,", $request->cropped_image);
+            if(count($image_parts) == 2) {
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1] ?? 'jpeg';
+                $image_base64 = base64_decode($image_parts[1]);
+                $fileName = 'village-officials/' . uniqid() . '.' . $image_type;
+                Storage::disk('public')->put($fileName, $image_base64);
+                $photoPath = $fileName;
+            }
+        } elseif ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('village-officials', 'public');
         }
 
@@ -127,6 +138,7 @@ class VillageOfficialController extends Controller
             'type'      => 'required|in:eksekutif,legislatif,kasun,staf',
             'order_num' => 'nullable|integer|min:0',
             'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'cropped_image' => 'nullable|string',
         ]);
 
         $level = 1;
@@ -136,7 +148,20 @@ class VillageOfficialController extends Controller
         }
 
         $photoPath = $villageOfficial->photo;
-        if ($request->hasFile('photo')) {
+        if ($request->filled('cropped_image')) {
+            if ($villageOfficial->photo) {
+                Storage::disk('public')->delete($villageOfficial->photo);
+            }
+            $image_parts = explode(";base64,", $request->cropped_image);
+            if(count($image_parts) == 2) {
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1] ?? 'jpeg';
+                $image_base64 = base64_decode($image_parts[1]);
+                $fileName = 'village-officials/' . uniqid() . '.' . $image_type;
+                Storage::disk('public')->put($fileName, $image_base64);
+                $photoPath = $fileName;
+            }
+        } elseif ($request->hasFile('photo')) {
             // Hapus foto lama
             if ($villageOfficial->photo) {
                 Storage::disk('public')->delete($villageOfficial->photo);

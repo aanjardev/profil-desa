@@ -3,11 +3,48 @@
 @section('page_title', 'Tambah Perangkat Desa')
 @section('page_subtitle', 'Masukkan data anggota perangkat desa beserta posisinya dalam struktur organisasi.')
 
+@push('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+@endpush
+
 @section('content')
 <form action="{{ route('admin.village-officials.store') }}" method="POST" enctype="multipart/form-data"
       x-data="{
-          photoPreview: null
-      }">
+          photoPreview: null,
+          showCropper: false,
+          cropper: null,
+          initCropper() {
+              this.$watch('showCropper', value => {
+                  if (value) {
+                      this.$nextTick(() => {
+                          const image = document.getElementById('cropperImage');
+                          if(this.cropper) this.cropper.destroy();
+                          this.cropper = new Cropper(image, {
+                              aspectRatio: 3 / 4,
+                              viewMode: 1,
+                              dragMode: 'move',
+                              autoCropArea: 1,
+                          });
+                      });
+                  }
+              });
+          },
+          applyCrop() {
+              if(this.cropper) {
+                  const canvas = this.cropper.getCroppedCanvas({
+                      width: 600,
+                      height: 800
+                  });
+                  this.photoPreview = canvas.toDataURL('image/jpeg', 0.8);
+                  document.getElementById('cropped_image_input').value = this.photoPreview;
+                  this.showCropper = false;
+              }
+          }
+      }" x-init="initCropper()">
     @csrf
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -15,10 +52,12 @@
         {{-- Kolom Kiri: Foto --}}
         <div class="space-y-6">
             {{-- Foto Perangkat --}}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Foto Perangkat</h3>
+                
+                <input type="hidden" name="cropped_image" id="cropped_image_input">
 
-                <div class="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
+                <div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
                      @click="$refs.photoInput.click()">
                     <template x-if="photoPreview">
                         <img :src="photoPreview" class="absolute inset-0 w-full h-full object-cover object-top">
@@ -42,12 +81,36 @@
                            const file = $event.target.files[0];
                            if (file) {
                                if (file.size > 2097152) { alert('Ukuran maks 2MB!'); $event.target.value = ''; return; }
-                               photoPreview = URL.createObjectURL(file);
+                               const reader = new FileReader();
+                               reader.onload = (e) => {
+                                   document.getElementById('cropperImage').src = e.target.result;
+                                   showCropper = true;
+                               };
+                               reader.readAsDataURL(file);
                            }
                        ">
                 @error('photo')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
 
-                <p class="text-xs text-gray-400 text-center mt-2">Disarankan: foto portrait persegi (1:1)</p>
+                <p class="text-xs text-gray-400 text-center mt-2">Rasio 3:4 (Pas Foto)</p>
+                
+                <!-- Modal Cropper -->
+                <div x-show="showCropper" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" style="display: none;">
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-lg flex flex-col max-h-[90vh]" @click.stop>
+                        <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+                            <h3 class="font-bold text-gray-800">Atur Potongan Foto</h3>
+                            <button type="button" @click="showCropper = false" class="text-gray-400 hover:text-gray-600 p-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+                        <div class="p-4 bg-gray-900 flex-1 overflow-hidden min-h-[400px]">
+                            <img id="cropperImage" class="max-w-full block">
+                        </div>
+                        <div class="p-4 border-t border-gray-100 bg-white flex justify-end gap-3">
+                            <button type="button" @click="showCropper = false" class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                            <button type="button" @click="applyCrop()" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">Terapkan Potongan</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {{-- Status & Urutan --}}
