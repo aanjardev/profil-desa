@@ -138,6 +138,7 @@
             // Grouping logic
             $kades = $officials->first(fn($o) => stripos($o->position, 'Kepala Desa') !== false);
             $sekdes = $officials->first(fn($o) => stripos($o->position, 'Sekretaris') !== false);
+            $bpd = $officials->first(fn($o) => $o->type === 'legislatif' || stripos($o->position, 'BPD') !== false || stripos($o->position, 'Badan Permusyawaratan') !== false);
             
             // Kasi & Kaur (Ensure they are not Staff)
             $kasis = $officials->filter(fn($o) => stripos($o->position, 'Kasi') !== false && $o->type !== 'staf' && stripos($o->position, 'Staf') === false)->values();
@@ -154,6 +155,9 @@
             // KADES
             if ($kades) $nodes[] = ['obj' => $kades, 'x' => 800, 'y' => 0];
 
+            // BPD
+            if ($bpd) $nodes[] = ['obj' => $bpd, 'x' => 440, 'y' => 0];
+
             // SEKDES
             if ($sekdes) $nodes[] = ['obj' => $sekdes, 'x' => 1160, 'y' => 340];
 
@@ -163,9 +167,11 @@
                 $x = $kasiXs[$i];
                 $nodes[] = ['obj' => $kasi, 'x' => $x, 'y' => 680];
                 
-                // Find staff for this Kasi
-                $staff = $stafs->where('parent_id', $kasi->id)->first();
-                if ($staff) $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020];
+                // Find staffs for this Kasi
+                $kasiStaffs = $stafs->where('parent_id', $kasi->id)->values();
+                foreach($kasiStaffs as $s_idx => $staff) {
+                    $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020 + ($s_idx * 340)];
+                }
             }
 
             // KAUR (X: 920, 1160, 1400)
@@ -174,10 +180,21 @@
                 $x = $kaurXs[$i];
                 $nodes[] = ['obj' => $kaur, 'x' => $x, 'y' => 680];
                 
-                // Find staff for this Kaur
-                $staff = $stafs->where('parent_id', $kaur->id)->first();
-                if ($staff) $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020];
+                // Find staffs for this Kaur
+                $kaurStaffs = $stafs->where('parent_id', $kaur->id)->values();
+                foreach($kaurStaffs as $s_idx => $staff) {
+                    $nodes[] = ['obj' => $staff, 'x' => $x, 'y' => 1020 + ($s_idx * 340)];
+                }
             }
+
+            // Hitung Max Staff untuk mengatur Y position Kasun
+            $maxStaffs = 0;
+            foreach ($kasis->merge($kaurs) as $parent) {
+                $c = $stafs->where('parent_id', $parent->id)->count();
+                if ($c > $maxStaffs) $maxStaffs = $c;
+            }
+            $kasunY = max(1360, 1020 + ($maxStaffs * 340));
+            $canvasHeight = max(1700, $kasunY + 340);
 
             // KASUNS
             $kasunCount = $kasuns->count();
@@ -193,7 +210,7 @@
                 }
                 
                 foreach($kasuns as $i => $kasun) {
-                    $nodes[] = ['obj' => $kasun, 'x' => $kasunXs[$i], 'y' => 1360];
+                    $nodes[] = ['obj' => $kasun, 'x' => $kasunXs[$i], 'y' => $kasunY];
                 }
             }
         @endphp
@@ -210,12 +227,17 @@
             <div class="org-tree-container" id="canvas-container" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; width: 100%; overflow-x: auto; padding: 20px 0;">
                 
                 <div id="canvas-wrapper" style="position: relative; overflow: hidden; margin: 0 auto;">
-                    <div class="canvas-content" id="canvas-area" style="width: 1600px; height: 1700px; position: absolute; top: 0; left: 0; transform-origin: top left;">
+                    <div class="canvas-content" id="canvas-area" style="width: 1600px; height: {{ $canvasHeight }}px; position: absolute; top: 0; left: 0; transform-origin: top left;">
                     
                     {{-- FIXED LINES --}}
                     <div class="sotk-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+                        <!-- BPD Coordination Line (Dashed) -->
+                        @if(isset($bpd) && $bpd && isset($kades) && $kades)
+                        <div style="position: absolute; left: 640px; top: 140px; width: 160px; height: 2px; border-top: 2px dashed #9ca3af;"></div>
+                        @endif
+
                         <!-- Main Vertical Line -->
-                        <div style="position: absolute; left: 800px; top: 280px; width: 2px; height: 1040px; background: #64748b;"></div>
+                        <div style="position: absolute; left: 800px; top: 280px; width: 2px; height: {{ $kasunY - 320 }}px; background: #64748b;"></div>
                         
                         <!-- Sekdes Branch (Solid) -->
                         <div style="position: absolute; left: 800px; top: 310px; width: 360px; height: 2px; background: #64748b;"></div>
@@ -247,9 +269,9 @@
                         
                         <!-- Kasuns Lines -->
                         @if($kasunCount > 0)
-                            <div style="position: absolute; left: {{ $kasunXs[0] }}px; top: 1320px; width: {{ end($kasunXs) - $kasunXs[0] }}px; height: 2px; background: #64748b;"></div>
+                            <div style="position: absolute; left: {{ $kasunXs[0] }}px; top: {{ $kasunY - 40 }}px; width: {{ end($kasunXs) - $kasunXs[0] }}px; height: 2px; background: #64748b;"></div>
                             @foreach($kasunXs as $kx)
-                                <div style="position: absolute; left: {{ $kx }}px; top: 1320px; width: 2px; height: 40px; background: #64748b;"></div>
+                                <div style="position: absolute; left: {{ $kx }}px; top: {{ $kasunY - 40 }}px; width: 2px; height: 40px; background: #64748b;"></div>
                             @endforeach
                         @endif
                     </div>
@@ -321,7 +343,7 @@
                     }
 
                     const scaledWidth = 1600 * scale;
-                    const scaledHeight = 1700 * scale;
+                    const scaledHeight = {{ $canvasHeight }} * scale;
 
                     area.style.transform = `scale(${scale})`;
                     
