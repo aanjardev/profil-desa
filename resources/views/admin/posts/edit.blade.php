@@ -143,7 +143,7 @@
                                 </span>
                             </div>
                         </div>
-                        <textarea name="content" id="content" required maxlength="65000" @input="contentLength = $event.target.value.length" class="w-full min-h-[300px] p-4 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm font-mono leading-relaxed resize-y" placeholder="Tulis konten artikel di sini (mendukung Markdown)...">{{ old('content', $post->content) }}</textarea>
+                        <textarea name="content" id="content" maxlength="65000" @input="contentLength = $event.target.value.length" class="w-full min-h-[300px] p-4 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm font-mono leading-relaxed resize-y" placeholder="Tulis konten artikel di sini (mendukung Markdown)...">{{ old('content', $post->content) }}</textarea>
                         @error('content')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
 
@@ -348,7 +348,7 @@
                              :class="{'opacity-100 bg-transparent': !img.preview, 'bg-black/40': img.preview}">
                             <label class="cursor-pointer flex flex-col items-center justify-center w-full h-full">
                                 <span class="bg-white/90 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm" x-text="img.preview ? 'Ganti' : 'Pilih File Baru'"></span>
-                                <input type="file" :name="'supporting_images['+index+'][file]'" class="sr-only" accept="image/*" required
+                                <input type="file" :name="'supporting_images['+index+'][file]'" class="sr-only" accept="image/*"
                                        @change="const file = $event.target.files[0]; if (file) { if(file.size > 2097152) { Swal.fire({icon: 'error', title: 'Oops...', text: 'Maksimal 2MB!'}); $event.target.value = ''; return; } img.preview = URL.createObjectURL(file); }">
                             </label>
                         </div>
