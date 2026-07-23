@@ -57,7 +57,7 @@
                 
                 <input type="hidden" name="cropped_image" id="cropped_image_input">
 
-                <div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
+                <div class="relative w-48 sm:w-56 mx-auto aspect-[3/4] rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
                      @click="$refs.photoInput.click()">
                     <template x-if="photoPreview">
                         <img :src="photoPreview" class="absolute inset-0 w-full h-full object-cover object-top">

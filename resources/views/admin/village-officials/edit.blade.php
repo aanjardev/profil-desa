@@ -61,7 +61,7 @@
 
                 <input type="hidden" name="cropped_image" id="cropped_image_input">
 
-                <div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
+                <div class="relative w-48 sm:w-56 mx-auto aspect-[3/4] rounded-xl overflow-hidden border-2 border-dashed border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50/30 transition-colors flex flex-col items-center justify-center cursor-pointer mb-3"
                      x-show="!removePhoto"
                      @click="$refs.photoInput.click()">
                     <template x-if="photoPreview">
@@ -82,7 +82,7 @@
                 </div>
 
                 {{-- Removed placeholder --}}
-                <div x-show="removePhoto" class="w-full aspect-[3/4] rounded-xl border-2 border-dashed border-red-200 bg-red-50/50 flex flex-col items-center justify-center mb-3" style="display: none;">
+                <div x-show="removePhoto" class="w-48 sm:w-56 mx-auto aspect-[3/4] rounded-xl border-2 border-dashed border-red-200 bg-red-50/50 flex flex-col items-center justify-center mb-3" style="display: none;">
                     <svg class="w-12 h-12 text-red-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                     <p class="text-sm text-red-400 font-medium">Foto akan dihapus</p>
                 </div>

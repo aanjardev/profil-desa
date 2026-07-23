@@ -13,7 +13,7 @@
     </div>
 
     {{-- Photo --}}
-    <div class="relative w-full aspect-square bg-gray-100 overflow-hidden">
+    <div class="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden">
         @if($official->photo)
             <img src="{{ asset('storage/' . $official->photo) }}"
                  alt="{{ $official->name }}"
@@ -58,21 +58,21 @@
     </div>
 
     {{-- Info --}}
-    <div class="p-4 flex-1 flex flex-col">
-        <h4 class="font-bold text-gray-900 text-sm leading-tight line-clamp-2">{{ $official->name }}</h4>
-        <p class="text-xs font-semibold text-blue-600 mt-1 line-clamp-1">{{ $official->position }}</p>
-        <span class="mt-1.5 inline-flex self-start items-center px-2 py-0.5 rounded-md text-[10px] font-bold border {{ $official->type_badge_class }}">
+    <div class="p-3 flex-1 flex flex-col">
+        <h4 class="font-bold text-gray-900 text-[13px] leading-tight line-clamp-2">{{ $official->name }}</h4>
+        <p class="text-[11px] font-semibold text-blue-600 mt-1 line-clamp-1">{{ $official->position }}</p>
+        <span class="mt-1.5 inline-flex self-start items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold border {{ $official->type_badge_class }}">
             {{ $official->type_label }}
         </span>
         @if($official->nip)
-            <p class="text-[11px] text-gray-400 mt-1 font-mono">NIP: {{ $official->nip }}</p>
+            <p class="text-[10px] text-gray-400 mt-1 font-mono">NIP: {{ $official->nip }}</p>
         @endif
 
         {{-- Actions --}}
-        <div class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-50">
+        <div class="flex items-center gap-1.5 mt-auto pt-2.5 border-t border-gray-50">
             <a href="{{ route('admin.village-officials.edit', $official->id) }}"
-               class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-100 transition-colors">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+               class="flex-1 inline-flex items-center justify-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 text-[11px] font-semibold rounded-lg hover:bg-blue-100 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                 Edit
             </a>
             <form action="{{ route('admin.village-officials.destroy', $official->id) }}" method="POST"
