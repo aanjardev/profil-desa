@@ -40,8 +40,8 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label for="head_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Ketua <span class="text-red-500">*</span></label>
-                            <input type="text" name="head_name" id="head_name" value="{{ old('head_name', $rtRw->head_name) }}" required maxlength="150"
+                            <label for="head_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Ketua <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
+                            <input type="text" name="head_name" id="head_name" value="{{ old('head_name', $rtRw->head_name) }}" maxlength="150"
                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
                             @error('head_name')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                         </div>

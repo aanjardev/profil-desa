@@ -45,7 +45,7 @@ class RtRwController extends Controller
         $validated = $request->validate([
             'rw_number' => 'required|string|max:10',
             'rt_number' => 'nullable|string|max:10',
-            'head_name' => 'required|string|max:150',
+            'head_name' => 'nullable|string|max:150',
             'head_phone' => 'nullable|string|max:20',
             'total_kk' => 'nullable|integer|min:0',
             'total_male' => 'nullable|integer|min:0',
@@ -77,7 +77,7 @@ class RtRwController extends Controller
         $validated = $request->validate([
             'rw_number' => 'required|string|max:10',
             'rt_number' => 'nullable|string|max:10',
-            'head_name' => 'required|string|max:150',
+            'head_name' => 'nullable|string|max:150',
             'head_phone' => 'nullable|string|max:20',
             'total_kk' => 'nullable|integer|min:0',
             'total_male' => 'nullable|integer|min:0',

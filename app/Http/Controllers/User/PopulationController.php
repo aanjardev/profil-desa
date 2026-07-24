@@ -29,13 +29,18 @@ class PopulationController extends Controller
         $totalDesaFemale = $rtRws->sum('total_female');
         $totalDesaPenduduk = $totalDesaMale + $totalDesaFemale;
         $totalDesaKk = $rtRws->sum('total_kk');
+        
+        $hasHeadName = $rtRws->whereNotNull('head_name')->filter(function($item) {
+            return trim($item->head_name) !== '';
+        })->count() > 0;
 
         return view('user.village_data.population', compact(
             'groupedData', 
             'totalDesaMale', 
             'totalDesaFemale', 
             'totalDesaPenduduk', 
-            'totalDesaKk'
+            'totalDesaKk',
+            'hasHeadName'
         ));
     }
 }

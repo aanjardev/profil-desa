@@ -63,7 +63,9 @@
                         <thead class="g-bg-color--dark g-color--white">
                             <tr>
                                 <th style="padding: 15px; border-bottom: none; width: 15%;">RT / RW</th>
+                                @if($hasHeadName)
                                 <th style="padding: 15px; border-bottom: none; width: 25%;">Ketua</th>
+                                @endif
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Laki-laki</th>
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Perempuan</th>
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Total Penduduk</th>
@@ -74,7 +76,7 @@
                             @foreach($rwGroup as $rw => $rtList)
                                 <!-- Header per RW -->
                                 <tr style="background-color: #f7fafc; border-top: 2px solid #e2e8f0;">
-                                    <td colspan="6" style="padding: 10px 15px; font-weight: 700; color: #4a5568;">
+                                    <td colspan="{{ $hasHeadName ? 6 : 5 }}" style="padding: 10px 15px; font-weight: 700; color: #4a5568;">
                                         <i class="ti-map-alt g-margin-r-5--xs"></i> RW {{ $rw }}
                                     </td>
                                 </tr>
@@ -88,12 +90,14 @@
                                             <span style="color: #3182ce;">Tingkat RW</span>
                                         @endif
                                     </td>
+                                    @if($hasHeadName)
                                     <td style="padding: 15px; vertical-align: middle;">
-                                        <strong>{{ $item->head_name }}</strong>
+                                        <strong>{{ $item->head_name ?: '-' }}</strong>
                                         @if($item->head_phone)
                                             <div style="font-size: 12px; color: #718096;"><i class="ti-mobile"></i> {{ $item->head_phone }}</div>
                                         @endif
                                     </td>
+                                    @endif
                                     <td style="padding: 15px; vertical-align: middle; text-align: center; color: #4299e1; font-weight: 600;">
                                         {{ number_format($item->total_male, 0, ',', '.') }}
                                     </td>
@@ -111,7 +115,7 @@
                                 
                                 <!-- Subtotal for this RW -->
                                 <tr style="background-color: #edf2f7; font-weight: 700;">
-                                    <td colspan="2" style="padding: 15px; text-align: right; color: #2d3748; padding-right: 20px;">Subtotal RW {{ $rw }} :</td>
+                                    <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #2d3748; padding-right: 20px;">Subtotal RW {{ $rw }} :</td>
                                     <td style="padding: 15px; text-align: center; color: #2b6cb0;">{{ number_format($rtList->sum('total_male'), 0, ',', '.') }}</td>
                                     <td style="padding: 15px; text-align: center; color: #b83280;">{{ number_format($rtList->sum('total_female'), 0, ',', '.') }}</td>
                                     <td style="padding: 15px; text-align: center; color: #2d3748;">{{ number_format($rtList->sum(function($q){ return $q->total_male + $q->total_female; }), 0, ',', '.') }}</td>
@@ -133,7 +137,7 @@
                             
                             <!-- Total for this Dusun -->
                             <tr style="background-color: #e2e8f0; font-weight: 700;">
-                                <td colspan="2" style="padding: 15px; text-align: right; color: #1a202c; font-size: 16px;">Total {{ $dusunName }} :</td>
+                                <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #1a202c; font-size: 16px;">Total {{ $dusunName }} :</td>
                                 <td style="padding: 15px; text-align: center; color: #2b6cb0; font-size: 16px;">{{ number_format($dusunTotalMale, 0, ',', '.') }}</td>
                                 <td style="padding: 15px; text-align: center; color: #b83280; font-size: 16px;">{{ number_format($dusunTotalFemale, 0, ',', '.') }}</td>
                                 <td style="padding: 15px; text-align: center; color: #1a202c; font-size: 16px;">{{ number_format($dusunTotalPenduduk, 0, ',', '.') }}</td>
