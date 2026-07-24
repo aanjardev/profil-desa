@@ -43,12 +43,26 @@
         @if($statistics->count() > 0)
         <div class="row g-margin-b-40--xs">
             @foreach($statistics as $stat)
+                @php
+                    $icon = $stat->icon ?: 'ti-bar-chart';
+                    $suffix = '';
+                    if ($stat->key === 'luas_wilayah') {
+                        $icon = 'ti-map-alt';
+                        $suffix = ' ha';
+                    } elseif ($stat->key === 'jumlah_penduduk') {
+                        $icon = 'ti-user';
+                        $suffix = ' penduduk';
+                    } elseif ($stat->key === 'jumlah_rt_rw') {
+                        $icon = 'ti-home';
+                        $suffix = ' RT/RW';
+                    }
+                @endphp
             <div class="col-sm-6 col-md-4 g-margin-b-30--xs">
                 <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px 20px; border: 1px solid #e2e8f0; text-align: center; height: 100%; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                     <div class="g-margin-b-15--xs">
-                        <i class="{{ $stat->icon ?? 'ti-bar-chart' }} g-color--primary" style="font-size: 40px; display: inline-block; padding: 15px; background: rgba(220, 53, 69, 0.1); border-radius: 50%;"></i>
+                        <i class="{{ $icon }} g-color--primary" style="font-size: 40px; display: inline-block; padding: 15px; background: rgba(220, 53, 69, 0.1); border-radius: 50%;"></i>
                     </div>
-                    <h3 class="g-font-size-28--xs g-font-weight--700 g-color--dark g-margin-b-5--xs">{{ $stat->value }}</h3>
+                    <h3 class="g-font-size-28--xs g-font-weight--700 g-color--dark g-margin-b-5--xs">{{ $stat->value }}{{ $suffix }}</h3>
                     <p class="g-font-size-14--xs g-font-weight--600" style="color: #718096; margin-bottom: 0;">{{ $stat->label }}</p>
                 </div>
             </div>

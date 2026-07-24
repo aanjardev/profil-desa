@@ -40,7 +40,7 @@
                                         <div class="g-margin-b-10--xs">
                                             <span class="g-bg-color--primary g-color--white g-font-size-11--xs g-font-weight--700 text-uppercase g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-margin-r-10--xs" style="display: inline-block;">{{ $utama->category ?? 'Umum' }}</span>
                                             <span class="g-font-size-13--xs g-color--white-opacity g-font-weight--600 g-margin-r-15--xs"><i class="ti-time g-margin-r-5--xs"></i> {{ $utama->created_at->translatedFormat('d F Y') }}</span>
-                                            <span class="g-font-size-13--xs g-color--white-opacity g-font-weight--600"><i class="ti-eye g-margin-r-5--xs"></i> {{ $utama->views ?? 0 }} Tayangan</span>
+                                            <span class="g-font-size-13--xs g-color--white-opacity g-font-weight--600 hidden-xs"><i class="ti-eye g-margin-r-5--xs"></i> {{ $utama->views ?? 0 }} Tayangan</span>
                                         </div>
                                         <h3 class="g-font-size-22--xs g-font-size-28--md g-font-weight--700 g-margin-b-10--xs">
                                             <a href="{{ route('berita-desa.show', $utama->slug) }}" class="g-color--white g-color--primary--hover berita-title-hover" style="text-decoration: none; line-height: 1.3;">{{ $utama->title }}</a>
@@ -59,7 +59,7 @@
                 <!-- Daftar Berita Samping (Kanan) -->
                 <div class="col-md-5">
                     <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                        @foreach($berita->skip(3)->take(4) as $post)
+                        @foreach($berita->skip(3)->take(3) as $post)
                             <article class="clearfix g-bg-color--white g-margin-b-15--xs" style="border-radius: 8px; overflow: hidden; box-shadow: 0 2px 15px rgba(0,0,0,0.06); display: flex; align-items: center;">
                                 <div style="flex: 0 0 200px; aspect-ratio: 16/9; overflow: hidden; padding: 10px;">
                                     <img src="{{ $post->image ? asset('storage/'.$post->image) : asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">

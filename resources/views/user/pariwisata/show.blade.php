@@ -383,7 +383,7 @@
             <span style="color: #cbd5e1;">/</span>
             <a href="{{ route('pariwisata') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;">Pariwisata</a>
             <span style="color: #cbd5e1;">/</span>
-            <span style="color: #1e293b;">{{ $tourism->name }}</span>
+            <span style="color: #1e293b; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;">{{ $tourism->name }}</span>
         </div>
 
         <div class="row wisata-show-row" style="display: flex; flex-wrap: wrap;">

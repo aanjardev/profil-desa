@@ -34,7 +34,7 @@ class AgendaController extends Controller
             $query->whereYear('start_date', $year);
         }
 
-        $agendas = $query->paginate(2)->withQueryString();
+        $agendas = $query->paginate(8)->withQueryString();
 
         // Sidebar Data
         $categories = Agenda::where('is_active', true)

@@ -306,7 +306,7 @@
             <span style="color: #cbd5e1;">/</span>
             <a href="{{ route('umkm') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;">UMKM</a>
             <span style="color: #cbd5e1;">/</span>
-            <span style="color: #1e293b;">{{ $umkm->name }}</span>
+            <span style="color: #1e293b; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;">{{ $umkm->name }}</span>
         </div>
 
         <div class="row umkm-show-row" style="display: flex; flex-wrap: wrap;">

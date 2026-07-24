@@ -76,7 +76,7 @@
                         @foreach($agendas as $agenda)
                             <!-- Full Detail Card -->
                             <article style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.05)';">
-                                <div class="agenda-card-header g-margin-b-15--xs" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+                                <div class="agenda-card-header g-margin-b-15--xs" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; cursor: pointer;" data-toggle="collapse" data-target="#collapseAgenda{{ $agenda->id }}" aria-expanded="false" aria-controls="collapseAgenda{{ $agenda->id }}">
                                     <div>
                                         <span class="g-font-size-12--xs g-color--primary g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-font-weight--700 g-margin-b-10--xs" style="display: inline-block; border: 1.5px solid #dc3545; background: rgba(220,53,69,0.06);"><i class="ti-tag g-margin-r-5--xs"></i>{{ $agenda->category ?? 'Lainnya' }}</span>
                                         {{-- Tanggal 1 baris hanya di mobile --}}
@@ -88,6 +88,7 @@
                                             @endif
                                         </span>
                                         <h2 class="g-font-size-24--xs g-font-weight--700" style="color: #2d3748; line-height: 1.4; margin-top: 10px; margin-bottom: 5px;">{{ $agenda->title }}</h2>
+                                        <p class="g-font-size-13--xs g-color--primary g-margin-b-0--xs"><i class="ti-angle-down"></i> Klik untuk info lengkap</p>
                                     </div>
                                     <div class="hidden-xs text-right" style="min-width: 120px;">
                                         <div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; display: inline-block; text-align: center;">
@@ -97,54 +98,55 @@
                                     </div>
                                 </div>
                                 
-                                <div class="g-bg-color--sky-light g-padding-x-20--xs g-padding-y-20--xs g-margin-b-20--xs" style="border-radius: 8px; border: 1px solid #e2e8f0;">
-                                    <div class="row">
-                                        <div class="col-sm-6 g-margin-b-15--xs">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-calendar g-color--primary g-margin-r-5--xs"></i> Tanggal</strong>
-                                            <span class="g-color--text g-font-size-14--xs">
-                                                {{ \Carbon\Carbon::parse($agenda->start_date)->translatedFormat('d F Y') }}
-                                                @if($agenda->end_date && $agenda->end_date != $agenda->start_date)
-                                                    - {{ \Carbon\Carbon::parse($agenda->end_date)->translatedFormat('d F Y') }}
-                                                @endif
-                                            </span>
+                                <div class="collapse" id="collapseAgenda{{ $agenda->id }}">
+                                    <div class="g-bg-color--sky-light g-padding-x-20--xs g-padding-y-20--xs g-margin-b-20--xs g-margin-t-20--xs" style="border-radius: 8px; border: 1px solid #e2e8f0;">
+                                        <div class="row">
+                                            <div class="col-sm-6 g-margin-b-15--xs">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-calendar g-color--primary g-margin-r-5--xs"></i> Tanggal</strong>
+                                                <span class="g-color--text g-font-size-14--xs">
+                                                    {{ \Carbon\Carbon::parse($agenda->start_date)->translatedFormat('d F Y') }}
+                                                    @if($agenda->end_date && $agenda->end_date != $agenda->start_date)
+                                                        - {{ \Carbon\Carbon::parse($agenda->end_date)->translatedFormat('d F Y') }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6 g-margin-b-15--xs">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-time g-color--primary g-margin-r-5--xs"></i> Waktu</strong>
+                                                <span class="g-color--text g-font-size-14--xs">
+                                                    {{ $agenda->start_time ? \Carbon\Carbon::parse($agenda->start_time)->format('H:i') : 'TBA' }} 
+                                                    @if($agenda->end_time) - {{ \Carbon\Carbon::parse($agenda->end_time)->format('H:i') }} @endif
+                                                    WIB
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6 g-margin-b-15--xs g-margin-b-0--sm">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-location-pin g-color--primary g-margin-r-5--xs"></i> Lokasi</strong>
+                                                <span class="g-color--text g-font-size-14--xs">
+                                                    {{ $agenda->location }}
+                                                    @if($agenda->maps_link)
+                                                        <br><a href="{{ $agenda->maps_link }}" target="_blank" class="g-color--primary g-font-size-13--xs" style="text-decoration: underline;">Buka di Google Maps</a>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-target g-color--primary g-margin-r-5--xs"></i> Sasaran Peserta</strong>
+                                                <span class="g-color--text g-font-size-14--xs">{{ $agenda->audience ?? 'Umum' }}</span>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 g-margin-b-15--xs">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-time g-color--primary g-margin-r-5--xs"></i> Waktu</strong>
-                                            <span class="g-color--text g-font-size-14--xs">
-                                                {{ $agenda->start_time ? \Carbon\Carbon::parse($agenda->start_time)->format('H:i') : 'TBA' }} 
-                                                @if($agenda->end_time) - {{ \Carbon\Carbon::parse($agenda->end_time)->format('H:i') }} @endif
-                                                WIB
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-6 g-margin-b-15--xs g-margin-b-0--sm">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-location-pin g-color--primary g-margin-r-5--xs"></i> Lokasi</strong>
-                                            <span class="g-color--text g-font-size-14--xs">
-                                                {{ $agenda->location }}
-                                                @if($agenda->maps_link)
-                                                    <br><a href="{{ $agenda->maps_link }}" target="_blank" class="g-color--primary g-font-size-13--xs" style="text-decoration: underline;">Buka di Google Maps</a>
-                                                @endif
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-target g-color--primary g-margin-r-5--xs"></i> Sasaran Peserta</strong>
-                                            <span class="g-color--text g-font-size-14--xs">{{ $agenda->audience ?? 'Umum' }}</span>
+                                        <hr style="margin: 15px 0; border-top: 1px dashed #cbd5e0;">
+                                        <div class="row">
+                                            <div class="col-sm-6 g-margin-b-15--xs g-margin-b-0--sm">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-user g-color--primary g-margin-r-5--xs"></i> Penyelenggara</strong>
+                                                <span class="g-color--text g-font-size-14--xs">{{ $agenda->organizer ?? '-' }}</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-id-badge g-color--primary g-margin-r-5--xs"></i> Kontak Person</strong>
+                                                <span class="g-color--text g-font-size-14--xs">{{ $agenda->contact_person ?? '-' }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <hr style="margin: 15px 0; border-top: 1px dashed #cbd5e0;">
-                                    <div class="row">
-                                        <div class="col-sm-6 g-margin-b-15--xs g-margin-b-0--sm">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-user g-color--primary g-margin-r-5--xs"></i> Penyelenggara</strong>
-                                            <span class="g-color--text g-font-size-14--xs">{{ $agenda->organizer ?? '-' }}</span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-id-badge g-color--primary g-margin-r-5--xs"></i> Kontak Person</strong>
-                                            <span class="g-color--text g-font-size-14--xs">{{ $agenda->contact_person ?? '-' }}</span>
-                                        </div>
+                                    <div class="g-font-size-15--xs g-color--dark" style="line-height: 1.8; text-align: justify;">
+                                        {!! $agenda->description !!}
                                     </div>
-                                </div>
-
-                                <div class="g-font-size-15--xs g-color--dark" style="line-height: 1.8; text-align: justify;">
-                                    {!! $agenda->description !!}
                                 </div>
                             </article>
                         @endforeach
