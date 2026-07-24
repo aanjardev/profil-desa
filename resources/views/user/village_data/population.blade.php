@@ -49,10 +49,12 @@
             </div>
         </div>
 
-        @forelse($groupedData as $rw => $rtList)
+        @forelse($groupedData as $dusunName => $rwGroup)
             <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
                 <h2 class="g-font-size-24--xs g-font-weight--700 g-color--dark g-margin-b-20--xs">
-                    <span style="display: inline-block; padding: 5px 15px; background: #ebf4ff; color: #3182ce; border-radius: 8px; margin-right: 10px; font-size: 18px;">RW {{ $rw }}</span>
+                    <span style="display: inline-block; padding: 5px 15px; background: #ebf4ff; color: #3182ce; border-radius: 8px; margin-right: 10px; font-size: 18px;">
+                        <i class="ti-location-pin"></i> Dusun: {{ $dusunName }}
+                    </span>
                     Statistik Kependudukan
                 </h2>
 
@@ -69,42 +71,73 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($rtList as $item)
-                            <tr>
-                                <td style="padding: 15px; vertical-align: middle; font-weight: 700;">
-                                    @if($item->rt_number)
-                                        RT {{ $item->rt_number }}
-                                    @else
-                                        <span style="color: #3182ce;">Tingkat RW</span>
-                                    @endif
-                                </td>
-                                <td style="padding: 15px; vertical-align: middle;">
-                                    <strong>{{ $item->head_name }}</strong>
-                                    @if($item->head_phone)
-                                        <div style="font-size: 12px; color: #718096;"><i class="ti-mobile"></i> {{ $item->head_phone }}</div>
-                                    @endif
-                                </td>
-                                <td style="padding: 15px; vertical-align: middle; text-align: center; color: #4299e1; font-weight: 600;">
-                                    {{ number_format($item->total_male, 0, ',', '.') }}
-                                </td>
-                                <td style="padding: 15px; vertical-align: middle; text-align: center; color: #ed64a6; font-weight: 600;">
-                                    {{ number_format($item->total_female, 0, ',', '.') }}
-                                </td>
-                                <td style="padding: 15px; vertical-align: middle; text-align: center; font-weight: 700; background-color: #f7fafc;">
-                                    {{ number_format($item->total_penduduk, 0, ',', '.') }}
-                                </td>
-                                <td style="padding: 15px; vertical-align: middle; text-align: center; color: #48bb78; font-weight: 600;">
-                                    {{ number_format($item->total_kk, 0, ',', '.') }}
-                                </td>
-                            </tr>
+                            @foreach($rwGroup as $rw => $rtList)
+                                <!-- Header per RW -->
+                                <tr style="background-color: #f7fafc; border-top: 2px solid #e2e8f0;">
+                                    <td colspan="6" style="padding: 10px 15px; font-weight: 700; color: #4a5568;">
+                                        <i class="ti-map-alt g-margin-r-5--xs"></i> RW {{ $rw }}
+                                    </td>
+                                </tr>
+                                
+                                @foreach($rtList as $item)
+                                <tr>
+                                    <td style="padding: 15px; vertical-align: middle; font-weight: 700; padding-left: 30px;">
+                                        @if($item->rt_number)
+                                            RT {{ $item->rt_number }}
+                                        @else
+                                            <span style="color: #3182ce;">Tingkat RW</span>
+                                        @endif
+                                    </td>
+                                    <td style="padding: 15px; vertical-align: middle;">
+                                        <strong>{{ $item->head_name }}</strong>
+                                        @if($item->head_phone)
+                                            <div style="font-size: 12px; color: #718096;"><i class="ti-mobile"></i> {{ $item->head_phone }}</div>
+                                        @endif
+                                    </td>
+                                    <td style="padding: 15px; vertical-align: middle; text-align: center; color: #4299e1; font-weight: 600;">
+                                        {{ number_format($item->total_male, 0, ',', '.') }}
+                                    </td>
+                                    <td style="padding: 15px; vertical-align: middle; text-align: center; color: #ed64a6; font-weight: 600;">
+                                        {{ number_format($item->total_female, 0, ',', '.') }}
+                                    </td>
+                                    <td style="padding: 15px; vertical-align: middle; text-align: center; font-weight: 700; background-color: #f7fafc;">
+                                        {{ number_format($item->total_penduduk, 0, ',', '.') }}
+                                    </td>
+                                    <td style="padding: 15px; vertical-align: middle; text-align: center; color: #48bb78; font-weight: 600;">
+                                        {{ number_format($item->total_kk, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                @endforeach
+                                
+                                <!-- Subtotal for this RW -->
+                                <tr style="background-color: #edf2f7; font-weight: 700;">
+                                    <td colspan="2" style="padding: 15px; text-align: right; color: #2d3748; padding-right: 20px;">Subtotal RW {{ $rw }} :</td>
+                                    <td style="padding: 15px; text-align: center; color: #2b6cb0;">{{ number_format($rtList->sum('total_male'), 0, ',', '.') }}</td>
+                                    <td style="padding: 15px; text-align: center; color: #b83280;">{{ number_format($rtList->sum('total_female'), 0, ',', '.') }}</td>
+                                    <td style="padding: 15px; text-align: center; color: #2d3748;">{{ number_format($rtList->sum(function($q){ return $q->total_male + $q->total_female; }), 0, ',', '.') }}</td>
+                                    <td style="padding: 15px; text-align: center; color: #276749;">{{ number_format($rtList->sum('total_kk'), 0, ',', '.') }}</td>
+                                </tr>
                             @endforeach
-                            <!-- Subtotal for this RW -->
-                            <tr style="background-color: #edf2f7; font-weight: 700;">
-                                <td colspan="2" style="padding: 15px; text-align: right; color: #2d3748;">Total Keseluruhan RW {{ $rw }} :</td>
-                                <td style="padding: 15px; text-align: center; color: #2b6cb0;">{{ number_format($rtList->sum('total_male'), 0, ',', '.') }}</td>
-                                <td style="padding: 15px; text-align: center; color: #b83280;">{{ number_format($rtList->sum('total_female'), 0, ',', '.') }}</td>
-                                <td style="padding: 15px; text-align: center; color: #2d3748;">{{ number_format($rtList->sum(function($q){ return $q->total_male + $q->total_female; }), 0, ',', '.') }}</td>
-                                <td style="padding: 15px; text-align: center; color: #276749;">{{ number_format($rtList->sum('total_kk'), 0, ',', '.') }}</td>
+                            
+                            @php
+                                $dusunTotalMale = 0;
+                                $dusunTotalFemale = 0;
+                                $dusunTotalKk = 0;
+                                foreach($rwGroup as $r) {
+                                    $dusunTotalMale += $r->sum('total_male');
+                                    $dusunTotalFemale += $r->sum('total_female');
+                                    $dusunTotalKk += $r->sum('total_kk');
+                                }
+                                $dusunTotalPenduduk = $dusunTotalMale + $dusunTotalFemale;
+                            @endphp
+                            
+                            <!-- Total for this Dusun -->
+                            <tr style="background-color: #e2e8f0; font-weight: 700;">
+                                <td colspan="2" style="padding: 15px; text-align: right; color: #1a202c; font-size: 16px;">Total {{ $dusunName }} :</td>
+                                <td style="padding: 15px; text-align: center; color: #2b6cb0; font-size: 16px;">{{ number_format($dusunTotalMale, 0, ',', '.') }}</td>
+                                <td style="padding: 15px; text-align: center; color: #b83280; font-size: 16px;">{{ number_format($dusunTotalFemale, 0, ',', '.') }}</td>
+                                <td style="padding: 15px; text-align: center; color: #1a202c; font-size: 16px;">{{ number_format($dusunTotalPenduduk, 0, ',', '.') }}</td>
+                                <td style="padding: 15px; text-align: center; color: #22543d; font-size: 16px;">{{ number_format($dusunTotalKk, 0, ',', '.') }}</td>
                             </tr>
                         </tbody>
                     </table>

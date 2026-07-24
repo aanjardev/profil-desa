@@ -13,7 +13,14 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-5 border-b border-gray-100 pb-3">Informasi Wilayah & Penduduk</h3>
                 <div class="space-y-5">
-                    
+                    <div class="mb-5">
+                        <label for="area_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Dusun / Wilayah <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
+                        <input type="text" name="area_name" id="area_name" value="{{ old('area_name', $rtRw->area_name) }}" maxlength="100"
+                               class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
+                               placeholder="Contoh: Dusun Gondang">
+                        @error('area_name')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label for="rw_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor RW <span class="text-red-500">*</span></label>

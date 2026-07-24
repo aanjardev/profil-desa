@@ -11,12 +11,18 @@ class PopulationController extends Controller
     public function index()
     {
         $rtRws = RtRw::active()
+            ->orderBy('area_name', 'asc')
             ->orderBy('rw_number', 'asc')
             ->orderBy('rt_number', 'asc')
             ->get();
 
-        // Group by RW
-        $groupedData = $rtRws->groupBy('rw_number');
+        // Group by Dusun (area_name), if null use 'Tanpa Dusun'
+        $groupedData = $rtRws->groupBy(function($item) {
+            return $item->area_name ?: 'Lain-lain / Tanpa Dusun';
+        })->map(function ($dusunItems) {
+            // Inside each dusun, group by RW
+            return $dusunItems->groupBy('rw_number');
+        });
 
         // Total Desa
         $totalDesaMale = $rtRws->sum('total_male');

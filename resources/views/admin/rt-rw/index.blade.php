@@ -72,6 +72,11 @@
                             <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Tingkat RW</span>
                             @endif
                         </span>
+                        @if($item->area_name)
+                        <div class="mt-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wider bg-gray-50 px-2 py-0.5 rounded border border-gray-100">
+                            {{ $item->area_name }}
+                        </div>
+                        @endif
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex flex-col">
