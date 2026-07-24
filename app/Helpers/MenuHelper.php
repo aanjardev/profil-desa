@@ -51,8 +51,12 @@ class MenuHelper
                             ['name' => 'Berita Desa', 'path' => '/admin/posts'],
                             ['name' => 'Agenda Kegiatan', 'path' => '/admin/agendas'],
                             ['name' => 'Galeri', 'path' => '/admin/galleries'],
-                            ['name' => 'Dokumen PPID', 'path' => '/admin/ppid-documents'],
                         ]
+                    ],
+                    [
+                        'name' => 'Produk Hukum',
+                        'path' => '/admin/ppid-documents',
+                        'icon' => 'briefcase',
                     ],
                     [
                         'name' => 'Pelayanan',

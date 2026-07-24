@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Kelola Dokumen PPID')
+@section('page_title', 'Kelola Produk Hukum')
 @section('page_subtitle', 'Arsip produk hukum, peraturan desa, dan dokumen publik lainnya.')
 
 @section('content')
@@ -37,7 +37,7 @@
         </a>
     </div>
 
-    {{-- Tabel Dokumen PPID --}}
+    {{-- Tabel Produk Hukum --}}
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse min-w-[800px]">
             <thead>
@@ -110,7 +110,7 @@
                             <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             </div>
-                            <h3 class="text-sm font-bold text-gray-900 mb-1">Belum Ada Dokumen PPID</h3>
+                            <h3 class="text-sm font-bold text-gray-900 mb-1">Belum Ada Produk Hukum</h3>
                             <p class="text-sm text-gray-500 mb-4">Arsipkan produk hukum pertama Anda ke dalam sistem.</p>
                             <a href="{{ route('admin.ppid-documents.create') }}"
                                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg hover:bg-blue-100 transition-colors">

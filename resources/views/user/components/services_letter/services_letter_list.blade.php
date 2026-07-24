@@ -8,7 +8,15 @@
         position: sticky;
         top: 100px;
         z-index: 10;
-        overflow: hidden;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+    .letter-sidebar-card::-webkit-scrollbar {
+        width: 6px;
+    }
+    .letter-sidebar-card::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
     }
     .vertical-tab-letter-item {
         transition: all 0.2s ease;

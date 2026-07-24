@@ -56,14 +56,15 @@
                         </li>
 
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link {{ request()->is('berita*', 'agenda-kegiatan', 'galeri', 'dokumen-ppid') ? 'active-page' : '' }}">INFORMASI <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ request()->is('berita*', 'agenda-kegiatan', 'galeri') ? 'active-page' : '' }}">INFORMASI <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('berita-desa') }}">Berita Desa</a></li>
                                 <li><a href="{{ route('agenda-kegiatan') }}">Agenda Kegiatan</a></li>
                                 <li><a href="{{ route('galeri') }}">Galeri</a></li>
-                                <li><a href="{{ route('dokumen-ppid') }}">Dokumen PPID</a></li>
                             </ul>
                         </li>
+
+                        <li><a href="{{ route('dokumen-ppid') }}" class="navbar-desktop-link {{ Route::is('dokumen-ppid') ? 'active-page' : '' }}">PRODUK HUKUM</a></li>
 
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('layanan-surat', 'administrasi-online', 'faq', 'kontak-darurat') ? 'active-page' : '' }}">PELAYANAN <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
@@ -132,9 +133,10 @@
                         <li><a href="{{ route('berita-desa') }}">Berita Desa</a></li>
                         <li><a href="{{ route('agenda-kegiatan') }}">Agenda Kegiatan</a></li>
                         <li><a href="{{ route('galeri') }}">Galeri</a></li>
-                        <li><a href="{{ route('dokumen-ppid') }}">Dokumen PPID</a></li>
                     </ul>
                 </li>
+
+                <li><a href="{{ route('dokumen-ppid') }}">PRODUK HUKUM</a></li>
 
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">PELAYANAN <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>

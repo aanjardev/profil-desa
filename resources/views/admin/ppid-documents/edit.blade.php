@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Edit Dokumen PPID')
+@section('page_title', 'Edit Produk Hukum')
 @section('page_subtitle', 'Perbarui data atau file produk hukum desa.')
 
 @section('content')

@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', 'Dokumen PPID')
+@section('title', 'Produk Hukum')
 
 @section('content')
 
@@ -10,7 +10,7 @@
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
     
     <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Dokumen PPID</h1>
+        <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Produk Hukum</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Pejabat Pengelola Informasi dan Dokumentasi. Menyediakan layanan informasi publik yang transparan dan akuntabel.</p>
     </div>
 </div>
