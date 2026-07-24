@@ -29,12 +29,13 @@
                         <li><a href="{{ route('beranda') }}" class="navbar-desktop-link {{ Route::is('beranda') ? 'active-page' : '' }}">BERANDA</a></li>
                         
                         <li class="dropdown-wrapper">
-                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('profil-desa', 'sotk-desa', 'visi-misi', 'monografi-desa') ? 'active-page' : '' }}">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                            <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('profil-desa', 'sotk-desa', 'visi-misi', 'monografi-desa', 'data-penduduk') ? 'active-page' : '' }}">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
                                 <li><a href="{{ route('profil-desa') }}">Profil Desa</a></li>
                                 <li><a href="{{ route('sotk-desa') }}">SOTK Desa</a></li>
                                 <li><a href="{{ route('visi-misi') }}">Visi Misi</a></li>
                                 <li><a href="{{ route('monografi-desa') }}">Monografi Desa</a></li>
+                                <li><a href="{{ route('data-penduduk') }}">Data Penduduk</a></li>
                             </ul>
                         </li>
 
@@ -107,6 +108,7 @@
                         <li><a href="{{ route('sotk-desa') }}">SOTK Desa</a></li>
                         <li><a href="{{ route('visi-misi') }}">Visi Misi</a></li>
                         <li><a href="{{ route('monografi-desa') }}">Monografi Desa</a></li>
+                        <li><a href="{{ route('data-penduduk') }}">Data Penduduk</a></li>
                     </ul>
                 </li>
 

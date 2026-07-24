@@ -28,6 +28,7 @@ class MenuHelper
                             ['name' => 'SOTK Desa', 'path' => '/admin/village-officials'],
                             ['name' => 'Visi Misi', 'path' => '/admin/village-identities/edit-key/visi-misi'],
                             ['name' => 'Monografi Desa', 'path' => '/admin/village-identities/edit-key/demografi'],
+                            ['name' => 'Data Penduduk (RT/RW)', 'path' => '/admin/rt-rws'],
                         ]
                     ],
                     [

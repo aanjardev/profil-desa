@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\TourismController;
 use App\Http\Controllers\Admin\UmkmController;
 use App\Http\Controllers\Admin\EmergencyContactController;
 use App\Http\Controllers\Admin\HomepageFeaturedController;
+use App\Http\Controllers\Admin\RtRwController;
 
 Route::redirect('/', '/beranda');
 
@@ -40,6 +41,7 @@ Route::get('/profil-desa', [PublicVillageDataController::class, 'profil'])->name
 Route::get('/sotk-desa', [PublicVillageDataController::class, 'sotk'])->name('sotk-desa');
 Route::get('/visi-misi', [PublicVillageDataController::class, 'visiMisi'])->name('visi-misi');
 Route::get('/monografi-desa', [PublicVillageDataController::class, 'monografi'])->name('monografi-desa');
+Route::get('/data-penduduk', [\App\Http\Controllers\User\PopulationController::class, 'index'])->name('data-penduduk');
 
 
 // POTENSI DESA
@@ -110,6 +112,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('tourisms', TourismUmkmController::class);
     Route::resource('galleries', GalleryController::class);
     Route::resource('ppid-documents', PpidDocumentController::class);
+    Route::resource('rt-rws', RtRwController::class);
     Route::resource('service-letters', ServiceLetterController::class);
     Route::resource('complaints', ComplaintController::class);
     Route::post('faqs/reorder', [FaqController::class, 'reorder'])->name('faqs.reorder');
