@@ -50,6 +50,7 @@ class RtRwController extends Controller
             'total_kk' => 'nullable|integer|min:0',
             'total_male' => 'nullable|integer|min:0',
             'total_female' => 'nullable|integer|min:0',
+            'total_penduduk' => 'nullable|integer|min:0',
             'area_name' => 'nullable|string|max:100',
             'is_active' => 'nullable|boolean',
         ]);
@@ -82,6 +83,7 @@ class RtRwController extends Controller
             'total_kk' => 'nullable|integer|min:0',
             'total_male' => 'nullable|integer|min:0',
             'total_female' => 'nullable|integer|min:0',
+            'total_penduduk' => 'nullable|integer|min:0',
             'area_name' => 'nullable|string|max:100',
             'is_active' => 'nullable|boolean',
         ]);

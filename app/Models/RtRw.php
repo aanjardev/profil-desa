@@ -17,21 +17,23 @@ class RtRw extends Model
         'total_kk',
         'total_male',
         'total_female',
+        'total_penduduk',
         'area_name',
         'is_active',
     ];
 
     protected $casts = [
-        'is_active'    => 'boolean',
-        'total_kk'     => 'integer',
-        'total_male'   => 'integer',
-        'total_female' => 'integer',
+        'is_active'      => 'boolean',
+        'total_kk'       => 'integer',
+        'total_male'     => 'integer',
+        'total_female'   => 'integer',
+        'total_penduduk' => 'integer',
     ];
 
     // ─── Helper ───────────────────────────────────────────
-    public function getTotalPendudukAttribute(): int
+    public function getTotalPendudukAttribute($value): int
     {
-        return $this->total_male + $this->total_female;
+        return $value ?: ($this->total_male + $this->total_female);
     }
 
     public function getIsRwAttribute(): bool

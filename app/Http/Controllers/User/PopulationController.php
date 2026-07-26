@@ -27,12 +27,18 @@ class PopulationController extends Controller
         // Total Desa
         $totalDesaMale = $rtRws->sum('total_male');
         $totalDesaFemale = $rtRws->sum('total_female');
-        $totalDesaPenduduk = $totalDesaMale + $totalDesaFemale;
+        $totalDesaPenduduk = $rtRws->sum(function($item) {
+            return $item->total_penduduk;
+        });
         $totalDesaKk = $rtRws->sum('total_kk');
         
         $hasHeadName = $rtRws->whereNotNull('head_name')->filter(function($item) {
             return trim($item->head_name) !== '';
         })->count() > 0;
+        
+        $hasMale = $totalDesaMale > 0;
+        $hasFemale = $totalDesaFemale > 0;
+        $hasKk = $totalDesaKk > 0;
 
         return view('user.village_data.population', compact(
             'groupedData', 
@@ -40,7 +46,10 @@ class PopulationController extends Controller
             'totalDesaFemale', 
             'totalDesaPenduduk', 
             'totalDesaKk',
-            'hasHeadName'
+            'hasHeadName',
+            'hasMale',
+            'hasFemale',
+            'hasKk'
         ));
     }
 }

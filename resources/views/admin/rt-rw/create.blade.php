@@ -53,26 +53,32 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div>
-                    <label for="total_male" class="block text-sm font-bold text-gray-700 mb-1">Jumlah Laki-laki</label>
-                    <input type="number" name="total_male" id="total_male" value="{{ old('total_male', 0) }}" min="0"
-                           class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
-                    @error('total_male')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label for="total_female" class="block text-sm font-bold text-gray-700 mb-1">Jumlah Perempuan</label>
-                    <input type="number" name="total_female" id="total_female" value="{{ old('total_female', 0) }}" min="0"
-                           class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
-                    @error('total_female')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label for="total_kk" class="block text-sm font-bold text-gray-700 mb-1">Jumlah Kepala Keluarga (KK)</label>
-                    <input type="number" name="total_kk" id="total_kk" value="{{ old('total_kk', 0) }}" min="0"
-                           class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
-                    @error('total_kk')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-                </div>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        <div>
+                            <label for="total_penduduk" class="block text-sm font-bold text-gray-700 mb-1">Total Penduduk</label>
+                            <input type="number" name="total_penduduk" id="total_penduduk" value="{{ old('total_penduduk') }}" min="0"
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
+                            @error('total_penduduk')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label for="total_male" class="block text-sm font-bold text-gray-700 mb-1">Laki-laki <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
+                            <input type="number" name="total_male" id="total_male" value="{{ old('total_male') }}" min="0"
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
+                            @error('total_male')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label for="total_female" class="block text-sm font-bold text-gray-700 mb-1">Perempuan <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
+                            <input type="number" name="total_female" id="total_female" value="{{ old('total_female') }}" min="0"
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
+                            @error('total_female')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label for="total_kk" class="block text-sm font-bold text-gray-700 mb-1">Jumlah KK <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
+                            <input type="number" name="total_kk" id="total_kk" value="{{ old('total_kk') }}" min="0"
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm">
+                            @error('total_kk')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
 
             <div class="mt-4 pt-4 border-t border-gray-100">
                 <label class="relative inline-flex items-center cursor-pointer group">

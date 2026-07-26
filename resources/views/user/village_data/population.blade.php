@@ -19,6 +19,7 @@
         
         <!-- Summary Cards -->
         <div class="row g-margin-b-40--xs">
+            @if($hasMale)
             <div class="col-sm-3 col-xs-6 g-margin-b-20--xs g-margin-b-0--sm">
                 <div style="background: #fff; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; height: 100%;">
                     <i class="ti-user g-font-size-30--xs" style="color: #4299e1; margin-bottom: 15px; display: block;"></i>
@@ -26,6 +27,8 @@
                     <p style="font-size: 13px; color: #718096; margin: 0; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Laki-laki</p>
                 </div>
             </div>
+            @endif
+            @if($hasFemale)
             <div class="col-sm-3 col-xs-6 g-margin-b-20--xs g-margin-b-0--sm">
                 <div style="background: #fff; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; height: 100%;">
                     <i class="ti-user g-font-size-30--xs" style="color: #ed64a6; margin-bottom: 15px; display: block;"></i>
@@ -33,6 +36,8 @@
                     <p style="font-size: 13px; color: #718096; margin: 0; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Perempuan</p>
                 </div>
             </div>
+            @endif
+            @if($hasKk)
             <div class="col-sm-3 col-xs-6 g-margin-b-20--xs g-margin-b-0--sm">
                 <div style="background: #fff; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; height: 100%;">
                     <i class="ti-id-badge g-font-size-30--xs" style="color: #48bb78; margin-bottom: 15px; display: block;"></i>
@@ -40,6 +45,7 @@
                     <p style="font-size: 13px; color: #718096; margin: 0; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Total KK</p>
                 </div>
             </div>
+            @endif
             <div class="col-sm-3 col-xs-6">
                 <div style="background: #2d3748; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 100%;">
                     <i class="ti-pie-chart g-font-size-30--xs" style="color: #cbd5e0; margin-bottom: 15px; display: block;"></i>
@@ -66,17 +72,30 @@
                                 @if($hasHeadName)
                                 <th style="padding: 15px; border-bottom: none; width: 25%;">Ketua</th>
                                 @endif
+                                @if($hasMale)
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Laki-laki</th>
+                                @endif
+                                @if($hasFemale)
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Perempuan</th>
+                                @endif
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Total Penduduk</th>
+                                @if($hasKk)
                                 <th style="padding: 15px; border-bottom: none; width: 15%; text-align: center;">Jumlah KK</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($rwGroup as $rw => $rtList)
                                 <!-- Header per RW -->
                                 <tr style="background-color: #f7fafc; border-top: 2px solid #e2e8f0;">
-                                    <td colspan="{{ $hasHeadName ? 6 : 5 }}" style="padding: 10px 15px; font-weight: 700; color: #4a5568;">
+                                    @php
+                                        $colspan = 2; // RT/RW and Total Penduduk
+                                        if($hasHeadName) $colspan++;
+                                        if($hasMale) $colspan++;
+                                        if($hasFemale) $colspan++;
+                                        if($hasKk) $colspan++;
+                                    @endphp
+                                    <td colspan="{{ $colspan }}" style="padding: 10px 15px; font-weight: 700; color: #4a5568;">
                                         <i class="ti-map-alt g-margin-r-5--xs"></i> RW {{ $rw }}
                                     </td>
                                 </tr>
@@ -98,28 +117,40 @@
                                         @endif
                                     </td>
                                     @endif
+                                    @if($hasMale)
                                     <td style="padding: 15px; vertical-align: middle; text-align: center; color: #4299e1; font-weight: 600;">
                                         {{ number_format($item->total_male, 0, ',', '.') }}
                                     </td>
+                                    @endif
+                                    @if($hasFemale)
                                     <td style="padding: 15px; vertical-align: middle; text-align: center; color: #ed64a6; font-weight: 600;">
                                         {{ number_format($item->total_female, 0, ',', '.') }}
                                     </td>
+                                    @endif
                                     <td style="padding: 15px; vertical-align: middle; text-align: center; font-weight: 700; background-color: #f7fafc;">
                                         {{ number_format($item->total_penduduk, 0, ',', '.') }}
                                     </td>
+                                    @if($hasKk)
                                     <td style="padding: 15px; vertical-align: middle; text-align: center; color: #48bb78; font-weight: 600;">
                                         {{ number_format($item->total_kk, 0, ',', '.') }}
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                                 
                                 <!-- Subtotal for this RW -->
                                 <tr style="background-color: #edf2f7; font-weight: 700;">
                                     <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #2d3748; padding-right: 20px;">Subtotal RW {{ $rw }} :</td>
+                                    @if($hasMale)
                                     <td style="padding: 15px; text-align: center; color: #2b6cb0;">{{ number_format($rtList->sum('total_male'), 0, ',', '.') }}</td>
+                                    @endif
+                                    @if($hasFemale)
                                     <td style="padding: 15px; text-align: center; color: #b83280;">{{ number_format($rtList->sum('total_female'), 0, ',', '.') }}</td>
-                                    <td style="padding: 15px; text-align: center; color: #2d3748;">{{ number_format($rtList->sum(function($q){ return $q->total_male + $q->total_female; }), 0, ',', '.') }}</td>
+                                    @endif
+                                    <td style="padding: 15px; text-align: center; color: #2d3748;">{{ number_format($rtList->sum('total_penduduk'), 0, ',', '.') }}</td>
+                                    @if($hasKk)
                                     <td style="padding: 15px; text-align: center; color: #276749;">{{ number_format($rtList->sum('total_kk'), 0, ',', '.') }}</td>
+                                    @endif
                                 </tr>
                             @endforeach
                             
@@ -127,21 +158,28 @@
                                 $dusunTotalMale = 0;
                                 $dusunTotalFemale = 0;
                                 $dusunTotalKk = 0;
+                                $dusunTotalPenduduk = 0;
                                 foreach($rwGroup as $r) {
                                     $dusunTotalMale += $r->sum('total_male');
                                     $dusunTotalFemale += $r->sum('total_female');
                                     $dusunTotalKk += $r->sum('total_kk');
+                                    $dusunTotalPenduduk += $r->sum('total_penduduk');
                                 }
-                                $dusunTotalPenduduk = $dusunTotalMale + $dusunTotalFemale;
                             @endphp
                             
                             <!-- Total for this Dusun -->
                             <tr style="background-color: #e2e8f0; font-weight: 700;">
                                 <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #1a202c; font-size: 16px;">Total {{ $dusunName }} :</td>
+                                @if($hasMale)
                                 <td style="padding: 15px; text-align: center; color: #2b6cb0; font-size: 16px;">{{ number_format($dusunTotalMale, 0, ',', '.') }}</td>
+                                @endif
+                                @if($hasFemale)
                                 <td style="padding: 15px; text-align: center; color: #b83280; font-size: 16px;">{{ number_format($dusunTotalFemale, 0, ',', '.') }}</td>
+                                @endif
                                 <td style="padding: 15px; text-align: center; color: #1a202c; font-size: 16px;">{{ number_format($dusunTotalPenduduk, 0, ',', '.') }}</td>
+                                @if($hasKk)
                                 <td style="padding: 15px; text-align: center; color: #22543d; font-size: 16px;">{{ number_format($dusunTotalKk, 0, ',', '.') }}</td>
+                                @endif
                             </tr>
                         </tbody>
                     </table>
