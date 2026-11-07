@@ -7,6 +7,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
 
 <head>
+    @include('components.image-fallback')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -171,10 +172,10 @@
             const onsubmitStr = form.getAttribute('onsubmit');
             const match = onsubmitStr.match(/confirm\(\s*['"](.*?)['"]\s*\)/);
             const message = match ? match[1] : 'Apakah Anda yakin ingin melanjutkan tindakan ini?';
-            
+
             // Remove the native onsubmit
             form.removeAttribute('onsubmit');
-            
+
             // Listen for submit with SweetAlert2
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -208,7 +209,7 @@
             if (form && form.tagName === 'FORM') {
                 // Jika event sudah dicegah (misal oleh validasi atau script lain), abaikan
                 if (e.defaultPrevented) return;
-                
+
                 // Tambahkan sedikit delay agar action / value dari tombol tetap terkirim bersama form
                 setTimeout(() => {
                     disableFormButtons(form);

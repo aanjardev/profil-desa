@@ -5,10 +5,10 @@
 @section('content')
 
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Galeri Desa</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Kumpulan dokumentasi kegiatan, potensi, dan keindahan desa kami.</p>
@@ -22,7 +22,7 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-md-8 g-margin-b-30--xs g-margin-b-0--md">
-                
+
                 @if(isset($galleries) && $galleries->count() > 0)
                     <style>
                         .custom-pagination ul.pagination { margin: 0 !important; }
@@ -54,7 +54,7 @@
                         <div class="col-sm-6 g-margin-b-30--xs">
                             <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                                 <a href="{{ route('galeri.show', $gallery->id) }}" title="{{ $gallery->title }}" style="display: block; position: relative; aspect-ratio: 4/3; overflow: hidden;">
-                                    <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; align-items: flex-end;">
                                         <div style="color: #fff;">
                                             @if($gallery->category)
@@ -73,7 +73,7 @@
                         </div>
                         @endforeach
                     </div>
-                    
+
                     <!-- Pagination (Bottom) -->
                     <div class="g-margin-t-20--xs text-center custom-pagination" style="display: flex; justify-content: center;">
                         @if ($galleries->lastPage() > 1)
@@ -113,7 +113,7 @@
                 gallery: {
                     enabled: true,
                     navigateByImgClick: true,
-                    preload: [0,1] 
+                    preload: [0,1]
                 },
                 image: {
                     titleSrc: 'title'

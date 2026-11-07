@@ -12,7 +12,7 @@
 @section('page_subtitle', 'Perbarui informasi detail mengenai potensi wisata desa.')
 
 @section('content')
-<form action="{{ route('admin.tourisms.update', $tourism->id) }}" method="POST" enctype="multipart/form-data" 
+<form action="{{ route('admin.tourisms.update', $tourism->id) }}" method="POST" enctype="multipart/form-data"
       x-data="{ images: [], tickets: {{ Js::from($tourism->tickets ?? []) }}, spots: {{ Js::from($tourism->spots ?? []) }} }">
     @csrf
     @method('PUT')
@@ -23,7 +23,7 @@
             <!-- Informasi Dasar -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Informasi Wisata</h3>
-                
+
                 <div class="space-y-5">
                     <div>
                         <label for="name" class="block text-sm font-bold text-gray-700 mb-1">Nama Wisata <span class="text-red-500">*</span></label>
@@ -59,7 +59,7 @@
                         + Tambah Tiket
                     </button>
                 </div>
-                
+
                 <div class="space-y-3">
                     <div x-show="tickets.length === 0" class="text-sm text-gray-500 italic py-2">
                         Belum ada varian tiket. Klik "+ Tambah Tiket" jika wisata ini berbayar.
@@ -96,7 +96,7 @@
                         + Tambah Wahana
                     </button>
                 </div>
-                
+
                 <div class="space-y-3">
                     <div x-show="spots.length === 0" class="text-sm text-gray-500 italic py-2">
                         Belum ada wahana tambahan. Klik "+ Tambah Wahana" jika ada spot berbayar terpisah.
@@ -136,7 +136,7 @@
                                                 <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                             </template>
                                         </div>
-                                        
+
                                         <!-- Upload Button -->
                                         <div class="flex-1">
                                             <label class="cursor-pointer inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-semibold rounded text-gray-700 bg-white hover:bg-gray-50 transition-colors">
@@ -160,7 +160,7 @@
             <!-- Lokasi & Fasilitas -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Lokasi & Fasilitas</h3>
-                
+
                 <div class="space-y-5">
                     <div>
                         <label for="location" class="block text-sm font-bold text-gray-700 mb-1">Alamat Lengkap <span class="text-red-500">*</span></label>
@@ -236,7 +236,7 @@
                         <span class="ml-3 text-sm font-bold text-gray-700">Tampilkan ke Publik</span>
                     </label>
                 </div>
-                
+
                 <div class="mt-5">
                     <label for="contact_person" class="block text-sm font-bold text-gray-700 mb-1">Narahubung (Opsional)</label>
                     <input type="text" name="contact_person" id="contact_person" value="{{ old('contact_person', $tourism->contact_person) }}" maxlength="255"
@@ -247,10 +247,10 @@
             </div>
 
             <!-- Thumbnail Utama -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" 
-                 x-data="{ 
-                    imageUrl: '{{ $tourism->main_image ? Storage::url($tourism->main_image) : null }}', 
-                    showCropper: false, 
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
+                 x-data="{
+                    imageUrl: '{{ $tourism->main_image ? \App\Support\DemoImage::storage($tourism->main_image) : null }}',
+                    showCropper: false,
                     cropper: null,
                     initCropper() {
                         this.$watch('showCropper', value => {
@@ -280,14 +280,14 @@
                         }
                     }
                  }" x-init="initCropper()">
-                 
+
                 <input type="hidden" name="cropped_image" id="cropped_image_input">
-                
+
                 <div class="flex flex-col gap-1 mb-3 border-b border-gray-100 pb-3">
                     <h3 class="text-base font-bold text-gray-900">Gambar Utama (Thumbnail) <span class="text-red-500">*</span></h3>
                     <p class="text-[11px] text-gray-500 leading-tight">Biarkan jika tidak ingin mengganti gambar. Akan di-crop ke <span class="font-bold">16:9</span>. Maksimal <span class="font-bold">2MB</span>.</p>
                 </div>
-                
+
                 <div class="mt-1 flex flex-col justify-center items-center w-full aspect-video border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors relative overflow-hidden group">
                     <!-- Preview Image -->
                     <template x-if="imageUrl">
@@ -338,7 +338,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Tombol Aksi (Desktop) -->
             <div class="hidden lg:flex justify-end gap-3">
                 <a href="{{ route('admin.tourisms.index') }}" class="px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-50 transition-colors">Batal</a>
@@ -354,7 +354,7 @@
                 <h3 class="text-base font-bold text-gray-900">Galeri Pendukung <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded ml-2">Opsional</span></h3>
                 <p class="text-xs text-gray-500 mt-1">Tambahkan dokumentasi atau foto tambahan wisata. <span class="font-medium text-gray-700">Rasio gambar bebas, maksimal 2MB per file.</span></p>
             </div>
-            <button type="button" @click="images.push({ id: Date.now(), preview: null })" 
+            <button type="button" @click="images.push({ id: Date.now(), preview: null })"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-100 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Gambar Galeri
@@ -368,9 +368,9 @@
                     <div class="relative flex flex-col items-start gap-4 p-4 bg-gray-50 border border-gray-200 rounded-xl group transition-all" x-data="{ deleted: false }" x-show="!deleted">
                         <!-- Checkbox untuk delete via backend -->
                         <input type="checkbox" name="delete_images[]" value="{{ $index }}" class="sr-only" x-model="deleted">
-                        
+
                         <div class="w-full aspect-video rounded-lg overflow-hidden relative border border-gray-200 bg-black/5">
-                            <img src="{{ Storage::url($img['path']) }}" class="absolute inset-0 w-full h-full object-cover">
+                            <img src="{{ \App\Support\DemoImage::storage($img['path']) }}" class="absolute inset-0 w-full h-full object-cover">
                         </div>
                         <div class="w-full flex justify-between items-start gap-2">
                             <div class="flex-1">
@@ -390,11 +390,11 @@
             <!-- List Input Gambar Dinamis (Baru) -->
             <template x-for="(img, index) in images" :key="img.id">
                 <div class="relative flex flex-col md:flex-row items-start gap-4 p-4 bg-blue-50/50 border border-blue-100 rounded-xl group transition-all hover:border-blue-300 hover:shadow-sm">
-                    
+
                     <!-- File Input & Preview -->
                     <div class="w-full md:w-48 shrink-0 relative aspect-video rounded-lg border-2 border-dashed border-blue-300 bg-white flex items-center justify-center overflow-hidden hover:border-blue-400 transition-colors"
                          :class="{'border-solid border-transparent': img.preview}">
-                        
+
                         <template x-if="img.preview">
                             <img :src="img.preview" class="absolute inset-0 w-full h-full object-cover">
                         </template>
@@ -417,7 +417,7 @@
                                    class="w-full px-4 py-2 bg-white border border-blue-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
                                    placeholder="Contoh: Pemandangan dari atas bukit...">
                         </div>
-                        
+
                         <div class="flex justify-end">
                             <button type="button" @click="images.splice(index, 1)" class="text-sm font-semibold text-red-500 hover:text-red-700 flex items-center gap-1 bg-white border border-red-100 px-3 py-1.5 rounded-lg transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>

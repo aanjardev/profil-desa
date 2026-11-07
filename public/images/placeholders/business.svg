@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Usaha lokal — ilustrasi demo</title><desc id="desc">Placeholder untuk gambar asli yang belum tersedia.</desc>
+<rect width="1200" height="800" fill="#f8ead5"/><circle cx="1050" cy="110" r="240" fill="white" opacity=".25"/>
+<rect x="380" y="310" width="440" height="290" rx="18" fill="#fffaf0"/><path d="m360 310 50-120h380l50 120Z" fill="#bd7946"/><path d="M380 310h440v55q-44 55-88 0-44 55-88 0-44 55-88 0-44 55-88 0-44 55-88 0Z" fill="#e8b366"/><rect x="430" y="420" width="145" height="110" rx="8" fill="#ebd7ad"/><rect x="650" y="420" width="105" height="180" rx="8" fill="#925a2c"/>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#925a2c">Usaha lokal</text>
+<text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#925a2c">ILUSTRASI DEMO</text></svg>

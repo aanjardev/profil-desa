@@ -68,7 +68,7 @@
         height: 3000px;
         transform-origin: 0 0;
     }
-    
+
     .org-node-card {
         position: absolute;
         background: #fff;
@@ -98,7 +98,7 @@
         border: 2px solid #3b82f6;
         box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
     }
-    
+
     .org-node-photo-wrapper {
         width: 135px;
         height: 180px;
@@ -116,7 +116,7 @@
         height: 100%;
         object-fit: cover;
     }
-    
+
     .node-type-badge {
         font-size: 10px;
         padding: 3px 8px;
@@ -189,7 +189,7 @@
             <button onclick="setZoom(currentZoom + 0.1)" class="w-7 h-7 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center font-bold text-gray-600">+</button>
         </div>
     </div>
-    
+
     <div class="flex gap-3">
         <button onclick="saveLayout()" class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition shadow-sm flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -208,7 +208,7 @@
                 <div class="drawer-node" data-id="{{ $official->id }}" onclick="addToCanvas({{ $official->id }})">
                     <div class="w-6 h-6 rounded-full bg-gray-200 overflow-hidden">
                         @if($official->photo)
-                            <img src="{{ asset('storage/'.$official->photo) }}" class="w-full h-full object-cover">
+                            <img src="{{ \App\Support\DemoImage::asset('storage/'.$official->photo) }}" class="w-full h-full object-cover">
                         @endif
                     </div>
                     {{ $official->name }}
@@ -216,7 +216,7 @@
                 </div>
             @endif
         @endforeach
-        
+
         @if(!$hasUnused)
             <p class="text-sm text-gray-400 italic">Semua perangkat sudah ada di canvas.</p>
         @endif
@@ -243,26 +243,26 @@
                             default => '#3b82f6',
                         };
                     @endphp
-                    
-                    <div id="node-{{ $official->id }}" 
+
+                    <div id="node-{{ $official->id }}"
                          class="org-node-card"
                          data-id="{{ $official->id }}"
                          data-x="{{ $official->pos_x }}"
                          data-y="{{ $official->pos_y }}"
                          style="border-top: 3px solid {{ $borderTop }}; transform: translate({{ $official->pos_x }}px, {{ $official->pos_y }}px)">
-                        
+
                         <span class="node-type-badge {{ $badgeColor }}">{{ $official->type_label }}</span>
-                        
+
                         <div class="org-node-photo-wrapper">
                             @if($official->photo)
-                                <img src="{{ asset('storage/'.$official->photo) }}" class="org-node-photo" draggable="false">
+                                <img src="{{ \App\Support\DemoImage::asset('storage/'.$official->photo) }}" class="org-node-photo" draggable="false">
                             @else
                                 <div class="flex items-center justify-center text-gray-400">
                                     <i class="ti-user" style="font-size: 40px;"></i>
                                 </div>
                             @endif
                         </div>
-                        
+
                         <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-5--xs font-bold text-gray-900 text-sm line-clamp-2 leading-tight">{{ $official->name }}</h3>
                         <p class="g-font-size-12--xs g-font-weight--600 g-margin-b-5--xs text-xs font-semibold mt-1" style="color: {{ $borderTop }};">{{ $official->position }}</p>
                     </div>
@@ -282,7 +282,7 @@
             <div class="p-6">
                 <form action="{{ route('admin.village-officials.builder.settings') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <div class="mb-6">
                         <label class="block text-sm font-bold text-gray-700 mb-3">Tipe Tampilan SOTK</label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data="{ sotkType: '{{ old('sotk_type', $settings->sotk_type) }}' }">
@@ -326,11 +326,11 @@
 
                     <div class="mb-6">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Upload Gambar SOTK <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded ml-2">Opsional jika pilih Builder</span></label>
-                        
+
                         @if($settings->sotk_image_path)
                         <div class="mb-4">
                             <p class="text-xs text-gray-500 mb-2">Gambar saat ini:</p>
-                            <img src="{{ asset('storage/'.$settings->sotk_image_path) }}" class="h-48 w-auto rounded-lg border border-gray-200 object-contain bg-gray-50 shadow-sm" alt="SOTK">
+                            <img src="{{ \App\Support\DemoImage::asset('storage/'.$settings->sotk_image_path) }}" class="h-48 w-auto rounded-lg border border-gray-200 object-contain bg-gray-50 shadow-sm" alt="SOTK">
                         </div>
                         @endif
 
@@ -371,33 +371,33 @@
     // Initial data from server
     const officialsData = @json($officials->keyBy('id'));
     const initialLines = @json($lines);
-    
+
     // State
     let mode = 'move'; // move, connect, delete-line
     let sourceNodeId = null;
     let lines = [];
-    
+
     // DOM Elements
     const canvasContainer = document.getElementById('canvas-container');
     const canvasArea = document.getElementById('canvas-area');
-    
+
     // Mode Switching
     document.getElementById('mode-move').addEventListener('click', (e) => setMode('move', e.target));
     document.getElementById('mode-connect').addEventListener('click', (e) => setMode('connect', e.target));
     document.getElementById('mode-delete-line').addEventListener('click', (e) => setMode('delete-line', e.target));
-    
+
     function setMode(newMode, btnEl) {
         mode = newMode;
         sourceNodeId = null; // reset connection state
         document.querySelectorAll('.org-node-card').forEach(n => n.classList.remove('selected-source'));
-        
+
         // Update button styles
         document.querySelectorAll('.controls-panel button[id^="mode-"]').forEach(btn => {
             btn.classList.remove('bg-white', 'shadow-sm', 'text-blue-600', 'text-red-600');
             btn.classList.add('text-gray-600');
             if (btn.id === 'mode-delete-line') btn.classList.add('hover:text-red-700');
         });
-        
+
         btnEl.classList.remove('text-gray-600', 'hover:text-red-700');
         btnEl.classList.add('bg-white', 'shadow-sm');
         if (mode === 'delete-line') {
@@ -417,23 +417,23 @@
         const scrollY = canvasContainer.scrollTop;
         const x = scrollX + 100;
         const y = scrollY + 100;
-        
+
         off.pos_x = x;
         off.pos_y = y;
-        
+
         // Create element
         let badgeColor = 'bg-blue-100 text-blue-700';
         let borderTop = '#3b82f6';
         if(off.type === 'legislatif') { badgeColor = 'bg-purple-100 text-purple-700'; borderTop = '#9333ea'; }
         else if(off.type === 'kasun') { badgeColor = 'bg-amber-100 text-amber-700'; borderTop = '#d97706'; }
         else if(off.type === 'staf') { badgeColor = 'bg-gray-100 text-gray-700'; borderTop = '#94a3b8'; }
-        
-        const photoHtml = off.photo 
-            ? `<img src="/storage/${off.photo}" class="org-node-photo" draggable="false">` 
+
+        const photoHtml = off.photo
+            ? `<img src="/storage/${off.photo}" class="org-node-photo" draggable="false">`
             : `<div class="flex items-center justify-center text-gray-400"><i class="ti-user" style="font-size: 40px;"></i></div>`;
-            
+
         const html = `
-            <div id="node-${id}" 
+            <div id="node-${id}"
                  class="org-node-card"
                  data-id="${id}"
                  data-x="${x}"
@@ -447,22 +447,22 @@
                 <p class="g-font-size-12--xs g-font-weight--600 g-margin-b-5--xs text-xs font-semibold mt-1" style="color: ${borderTop};">${off.position}</p>
             </div>
         `;
-        
+
         canvasArea.insertAdjacentHTML('beforeend', html);
-        
+
         // Remove from drawer
         event.currentTarget.remove();
-        
+
         // Check if drawer empty
         const drawer = document.getElementById('unused-nodes');
         if(drawer.children.length === 0) {
             drawer.innerHTML = '<p class="text-sm text-gray-400 italic">Semua perangkat sudah ada di canvas.</p>';
         }
-        
+
         // Attach click listener for new node
         attachNodeListeners(document.getElementById(`node-${id}`));
     }
-    
+
     // Zoom functionality
     let currentZoom = 1.0;
     window.setZoom = function(z) {
@@ -482,23 +482,23 @@
 
     document.addEventListener('mousedown', (e) => {
         if (mode !== 'move') return;
-        
+
         const card = e.target.closest('.org-node-card');
         if (card) {
             draggedNode = card;
-            
+
             // Get current transform values
             initialX = parseFloat(card.getAttribute('data-x')) || 0;
             initialY = parseFloat(card.getAttribute('data-y')) || 0;
-            
+
             // Record original mouse click pos
             dragStartX = e.clientX;
             dragStartY = e.clientY;
-            
+
             // Bring to front
             document.querySelectorAll('.org-node-card').forEach(c => c.style.zIndex = '2');
             card.style.zIndex = '10';
-            
+
             // Prevent default to avoid text selection
             e.preventDefault();
         }
@@ -506,30 +506,30 @@
 
     document.addEventListener('mousemove', (e) => {
         if (!draggedNode) return;
-        
+
         // Calculate new position considering zoom
         let dx = (e.clientX - dragStartX) / currentZoom;
         let dy = (e.clientY - dragStartY) / currentZoom;
-        
+
         let newX = initialX + dx;
         let newY = initialY + dy;
-        
+
         // Apply new position
         draggedNode.style.transform = `translate(${newX}px, ${newY}px)`;
         draggedNode.setAttribute('data-x', newX);
         draggedNode.setAttribute('data-y', newY);
-        
+
         updateLines();
     });
 
     document.addEventListener('mouseup', () => {
         draggedNode = null;
     });
-    
+
     // Canvas panning (drag canvas background)
     let isPanning = false;
     let startPanX, startPanY, startScrollLeft, startScrollTop;
-    
+
     canvasContainer.addEventListener('mousedown', (e) => {
         if(e.target === canvasContainer || e.target === canvasArea) {
             isPanning = true;
@@ -539,7 +539,7 @@
             startScrollTop = canvasContainer.scrollTop;
         }
     });
-    
+
     window.addEventListener('mouseup', () => { isPanning = false; });
     window.addEventListener('mousemove', (e) => {
         if(!isPanning) return;
@@ -553,7 +553,7 @@
     function attachNodeListeners(node) {
         node.addEventListener('click', (e) => {
             const id = node.getAttribute('data-id');
-            
+
             if (mode === 'connect') {
                 if (!sourceNodeId) {
                     sourceNodeId = id;
@@ -565,21 +565,21 @@
                     document.getElementById(`node-${sourceNodeId}`).classList.remove('selected-source');
                     sourceNodeId = null;
                 }
-            } 
+            }
         });
     }
-    
+
     document.querySelectorAll('.org-node-card').forEach(attachNodeListeners);
-    
+
     // Line Management
     function createLine(sourceId, targetId, lineType, isInit = false) {
         // Prevent duplicate lines
         const exists = lines.find(l => l.sourceId == sourceId && l.targetId == targetId);
         if (exists) return;
-        
+
         const el1 = document.getElementById(`node-${sourceId}`);
         const el2 = document.getElementById(`node-${targetId}`);
-        
+
         if(!el1 || !el2) return;
 
         const leaderLineOptions = {
@@ -591,26 +591,26 @@
             endPlug: 'arrow3',
             endPlugSize: 1.5
         };
-        
+
         if (lineType === 'dashed') {
             leaderLineOptions.dash = {animation: false, len: 6, gap: 4};
         }
 
         const line = new LeaderLine(el1, el2, leaderLineOptions);
-        
+
         const lineObj = {
             line: line,
             sourceId: sourceId,
             targetId: targetId,
             lineType: lineType
         };
-        
+
         lines.push(lineObj);
-        
+
         // Add delete listener to the SVG line
         if(!isInit) setTimeout(() => attachDeleteEventToLine(lineObj), 100);
     }
-    
+
     function attachDeleteEventToLine(lineObj) {
         try {
             const svgEl = document.body.querySelector(`svg.leader-line:last-of-type`);
@@ -624,7 +624,7 @@
                         lines = lines.filter(l => l !== lineObj);
                     }
                 });
-                
+
                 // Hover effect
                 svgEl.addEventListener('mouseenter', () => {
                     if(mode === 'delete-line') svgEl.style.opacity = '0.5';
@@ -635,20 +635,20 @@
             }
         } catch(e) {}
     }
-    
+
     function updateLines() {
         lines.forEach(l => {
             try { l.line.position(); } catch(e) {}
         });
     }
-    
+
     // Initialization
     window.addEventListener('load', () => {
         // Draw initial lines
         initialLines.forEach(l => {
             createLine(l.source_id, l.target_id, l.line_type, true);
         });
-        
+
         // Find all SVGs generated by LeaderLine and attach delete events
         setTimeout(() => {
             const svgs = document.querySelectorAll('svg.leader-line');
@@ -670,7 +670,7 @@
                     });
                 }
             });
-            
+
             // Initial center scroll if canvas has elements
             if(document.querySelector('.org-node-card')) {
                 canvasContainer.scrollLeft = 500;
@@ -678,11 +678,11 @@
             }
         }, 500);
     });
-    
+
     // Need to reposition lines on scroll/resize because canvas is scrolled
     canvasContainer.addEventListener('scroll', updateLines);
     window.addEventListener('resize', updateLines);
-    
+
     // Save function
     window.saveLayout = function() {
         const nodes = [];
@@ -693,18 +693,18 @@
                 pos_y: Math.round(parseFloat(el.getAttribute('data-y')))
             });
         });
-        
+
         const linesData = lines.map(l => ({
             source_id: l.sourceId,
             target_id: l.targetId,
             line_type: l.lineType
         }));
-        
+
         const btn = document.querySelector('button[onclick="saveLayout()"]');
         const originalText = btn.innerHTML;
         btn.innerHTML = 'Menyimpan...';
         btn.disabled = true;
-        
+
         fetch('{{ route('admin.village-officials.builder.save') }}', {
             method: 'POST',
             headers: {

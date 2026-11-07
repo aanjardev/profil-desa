@@ -1,7 +1,7 @@
 @extends('layouts.user')
 @section('content')
         <!--========== PAGE CONTENT ==========-->
-        <div class="g-bg-position--center g-fullheight--xs" style="background: url('{{ asset('23/img/1920x1080/08.jpg') }}');">
+        <div class="g-bg-position--center g-fullheight--xs" style="background: url('{{ \App\Support\DemoImage::asset('23/img/1920x1080/08.jpg') }}');">
             <div class="container js__ver-center-aligned">
                 <div class="g-text-center--xs">
                     <div class="g-margin-t-40--xs g-margin-b-60--xs g-margin-b-80--sm">

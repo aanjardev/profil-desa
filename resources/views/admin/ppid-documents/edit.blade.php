@@ -7,14 +7,14 @@
 <form action="{{ route('admin.ppid-documents.update', $ppidDocument->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {{-- ── Kolom Utama ── --}}
         <div class="lg:col-span-2 space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-5 border-b border-gray-100 pb-3">Informasi Produk Hukum</h3>
                 <div class="space-y-5">
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label for="year" class="block text-sm font-bold text-gray-700 mb-1">Tahun Register <span class="text-red-500">*</span></label>
@@ -77,7 +77,7 @@
 
         {{-- ── Kolom Sidebar ── --}}
         <div class="space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" x-data="{ 
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" x-data="{
                 hasFile: {{ $ppidDocument->file_path ? 'true' : 'false' }},
                 removeFile: false,
                 fileName: '',
@@ -96,7 +96,7 @@
                 }
             }">
                 <h3 class="text-base font-bold text-gray-900 mb-5 border-b border-gray-100 pb-3">File Dokumen (Aksi)</h3>
-                
+
                 <div class="space-y-4">
                     {{-- Existing File Info --}}
                     <div x-show="hasFile && !removeFile" class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="overflow-hidden">
                                     <p class="text-sm font-semibold text-gray-900 truncate">Dokumen Tersimpan</p>
-                                    <a href="{{ $ppidDocument->file_path ? Storage::url($ppidDocument->file_path) : '#' }}" target="_blank" class="text-xs text-blue-600 hover:underline">Lihat File</a>
+                                    <a href="{{ $ppidDocument->file_path ? \App\Support\DemoImage::storage($ppidDocument->file_path) : '#' }}" target="_blank" class="text-xs text-blue-600 hover:underline">Lihat File</a>
                                 </div>
                             </div>
                             <button type="button" @click="removeFile = true" class="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors" title="Hapus File">
@@ -132,7 +132,7 @@
                             </span>
                             <span class="text-xs text-gray-400 mt-2" x-show="!fileName">Maks. 10MB (PDF/Word)</span>
                             <span class="text-xs text-gray-500 mt-2 font-medium bg-white px-2 py-0.5 rounded border border-gray-200" x-show="fileName" x-text="'Ukuran: ' + fileSize"></span>
-                            
+
                             <input type="file" id="document_file" name="document_file" accept=".pdf,.doc,.docx,.xls,.xlsx" class="hidden" @change="handleFile">
                         </label>
                         @error('document_file')<p class="mt-2 text-sm text-red-500">{{ $message }}</p>@enderror
@@ -141,7 +141,7 @@
                             <button type="button" @click="removeFile = false; document.getElementById('document_file').value = ''; fileName = ''; fileSize = '';" class="text-xs font-semibold text-gray-500 hover:text-gray-800 underline">Batal Hapus File Lama</button>
                         </div>
                     </div>
-                    
+
                     <div class="pt-2">
                         <label for="file_label" class="block text-sm font-bold text-gray-700 mb-1">Label Teks File <span class="text-gray-400 font-normal text-xs">(Opsional)</span></label>
                         <input type="text" name="file_label" id="file_label" value="{{ old('file_label', $ppidDocument->file_label) }}" maxlength="100"
@@ -162,7 +162,7 @@
                     <span class="ml-3 text-sm font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">Tampilkan di Publik</span>
                 </label>
             </div>
-            
+
             {{-- Info Sistem --}}
             <div class="bg-gray-50 rounded-xl border border-gray-100 p-4 text-xs text-gray-500 space-y-1.5">
                 <div class="flex justify-between"><span class="font-semibold text-gray-600">ID</span><span>#{{ $ppidDocument->id }}</span></div>

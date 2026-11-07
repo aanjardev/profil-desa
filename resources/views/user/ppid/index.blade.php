@@ -5,10 +5,10 @@
 @section('content')
 
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Produk Hukum</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Pejabat Pengelola Informasi dan Dokumentasi. Menyediakan layanan informasi publik yang transparan dan akuntabel.</p>
@@ -19,9 +19,9 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs">
     <div class="container">
-        
+
         <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px; border: 1px solid #e2e8f0;">
-            
+
             <!-- Filters -->
             <form action="{{ route('dokumen-ppid') }}" method="GET" class="g-margin-b-30--xs" style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
                 <div class="row">
@@ -192,7 +192,7 @@
                             </td>
                             <td data-label="Aksi" style="padding: 15px; vertical-align: middle; text-align: center;">
                                 @if($doc->file_path)
-                                    <a href="{{ asset('storage/'.$doc->file_path) }}" target="_blank" class="s-btn s-btn--xs s-btn--primary-bg g-radius--50" style="padding: 8px 15px; white-space: nowrap;">
+                                    <a href="{{ \App\Support\DemoImage::asset('storage/'.$doc->file_path) }}" target="_blank" class="s-btn s-btn--xs s-btn--primary-bg g-radius--50" style="padding: 8px 15px; white-space: nowrap;">
                                         <i class="ti-download g-margin-r-5--xs"></i> {{ $doc->file_label ?? 'Unduh' }}
                                     </a>
                                 @else
@@ -227,7 +227,7 @@
             </div>
 
         </div>
-        
+
     </div>
 </div>
 <!--========== END PAGE CONTENT ==========-->

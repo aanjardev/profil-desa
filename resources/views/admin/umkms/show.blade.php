@@ -8,7 +8,7 @@
     <!-- Gambar Utama / Hero -->
     <div class="w-full h-64 md:h-96 relative bg-gray-900 group">
         @if($umkm->main_image)
-            <img src="{{ Storage::url($umkm->main_image) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover opacity-80">
+            <img src="{{ \App\Support\DemoImage::storage($umkm->main_image) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover opacity-80">
         @else
             <div class="w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
                 <svg class="w-24 h-24 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,8 +79,8 @@
                     <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Galeri Foto</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         @foreach($umkm->supporting_images as $img)
-                            <div class="group relative aspect-square rounded-xl overflow-hidden bg-gray-100 cursor-pointer" onclick="window.open('{{ Storage::url($img['path']) }}', '_blank')">
-                                <img src="{{ Storage::url($img['path']) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="group relative aspect-square rounded-xl overflow-hidden bg-gray-100 cursor-pointer" onclick="window.open('{{ \App\Support\DemoImage::storage($img['path']) }}', '_blank')">
+                                <img src="{{ \App\Support\DemoImage::storage($img['path']) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
                                 @if(isset($img['caption']) && $img['caption'])
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                                         <p class="text-white text-xs p-3 font-medium line-clamp-2">{{ $img['caption'] }}</p>

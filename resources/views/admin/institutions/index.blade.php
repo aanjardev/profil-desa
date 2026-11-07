@@ -115,7 +115,7 @@
                     </td>
                     <td class="px-6 py-4">
                         @if($institution->logo)
-                            <img src="{{ Storage::url($institution->logo) }}" alt="{{ $institution->name }}" class="w-10 h-10 object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
+                            <img src="{{ \App\Support\DemoImage::storage($institution->logo) }}" alt="{{ $institution->name }}" class="w-10 h-10 object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
                         @else
                             <div class="w-10 h-10 rounded-lg border border-gray-100 bg-gray-100 flex items-center justify-center">
                                 <span class="text-sm font-bold text-gray-400">{{ strtoupper(substr($institution->name, 0, 1)) }}</span>

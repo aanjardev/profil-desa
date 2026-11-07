@@ -7,10 +7,10 @@
     <div class="g-hor-divider__dashed--white-opacity-lightest">
         <div class="container g-padding-y-50--xs">
             <div class="row">
-                
+
                 <!-- Column 1: Info & Logo -->
                 <div class="col-md-4 col-sm-12 g-margin-b-40--xs g-margin-b-0--md s-footer__logo">
-                    <img class="g-width-100--xs g-height-auto--xs g-margin-b-20--xs" src="{{ asset('images/web-settings/logo.png') }}" alt="Logo Desa" style="max-width: 150px; object-fit: contain;">
+                    <img class="g-width-100--xs g-height-auto--xs g-margin-b-20--xs" src="{{ \App\Support\DemoImage::asset('images/web-settings/logo.png') }}" alt="Logo Desa" style="max-width: 150px; object-fit: contain;">
                     <h3 class="g-font-size-18--xs g-color--white">{{ 'DESA ' . ($setting->village_name ?? 'Desa Tulungrejo') }}</h3>
                     <p class="g-color--white-opacity">
                         {{ $setting->address ?? 'Alamat lengkap desa belum diatur.' }}
@@ -66,8 +66,8 @@
                 <div class="col-md-3 col-sm-6 g-margin-b-40--xs g-margin-b-0--md">
                     <!-- <h4 class="g-font-size-16--xs g-color--white g-margin-b-20--xs">Dikembangkan Oleh</h4> -->
                     <div class="g-margin-b-15--xs">
-                        <img src="{{ asset('images/logoum.png') }}" alt="Logo UM" style="max-width: 60px; height: auto; margin-right: 10px;">
-                        <img src="{{ asset('images/logoumbbm.png') }}" alt="Logo UM BBM" style="max-width: 60px; height: auto;">
+                        <img src="{{ \App\Support\DemoImage::asset('images/logoum.png') }}" alt="Logo UM" style="max-width: 60px; height: auto; margin-right: 10px;">
+                        <img src="{{ \App\Support\DemoImage::asset('images/logoumbbm.png') }}" alt="Logo UM BBM" style="max-width: 60px; height: auto;">
                     </div>
                     <p class="g-font-size-14--xs g-color--white-opacity g-margin-b-10--xs" style="line-height: 1.6;">
                         Dikembangkan Oleh <br>

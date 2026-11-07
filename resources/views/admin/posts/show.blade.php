@@ -53,13 +53,13 @@
     <div class="lg:col-span-2 space-y-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             @if($post->image)
-            <img src="{{ asset('storage/' . $post->image) }}" alt="Thumbnail" class="w-full h-[400px] object-cover">
+            <img src="{{ \App\Support\DemoImage::asset('storage/' . $post->image) }}" alt="Thumbnail" class="w-full h-[400px] object-cover">
             @else
             <div class="w-full h-[400px] bg-gray-100 flex items-center justify-center">
                 <span class="text-gray-400 font-medium">Tidak ada gambar thumbnail</span>
             </div>
             @endif
-            
+
             <div class="p-6 md:p-8">
                 <div class="flex flex-wrap items-center gap-3 mb-4">
                     <span class="inline-flex px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide rounded-md">{{ $post->category }}</span>
@@ -90,7 +90,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach($post->images as $img)
                 <div class="group relative aspect-video rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                    <img src="{{ asset('storage/' . $img->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="{{ \App\Support\DemoImage::asset('storage/' . $img->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     @if($img->caption)
                     <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
                         <p class="text-white text-xs font-medium line-clamp-2">{{ $img->caption }}</p>
@@ -107,7 +107,7 @@
     <div class="space-y-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">Informasi Publikasi</h3>
-            
+
             <div class="space-y-4">
                 <div class="flex justify-between items-center pb-3 border-b border-gray-50">
                     <span class="text-sm text-gray-500">Status</span>
@@ -121,7 +121,7 @@
                         </span>
                     @endif
                 </div>
-                
+
                 <div class="flex justify-between items-center pb-3 border-b border-gray-50">
                     <span class="text-sm text-gray-500">Penulis</span>
                     <span class="text-sm font-medium text-gray-900">{{ $post->user->name ?? 'Admin' }}</span>

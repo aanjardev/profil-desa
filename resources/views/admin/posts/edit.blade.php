@@ -90,8 +90,8 @@
 @section('page_subtitle', 'Perbarui informasi, pengumuman, atau agenda kegiatan desa.')
 
 @section('content')
-<form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" 
-      x-data="{ category: '{{ old('category', $post->category) }}', newImages: [], existingImages: {{ $post->images->map(function($img) { return ['id' => $img->id, 'url' => asset('storage/'.$img->image_path), 'caption' => $img->caption]; })->toJson() }}, deletedImages: [] }">
+<form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data"
+      x-data="{ category: '{{ old('category', $post->category) }}', newImages: [], existingImages: {{ $post->images->map(function($img) { return ['id' => $img->id, 'url' => \App\Support\DemoImage::asset('storage/'.$img->image_path), 'caption' => $img->caption]; })->toJson() }}, deletedImages: [] }">
     @csrf
     @method('PUT')
 
@@ -101,7 +101,7 @@
             <!-- Informasi Dasar -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Informasi Dasar</h3>
-                
+
                 <div class="space-y-5">
                     <div>
                         <label for="title" class="block text-sm font-bold text-gray-700 mb-1">Judul Artikel <span class="text-red-500">*</span></label>
@@ -177,10 +177,10 @@
             </div>
 
             <!-- Thumbnail Utama -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" 
-                 x-data="{ 
-                    imageUrl: '{{ $post->image ? asset('storage/' . $post->image) : '' }}', 
-                    showCropper: false, 
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
+                 x-data="{
+                    imageUrl: '{{ $post->image ? \App\Support\DemoImage::asset('storage/' . $post->image) : '' }}',
+                    showCropper: false,
                     cropper: null,
                     initCropper() {
                         this.$watch('showCropper', value => {
@@ -210,14 +210,14 @@
                         }
                     }
                  }" x-init="initCropper()">
-                 
+
                 <input type="hidden" name="cropped_image" id="cropped_image_input">
 
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-base font-bold text-gray-900">Thumbnail Utama</h3>
                     <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Opsional</span>
                 </div>
-                
+
                 <div class="mt-1 flex flex-col justify-center items-center w-full aspect-video border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors relative overflow-hidden group">
                     <!-- Preview Image -->
                     <template x-if="imageUrl">
@@ -268,7 +268,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Tombol Aksi (Desktop) -->
             <div class="hidden lg:flex justify-end gap-3">
                 <a href="{{ route('admin.posts.index') }}" class="px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-50 transition-colors">Batal</a>
@@ -284,7 +284,7 @@
                 <h3 class="text-base font-bold text-gray-900">Gambar Pendukung <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded ml-2">Opsional</span></h3>
                 <p class="text-xs text-gray-500 mt-1">Tambahkan atau hapus foto tambahan untuk melengkapi artikel ini. <span class="font-medium text-gray-700">Rasio gambar bebas (bebas potong).</span></p>
             </div>
-            <button type="button" @click="newImages.push({ id: Date.now(), preview: null })" 
+            <button type="button" @click="newImages.push({ id: Date.now(), preview: null })"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-100 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Gambar Baru
@@ -292,7 +292,7 @@
         </div>
 
         <div class="space-y-4">
-            
+
             <!-- List Hidden Input untuk Gambar yang akan dihapus -->
             <template x-for="deletedId in deletedImages" :key="'del-'+deletedId">
                 <input type="hidden" name="delete_images[]" :value="deletedId">
@@ -306,7 +306,7 @@
             <!-- List Gambar Exist (Sudah ada di DB) -->
             <template x-for="(img, index) in existingImages" :key="img.id">
                 <div class="relative flex flex-col md:flex-row items-start gap-4 p-4 bg-gray-50 border border-gray-200 rounded-xl group transition-all hover:border-blue-300 hover:shadow-sm">
-                    
+
                     <div class="w-full md:w-48 shrink-0 relative aspect-video rounded-lg border-2 border-transparent bg-white flex items-center justify-center overflow-hidden">
                         <img :src="img.url" class="absolute inset-0 w-full h-full object-cover">
                         <!-- Lencana Existing -->
@@ -321,7 +321,7 @@
                                    placeholder="Tidak ada deskripsi.">
                             <p class="text-[10px] text-gray-400 mt-1">Deskripsi gambar yang sudah ada tidak dapat diubah. Hapus dan upload ulang jika ingin mengganti.</p>
                         </div>
-                        
+
                         <div class="flex justify-end">
                             <button type="button" @click="deletedImages.push(img.id); existingImages.splice(index, 1)" class="text-sm font-semibold text-red-500 hover:text-red-700 flex items-center gap-1 bg-red-50 px-3 py-1.5 rounded-lg transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -335,11 +335,11 @@
             <!-- List Input Gambar Baru (Dinamis) -->
             <template x-for="(img, index) in newImages" :key="img.id">
                 <div class="relative flex flex-col md:flex-row items-start gap-4 p-4 bg-blue-50/30 border border-blue-200 rounded-xl group transition-all hover:border-blue-400 hover:shadow-sm">
-                    
+
                     <!-- File Input & Preview -->
                     <div class="w-full md:w-48 shrink-0 relative aspect-video rounded-lg border-2 border-dashed border-blue-300 bg-white flex items-center justify-center overflow-hidden hover:border-blue-400 transition-colors"
                          :class="{'border-solid border-transparent': img.preview}">
-                        
+
                         <template x-if="img.preview">
                             <img :src="img.preview" class="absolute inset-0 w-full h-full object-cover">
                         </template>
@@ -362,7 +362,7 @@
                                    class="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm"
                                    placeholder="Tulis keterangan untuk gambar baru ini...">
                         </div>
-                        
+
                         <div class="flex justify-end">
                             <button type="button" @click="newImages.splice(index, 1)" class="text-sm font-semibold text-red-500 hover:text-red-700 flex items-center gap-1 bg-red-50 px-3 py-1.5 rounded-lg transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>

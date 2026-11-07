@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Foto profil — ilustrasi demo</title><desc id="desc">Placeholder untuk gambar asli yang belum tersedia.</desc>
+<rect width="1200" height="800" fill="#e8e5f2"/><circle cx="1050" cy="110" r="240" fill="white" opacity=".25"/>
+<circle cx="600" cy="285" r="105" fill="#9b8bb8"/><path d="M370 600v-40a230 180 0 0 1 460 0v40Z" fill="#9b8bb8"/><circle cx="600" cy="375" r="230" fill="none" stroke="#6b5a91" stroke-width="6" opacity=".2"/>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#6b5a91">Foto profil</text>
+<text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#6b5a91">ILUSTRASI DEMO</text></svg>

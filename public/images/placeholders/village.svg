@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Lanskap desa — ilustrasi demo</title><desc id="desc">Placeholder untuk gambar asli yang belum tersedia.</desc>
+<rect width="1200" height="800" fill="#d8ede3"/><circle cx="1050" cy="110" r="240" fill="white" opacity=".25"/>
+<path d="M0 490 280 160 520 490 760 230 1200 540V800H0Z" fill="#86b49b"/><path d="M0 610Q300 430 600 610T1200 610V800H0Z" fill="#4d8c71"/><path d="M750 450h180v140H750Z" fill="#fff5de"/><path d="m720 450 120-100 120 100Z" fill="#1e6656"/><path d="M815 500h50v90h-50Z" fill="#b8804a"/>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#1e6656">Lanskap desa</text>
+<text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#1e6656">ILUSTRASI DEMO</text></svg>

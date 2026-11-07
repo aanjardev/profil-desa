@@ -255,7 +255,7 @@
     <div class="lp-infocard">
         @if($institution->logo)
             <div class="lp-infocard__logo">
-                <img src="{{ Storage::url($institution->logo) }}" alt="{{ $institution->name }}"
+                <img src="{{ \App\Support\DemoImage::storage($institution->logo) }}" alt="{{ $institution->name }}"
                      onerror="this.closest('.lp-infocard__logo').style.display='none';">
             </div>
         @endif
@@ -293,7 +293,7 @@
                             <div class="col-sm-4 col-xs-6 g-margin-b-30--xs lp-member">
                                 <div class="lp-member__photo">
                                     @if($member->photo)
-                                        <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->name }}"
+                                        <img src="{{ \App\Support\DemoImage::storage($member->photo) }}" alt="{{ $member->name }}"
                                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                                         <i class="ti-user" style="display:none;"></i>
                                     @else
@@ -323,8 +323,8 @@
                     <div class="row">
                         @foreach($institution->images as $img)
                             <div class="col-sm-4 col-xs-6 g-margin-b-20--xs">
-                                <a href="{{ Storage::url($img['path']) }}" target="_blank" class="lp-gallery__item">
-                                    <img src="{{ Storage::url($img['path']) }}" alt="Galeri {{ $institution->name }}"
+                                <a href="{{ \App\Support\DemoImage::storage($img['path']) }}" target="_blank" class="lp-gallery__item">
+                                    <img src="{{ \App\Support\DemoImage::storage($img['path']) }}" alt="Galeri {{ $institution->name }}"
                                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                     <i class="ti-image" style="display:none;"></i>
                                 </a>

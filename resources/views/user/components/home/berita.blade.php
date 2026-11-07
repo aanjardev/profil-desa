@@ -14,7 +14,7 @@
             <span class="section-title-divider"></span>
             <p class="g-color--dark g-font-size-16--xs">Kabar dan kegiatan terbaru dari Desa Tulungrejo.</p>
         </div>
-        
+
         <div class="row">
             @if($berita->count() > 0)
                 <!-- Slider Berita Highlight (Kiri) -->
@@ -25,16 +25,16 @@
                             <div class="swiper-slide">
                                 <article style="position: relative; width: 100%; aspect-ratio: 16/9; display: flex; align-items: flex-end;">
                                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                        <img src="{{ $utama->image ? asset('storage/'.$utama->image) : asset('images/default-image.png') }}" alt="{{ $utama->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <img src="{{ $utama->image ? \App\Support\DemoImage::asset('storage/'.$utama->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $utama->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <!-- Gradient Overlay -->
                                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
-                                    
+
                                     <!-- Tombol Baca Berita -->
                                     <div style="position: absolute; top: 20px; right: 20px; z-index: 3;">
                                         <a href="{{ route('berita-desa.show', $utama->slug) }}" class="text-uppercase s-btn s-btn--xs s-btn--primary-brd g-radius--50 g-padding-x-30--xs g-color--white" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(5px);">Baca Berita</a>
                                     </div>
-                                    
+
                                     <!-- Konten Text -->
                                     <div style="position: relative; z-index: 2; width: 100%; padding: 30px; padding-bottom: 40px;">
                                         <div class="g-margin-b-10--xs">
@@ -62,7 +62,7 @@
                         @foreach($berita->skip(3)->take(3) as $post)
                             <article class="clearfix g-bg-color--white g-margin-b-15--xs" style="border-radius: 8px; overflow: hidden; box-shadow: 0 2px 15px rgba(0,0,0,0.06); display: flex; align-items: center;">
                                 <div style="flex: 0 0 200px; aspect-ratio: 16/9; overflow: hidden; padding: 10px;">
-                                    <img src="{{ $post->image ? asset('storage/'.$post->image) : asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                                    <img src="{{ $post->image ? \App\Support\DemoImage::asset('storage/'.$post->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
                                 </div>
                                 <div style="flex: 1; padding: 15px 25px 15px 5px;">
                                     <div class="g-margin-b-5--xs">

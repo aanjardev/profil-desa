@@ -68,7 +68,7 @@
             <div class="media sidebar-list-item" style="display: flex; gap: 15px;">
                 <div class="media-left">
                     <a href="{{ route('berita-desa.show', $pop->slug) }}" style="display: block; width: 100px; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px;">
-                        <img class="media-object" src="{{ $pop->image ? asset('storage/'.$pop->image) : asset('images/default-image.png') }}" alt="{{ $pop->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img class="media-object" src="{{ $pop->image ? \App\Support\DemoImage::asset('storage/'.$pop->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $pop->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </a>
                 </div>
                 <div class="media-body" style="flex: 1;">

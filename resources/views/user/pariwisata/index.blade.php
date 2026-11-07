@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 140px !important; padding-bottom: 90px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 140px !important; padding-bottom: 90px !important;">
     <!-- Dark Gradient Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <span class="text-uppercase g-font-size-12--xs g-font-weight--700 g-color--primary g-letter-spacing--2" style="background: rgba(220, 53, 69, 0.15); padding: 6px 16px; border-radius: 50px; display: inline-block; margin-bottom: 15px; border: 1px solid rgba(220, 53, 69, 0.25);">Potensi Wisata</span>
         <h1 class="g-font-size-32--xs g-font-size-42--sm g-font-weight--700 g-color--white g-margin-b-15--xs" style="font-family: 'Montserrat', sans-serif; letter-spacing: -0.5px;">Pariwisata Desa</h1>
@@ -19,7 +19,7 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs" style="background-color: #f8fafc !important;">
     <div class="container">
-        
+
         <style>
             /* Card Styles */
             .wisata-card {
@@ -38,7 +38,7 @@
                 box-shadow: 0 20px 40px rgba(220, 53, 69, 0.08) !important;
                 border-color: rgba(220, 53, 69, 0.2) !important;
             }
-            
+
             /* Image Container & Scale */
             .wisata-img-container {
                 position: relative;
@@ -72,7 +72,7 @@
             .wisata-info-title a:hover {
                 color: #dc3545 !important;
             }
-            
+
             /* Meta text */
             .wisata-meta-item {
                 font-size: 13px !important;
@@ -87,7 +87,7 @@
                 color: #dc3545;
                 opacity: 0.85;
             }
-            
+
             .wisata-meta-location {
                 line-height: 1.5;
                 display: -webkit-box;
@@ -96,7 +96,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            
+
             .wisata-meta-description {
                 font-size: 13px !important;
                 line-height: 1.6;
@@ -109,7 +109,7 @@
                 margin-top: 10px;
                 margin-bottom: 5px;
             }
-            
+
             /* Buttons */
             .wisata-btn-detail {
                 background: #dc3545 !important;
@@ -135,7 +135,7 @@
                 transform: translateY(-1px);
                 color: #ffffff !important;
             }
-            
+
             /* Filter Reset Bar */
             .filter-reset-bar {
                 border-radius: 14px;
@@ -152,7 +152,7 @@
                 width: 100%;
                 margin: 0;
             }
-            
+
             /* Top / Bottom Results bar */
             .results-info-bar {
                 display: flex;
@@ -164,7 +164,7 @@
                 box-shadow: 0 4px 20px rgba(0,0,0,0.02);
                 border: 1px solid #e2e8f0;
             }
-            
+
             .custom-pagination ul.pagination { margin: 0 !important; }
             .custom-pagination nav { display: flex; align-items: center; }
             .custom-pagination p { margin-bottom: 0 !important; }
@@ -208,7 +208,7 @@
                 }
             }
         </style>
-        
+
         <!-- Top Search Bar -->
         <div style="max-width: 800px; margin: -20px auto 30px auto;">
             <form action="{{ route('pariwisata') }}" method="GET">
@@ -224,7 +224,7 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-md-12 g-margin-b-30--xs">
-                
+
                 @if(request('search'))
                 <div class="filter-reset-bar">
                     <h4 class="g-font-size-15--xs g-font-weight--400" style="color: #4a5568;">
@@ -237,7 +237,7 @@
                 @endif
 
         @if($tourisms->count() > 0)
-            
+
             <!-- Top Pagination / Results Bar -->
             <div class="results-info-bar g-margin-b-30--xs">
                 <div class="g-font-size-14--xs" style="color: #64748b;">
@@ -261,11 +261,11 @@
                 @foreach($tourisms as $tourism)
                 <div class="col-md-4 col-sm-6 g-margin-b-30--xs">
                     <article class="wisata-card">
-                        
+
                         <!-- Image Container -->
                         <div class="wisata-img-container">
                             @if($tourism->main_image)
-                                <img src="{{ asset('storage/'.$tourism->main_image) }}" alt="{{ $tourism->name }}" class="wisata-img">
+                                <img src="{{ \App\Support\DemoImage::asset('storage/'.$tourism->main_image) }}" alt="{{ $tourism->name }}" class="wisata-img">
                             @else
                                 <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
                                     <i class="ti-image" style="font-size: 44px; color: #cbd5e0;"></i>
@@ -278,13 +278,13 @@
                             <h3 class="wisata-info-title">
                                 <a href="{{ route('pariwisata.show', $tourism->slug) }}">{{ $tourism->name }}</a>
                             </h3>
-                            
+
                             @if($tourism->opening_hours)
                             <p class="wisata-meta-item">
                                 <i class="ti-time"></i> {{ $tourism->opening_hours }}
                             </p>
                             @endif
-                            
+
                             @if($tourism->location)
                             <p class="wisata-meta-item wisata-meta-location">
                                 <i class="ti-location-pin"></i> {{ $tourism->location }}
@@ -371,7 +371,7 @@
                 @endif
             </div>
         @endif
-            
+
             </div> <!-- End Main Content -->
         </div>
     </div>

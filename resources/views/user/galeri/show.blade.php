@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PAGE CONTENT ==========-->
-<div style="background: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}') center center no-repeat fixed; background-size: cover; position: relative; min-height: 100vh;">
+<div style="background: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}') center center no-repeat fixed; background-size: cover; position: relative; min-height: 100vh;">
     <!-- Light Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(14, 22, 34, 0.71); z-index: 1;"></div>
-    
+
     <div style="position: relative; z-index: 2;">
         <div class="container g-padding-y-80--xs" style="padding-top: 130px;">
     <div class="row">
@@ -29,7 +29,7 @@
 
                 <!-- Featured Image -->
                 <div class="g-margin-b-30--xs text-center">
-                    <img class="img-responsive" src="{{ asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->title }}" style="width: 100%; max-height: 600px; object-fit: contain; border-radius: 12px; background-color: #f8f9fa; border: 1px solid #e2e8f0;">
+                    <img class="img-responsive" src="{{ \App\Support\DemoImage::asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->title }}" style="width: 100%; max-height: 600px; object-fit: contain; border-radius: 12px; background-color: #f8f9fa; border: 1px solid #e2e8f0;">
                 </div>
 
                 <!-- Content -->
@@ -67,7 +67,7 @@
         // Fallback for older browsers or HTTP connections
         var textArea = document.createElement("textarea");
         textArea.value = text;
-        
+
         // Avoid scrolling to bottom
         textArea.style.top = "0";
         textArea.style.left = "0";
@@ -90,8 +90,8 @@
     function showToast() {
         var toast = document.getElementById('copy-toast');
         toast.style.display = 'inline-block';
-        setTimeout(function() { 
-            toast.style.display = 'none'; 
+        setTimeout(function() {
+            toast.style.display = 'none';
         }, 3000);
     }
 </script>

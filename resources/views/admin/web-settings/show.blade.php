@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="mb-6 flex justify-end">
-    <a href="{{ route('admin.web-settings.edit') }}" 
+    <a href="{{ route('admin.web-settings.edit') }}"
        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg shadow-xs hover:shadow-md transition-all text-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
@@ -24,17 +24,17 @@
 @endif
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    
+
     <!-- Left Column: Identitas & Kontak -->
     <div class="lg:col-span-2 space-y-6">
-        
+
         <!-- Identitas Utama -->
         <div class="bg-white rounded-xl shadow-xs border border-gray-100 p-6 md:p-8">
             <h3 class="text-base font-bold text-gray-900 mb-4 flex items-center gap-2.5">
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Identitas Desa
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
                 <div>
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Nama Desa</span>
@@ -78,7 +78,7 @@
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Statistik Desa
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-6">
                 <div>
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Luas Wilayah</span>
@@ -101,7 +101,7 @@
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Kontak & Media Sosial
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Kontak -->
                 <div class="space-y-4">
@@ -191,14 +191,14 @@
 
     <!-- Right Column: Logo & Peta -->
     <div class="space-y-6">
-        
+
         <!-- Logo & Favicon -->
         <div class="bg-white rounded-xl shadow-xs border border-gray-100 p-6">
             <h3 class="text-base font-bold text-gray-900 mb-4 flex items-center gap-2.5">
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Branding Desa
             </h3>
-            
+
             <div class="space-y-6">
                 <!-- Logo -->
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
@@ -206,7 +206,7 @@
                     @if($webSetting->logo_path)
                         <img src="{{ $webSetting->logo_url }}" alt="Logo" class="max-h-24 object-contain">
                     @else
-                        <img src="{{ asset('images/logo/logo-icon.svg') }}" alt="Logo Default" class="max-h-16 opacity-40">
+                        <img src="{{ \App\Support\DemoImage::asset('images/logo/logo-icon.svg') }}" alt="Logo Default" class="max-h-16 opacity-40">
                         <span class="text-xs text-gray-400 mt-2">Menggunakan Logo Default</span>
                     @endif
                 </div>
@@ -230,7 +230,7 @@
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
                     <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3">Background Image</span>
                     @if($webSetting->background_image)
-                        <img src="{{ asset('storage/' . $webSetting->background_image) }}" alt="Background" class="max-h-24 object-cover rounded-md w-full">
+                        <img src="{{ \App\Support\DemoImage::asset('storage/' . $webSetting->background_image) }}" alt="Background" class="max-h-24 object-cover rounded-md w-full">
                     @else
                         <span class="text-xs text-gray-400 mt-2">Belum ada gambar background</span>
                     @endif
@@ -244,7 +244,7 @@
                 <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
                 Peta Wilayah
             </h3>
-            
+
             <div class="w-full aspect-video rounded-lg bg-gray-50 border overflow-hidden flex items-center justify-center">
                 @if($webSetting->maps_embed)
                     {!! $webSetting->maps_embed !!}

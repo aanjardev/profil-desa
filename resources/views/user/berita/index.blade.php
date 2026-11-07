@@ -5,12 +5,12 @@
 @section('content')
 
 <!--========== HIGHLIGHT & MARQUEE BLOCK ==========-->
-<div class="g-padding-y-100--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-bottom: 50px !important;">
+<div class="g-padding-y-100--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-bottom: 50px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.75); z-index: 1;"></div>
-    
+
     <div class="container" style="position: relative; z-index: 2;">
-        
+
         <style>
             .marquee-link:hover, .news-title-link:hover {
                 color: #dc3545 !important;
@@ -52,7 +52,7 @@
                 }
             }
         </style>
-        
+
         <!-- Marquee Info -->
         <div class="g-bg-color--white g-padding-x-20--xs g-padding-y-10--xs g-margin-b-30--xs" style="border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; align-items: center;">
             <div class="g-color--white g-bg-color--primary g-padding-x-15--xs g-padding-y-5--xs g-radius--50 g-font-size-12--xs g-font-weight--700 text-uppercase g-margin-r-15--xs" style="white-space: nowrap;">Info Terbaru</div>
@@ -61,14 +61,14 @@
                     <!-- Set 1 -->
                     @foreach($recentPosts as $recent)
                         <span class="g-margin-r-40--xs">
-                            <i class="ti-bolt g-color--primary g-margin-r-5--xs"></i> 
+                            <i class="ti-bolt g-color--primary g-margin-r-5--xs"></i>
                             <a href="{{ route('berita-desa.show', $recent->slug) }}" class="marquee-link" style="color: #4a5568; text-decoration: none; font-weight: 600;">{{ $recent->title }}</a>
                         </span>
                     @endforeach
                     <!-- Set 2 (Duplicate for seamless loop) -->
                     @foreach($recentPosts as $recent)
                         <span class="g-margin-r-40--xs">
-                            <i class="ti-bolt g-color--primary g-margin-r-5--xs"></i> 
+                            <i class="ti-bolt g-color--primary g-margin-r-5--xs"></i>
                             <a href="{{ route('berita-desa.show', $recent->slug) }}" class="marquee-link" style="color: #4a5568; text-decoration: none; font-weight: 600;">{{ $recent->title }}</a>
                         </span>
                     @endforeach
@@ -83,7 +83,7 @@
             <div class="col-md-{{ $highlightPosts->count() > 1 ? '8' : '12' }} g-margin-b-30--xs g-margin-b-0--md">
                 @php $mainHighlight = $highlightPosts[0]; @endphp
                 <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
-                    <img src="{{ $mainHighlight->image ? asset('storage/'.$mainHighlight->image) : asset('images/default-image.png') }}" alt="{{ $mainHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{ $mainHighlight->image ? \App\Support\DemoImage::asset('storage/'.$mainHighlight->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $mainHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                     <div class="main-highlight-overlay" style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 50px 30px 25px;">
                         <span class="g-bg-color--primary g-color--white g-font-size-11--xs g-font-weight--700 text-uppercase g-padding-x-10--xs g-padding-y-5--xs g-radius--50 g-margin-b-15--xs hidden-xs" style="display: inline-block;">{{ $mainHighlight->category ?? 'Umum' }}</span>
                         <h2 class="main-hl-title g-font-size-24--xs g-font-size-32--sm g-font-weight--700 g-margin-b-10--xs" style="line-height: 1.3;">
@@ -105,7 +105,7 @@
                 <div style="display: flex; flex-direction: column; gap: 30px;">
                     @foreach($highlightPosts->slice(1, 2) as $subHighlight)
                         <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);">
-                            <img src="{{ $subHighlight->image ? asset('storage/'.$subHighlight->image) : asset('images/default-image.png') }}" alt="{{ $subHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="{{ $subHighlight->image ? \App\Support\DemoImage::asset('storage/'.$subHighlight->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $subHighlight->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px 15px;">
                                 <h3 class="g-font-size-16--xs g-font-weight--700 g-margin-b-5--xs" style="line-height: 1.3;">
                                     <a href="{{ route('berita-desa.show', $subHighlight->slug) }}" class="g-color--white news-title-link" style="text-decoration: none;">{{ $subHighlight->title }}</a>
@@ -151,7 +151,7 @@
                 @if(request('search') || request('category') || request('month'))
                 <div class="g-margin-b-30--xs g-bg-color--white g-padding-x-20--xs g-padding-y-20--xs" style="border-radius: 12px; border: 1px solid #e2e8f0;">
                     <h4 class="g-font-size-16--xs g-font-weight--400 g-margin-b-0--xs" style="color: #4a5568;">
-                        Hasil untuk: 
+                        Hasil untuk:
                         @if(request('search')) <strong>"{{ request('search') }}"</strong> @endif
                         @if(request('category')) Kategori <strong>{{ request('category') }}</strong> @endif
                         @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month((int)request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
@@ -170,7 +170,7 @@
                         }
                         .custom-pagination ul.pagination { margin: 0 !important; }
                     </style>
-                    
+
                     <!-- Top Pagination & Info -->
                     <div class="g-margin-b-30--xs" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                         <p class="g-font-size-14--xs" style="color: #4a5568; margin-bottom: 0;">
@@ -194,7 +194,7 @@
                             <!-- Horizontal List Item -->
                             <article class="list-card-responsive" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; display: flex; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.05)';">
                                 <a href="{{ route('berita-desa.show', $post->slug) }}" class="list-card-img" style="display: block; overflow: hidden; position: relative;">
-                                    <img src="{{ $post->image ? asset('storage/'.$post->image) : asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ $post->image ? \App\Support\DemoImage::asset('storage/'.$post->image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                                 </a>
                                 <div style="padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
                                     <div class="g-margin-b-10--xs">
@@ -211,7 +211,7 @@
                             </article>
                         @endforeach
                     </div>
-                    
+
                     <!-- Bottom Pagination -->
                     <div class="g-margin-t-40--xs text-center custom-pagination" style="display: flex; justify-content: center;">
                         @if ($posts->lastPage() > 1)

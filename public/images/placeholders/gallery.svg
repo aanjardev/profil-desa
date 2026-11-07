@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Dokumentasi desa — ilustrasi demo</title><desc id="desc">Placeholder untuk gambar asli yang belum tersedia.</desc>
+<rect width="1200" height="800" fill="#e2edf0"/><circle cx="1050" cy="110" r="240" fill="white" opacity=".25"/>
+<rect x="325" y="215" width="550" height="360" rx="30" fill="#f7fbfc" stroke="#8ab1ba" stroke-width="10"/><circle cx="720" cy="310" r="40" fill="#e5bd71"/><path d="m350 540 155-190 120 135 80-95 145 150Z" fill="#8ab1ba"/><path d="m350 540 155-190 120 135 40-48 90 103Z" fill="#3f7180"/>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#3f7180">Dokumentasi desa</text>
+<text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#3f7180">ILUSTRASI DEMO</text></svg>

@@ -59,7 +59,7 @@
             @foreach($recentGalleries as $recent)
                 <div class="col-xs-4" style="padding: 5px;">
                     <a href="{{ route('galeri.show', $recent->id) }}" title="{{ $recent->title }}" style="display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                        <img src="{{ asset('storage/'.$recent->image_path) }}" alt="{{ $recent->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="{{ \App\Support\DemoImage::asset('storage/'.$recent->image_path) }}" alt="{{ $recent->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </a>
                 </div>
             @endforeach

@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Monografi Desa</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Data statistik kependudukan dan informasi umum wilayah desa.</p>
@@ -18,7 +18,7 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs">
     <div class="container">
-        
+
         <!-- Demografi Content -->
         @if(isset($demografi) && $demografi->content)
         <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; border: 1px solid #e2e8f0; margin-bottom: 40px;">
@@ -26,13 +26,13 @@
                 <span style="display: inline-block; width: 4px; height: 24px; background: #dc3545; vertical-align: middle; margin-right: 10px; border-radius: 4px;"></span>
                 {{ $demografi->title ?? 'Demografi Penduduk' }}
             </h2>
-            
+
             @if($demografi->image_path)
                 <div class="g-margin-b-25--xs">
-                    <img src="{{ asset('storage/'.$demografi->image_path) }}" alt="{{ $demografi->title }}" class="img-responsive" style="border-radius: 12px; width: 100%; max-height: 400px; object-fit: cover;">
+                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$demografi->image_path) }}" alt="{{ $demografi->title }}" class="img-responsive" style="border-radius: 12px; width: 100%; max-height: 400px; object-fit: cover;">
                 </div>
             @endif
-            
+
             <div class="g-font-size-15--xs" style="line-height: 1.8; color: #4a5568;">
                 {!! nl2br(e($demografi->content)) !!}
             </div>
@@ -97,13 +97,13 @@
                             $totalMale = 0;
                             $totalFemale = 0;
                         @endphp
-                        
+
                         @foreach($rtRws as $data)
                             @php
                                 // We sum up the totals here (you might want to exclude RW summary rows from total if they are duplicate data)
                                 // Assuming each row in the DB is an independent block of data, if it's an RT row it has rt_number
                                 // If it's just an RW row, we check if we should sum it or not. Usually we sum all RTs.
-                                // Let's sum only if it's an RT, or if it's an RW and there are no RTs. 
+                                // Let's sum only if it's an RT, or if it's an RW and there are no RTs.
                                 // For simplicity, we just sum them as provided in DB. Let's assume all rows are mutually exclusive areas.
                                 $totalKk += $data->total_kk;
                                 $totalMale += $data->total_male;

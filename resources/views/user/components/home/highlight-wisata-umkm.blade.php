@@ -192,7 +192,7 @@
                 <article class="modern-card">
                     <div class="modern-card-img-wrapper">
                         <span class="modern-badge modern-badge-primary">Wisata</span>
-                        <img class="modern-card-img" src="{{ $w->main_image ? asset('storage/'.$w->main_image) : asset('images/default-image.png') }}" alt="{{ $w->name }}">
+                        <img class="modern-card-img" src="{{ $w->main_image ? \App\Support\DemoImage::asset('storage/'.$w->main_image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $w->name }}">
                     </div>
                     <div class="modern-card-body">
                         <div class="modern-meta">
@@ -240,7 +240,7 @@
                         @if($u->category)
                         <span class="modern-badge">{{ $u->category }}</span>
                         @endif
-                        <img class="modern-card-img" src="{{ $u->main_image ? asset('storage/'.$u->main_image) : asset('images/default-image.png') }}" alt="{{ $u->name }}">
+                        <img class="modern-card-img" src="{{ $u->main_image ? \App\Support\DemoImage::asset('storage/'.$u->main_image) : \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $u->name }}">
                     </div>
                     <div class="modern-card-body">
                         <div class="modern-meta">

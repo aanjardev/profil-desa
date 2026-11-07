@@ -14,7 +14,7 @@
 @section('content')
 <form action="{{ route('admin.village-officials.update', $villageOfficial->id) }}" method="POST" enctype="multipart/form-data"
       x-data="{
-          photoPreview: '{{ $villageOfficial->photo ? asset('storage/' . $villageOfficial->photo) : '' }}',
+          photoPreview: '{{ $villageOfficial->photo ? \App\Support\DemoImage::asset('storage/' . $villageOfficial->photo) : '' }}',
           removePhoto: false,
           showCropper: false,
           cropper: null,
@@ -105,14 +105,14 @@
                 @if($villageOfficial->photo)
                 <button type="button"
                         class="w-full text-xs font-semibold text-red-500 hover:text-red-700 flex items-center justify-center gap-1 py-1.5 rounded-lg hover:bg-red-50 transition-colors mt-1"
-                        @click="removePhoto = !removePhoto; if(removePhoto) photoPreview = null; else photoPreview = '{{ asset('storage/' . $villageOfficial->photo) }}'">
+                        @click="removePhoto = !removePhoto; if(removePhoto) photoPreview = null; else photoPreview = '{{ \App\Support\DemoImage::asset('storage/' . $villageOfficial->photo) }}'">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     <span x-text="removePhoto ? 'Batalkan hapus foto' : 'Hapus foto'"></span>
                 </button>
                 @endif
-                
+
                 <p class="text-xs text-gray-400 text-center mt-2">Rasio 3:4 (Pas Foto)</p>
-                
+
                 <!-- Modal Cropper -->
                 <div x-show="showCropper" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" style="display: none;">
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-lg flex flex-col max-h-[90vh]" @click.stop>
@@ -203,7 +203,7 @@
             {{-- Tipe Jabatan --}}
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-base font-bold text-gray-900 mb-2 border-b border-gray-100 pb-3">Tipe Jabatan</h3>
-                
+
                 <div class="space-y-5">
                     <div>
                         <div class="grid grid-cols-2 gap-2">
@@ -238,11 +238,11 @@
                         </div>
                         @error('type')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
-                    
+
                     {{-- Atasan (Untuk Staf) --}}
                     <div class="mt-4">
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Atasan (Khusus Staf) <span class="text-red-500">*</span></label>
-                        <select name="parent_id" 
+                        <select name="parent_id"
                                 class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors text-sm text-gray-700">
                             <option value="">Pilih Atasan (Jika Staf)</option>
                             @foreach(\App\Models\VillageOfficial::where('type', 'eksekutif')->orderBy('level')->orderBy('order_num')->get() as $parent)

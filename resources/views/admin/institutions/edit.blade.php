@@ -14,7 +14,7 @@
 <form action="{{ route('admin.institutions.update', $institution->id) }}" method="POST" enctype="multipart/form-data"
       x-data="{
           removeLogo: false,
-          logoPreview: '{{ $institution->logo ? asset('storage/' . $institution->logo) : '' }}',
+          logoPreview: '{{ $institution->logo ? \App\Support\DemoImage::asset('storage/' . $institution->logo) : '' }}',
           members: [
               @foreach($institution->members as $member)
               {
@@ -22,7 +22,7 @@
                   dbId: {{ $member->id }},
                   name: '{{ addslashes($member->name) }}',
                   position: '{{ addslashes($member->position) }}',
-                  photoPreview: '{{ $member->photo ? asset('storage/' . $member->photo) : '' }}',
+                  photoPreview: '{{ $member->photo ? \App\Support\DemoImage::asset('storage/' . $member->photo) : '' }}',
                   removePhoto: false,
                   orderNum: {{ $member->order_num ?? 0 }},
                   isNew: false,
@@ -121,7 +121,7 @@
                             </button>
                             @if($institution->logo)
                             <button type="button"
-                                    @click="removeLogo = !removeLogo; if(removeLogo) logoPreview = ''; else logoPreview = '{{ asset('storage/' . $institution->logo) }}'"
+                                    @click="removeLogo = !removeLogo; if(removeLogo) logoPreview = ''; else logoPreview = '{{ \App\Support\DemoImage::asset('storage/' . $institution->logo) }}'"
                                     class="text-xs font-semibold flex items-center gap-1 transition-colors"
                                     :class="removeLogo ? 'text-gray-500 hover:text-gray-700' : 'text-red-500 hover:text-red-700'">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -277,7 +277,7 @@
                         @foreach($institution->images as $i => $img)
                         <div class="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 bg-gray-100"
                              x-data="{ removed: false }">
-                            <img src="{{ Storage::url($img['path']) }}" class="w-full h-full object-cover transition-all" :class="{ 'opacity-30 scale-95': removed }">
+                            <img src="{{ \App\Support\DemoImage::storage($img['path']) }}" class="w-full h-full object-cover transition-all" :class="{ 'opacity-30 scale-95': removed }">
                             <template x-if="removed">
                                 <input type="hidden" name="delete_images[]" value="{{ $i }}">
                             </template>

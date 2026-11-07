@@ -13,7 +13,7 @@
 
             <div class="official-photo-wrapper">
                 @if($official->photo)
-                    <img src="{{ asset('storage/'.$official->photo) }}" alt="{{ $official->name }}" class="official-photo">
+                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$official->photo) }}" alt="{{ $official->name }}" class="official-photo">
                 @else
                     <i class="ti-user official-photo-placeholder"></i>
                 @endif
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    
+
     @php
         $children = $allOfficials->where('parent_id', $official->id)->sortBy('order_num');
     @endphp

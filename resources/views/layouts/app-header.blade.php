@@ -1,12 +1,12 @@
 @php
     $webSetting = \App\Models\WebSetting::first();
     $villageName = $webSetting ? $webSetting->village_name : 'Profil Desa';
-    $logoIconPath = $webSetting ? $webSetting->logo_url : asset('images/logo/logo-icon.svg');
+    $logoIconPath = $webSetting ? $webSetting->logo_url : \App\Support\DemoImage::asset('images/logo/logo-icon.svg');
 @endphp
 <header
     class="sticky top-0 flex w-full bg-white border-gray-200 z-30 dark:border-gray-800 dark:bg-gray-900 xl:border-b">
     <div class="flex items-center justify-between w-full px-4 py-3 xl:px-6 lg:py-4">
-        
+
         <!-- Left Side: Toggles, Title, Logo -->
         <div class="flex items-center gap-3">
             <!-- Mobile Menu Toggle Button (visible below xl) -->
@@ -61,6 +61,6 @@
         <div class="flex items-center">
             <x-header.user-dropdown />
         </div>
-        
+
     </div>
 </header>

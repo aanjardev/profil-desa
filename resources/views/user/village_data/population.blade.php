@@ -4,7 +4,7 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Data Penduduk</h1>
@@ -16,7 +16,7 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs">
     <div class="container">
-        
+
         <!-- Summary Cards -->
         <div class="row g-margin-b-40--xs">
             @if($hasMale)
@@ -99,7 +99,7 @@
                                         <i class="ti-map-alt g-margin-r-5--xs"></i> RW {{ $rw }}
                                     </td>
                                 </tr>
-                                
+
                                 @foreach($rtList as $item)
                                 <tr>
                                     <td style="padding: 15px; vertical-align: middle; font-weight: 700; padding-left: 30px;">
@@ -137,7 +137,7 @@
                                     @endif
                                 </tr>
                                 @endforeach
-                                
+
                                 <!-- Subtotal for this RW -->
                                 <tr style="background-color: #edf2f7; font-weight: 700;">
                                     <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #2d3748; padding-right: 20px;">Subtotal RW {{ $rw }} :</td>
@@ -153,7 +153,7 @@
                                     @endif
                                 </tr>
                             @endforeach
-                            
+
                             @php
                                 $dusunTotalMale = 0;
                                 $dusunTotalFemale = 0;
@@ -166,7 +166,7 @@
                                     $dusunTotalPenduduk += $r->sum('total_penduduk');
                                 }
                             @endphp
-                            
+
                             <!-- Total for this Dusun -->
                             <tr style="background-color: #e2e8f0; font-weight: 700;">
                                 <td @if($hasHeadName) colspan="2" @endif style="padding: 15px; text-align: right; color: #1a202c; font-size: 16px;">Total {{ $dusunName }} :</td>

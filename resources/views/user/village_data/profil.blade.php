@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Profil Desa</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Mengenal lebih dekat identitas, sejarah, dan kondisi Desa kami tercinta.</p>
@@ -38,7 +38,7 @@
     #profil-singkat, #sejarah, #geografis, #wilayah-dusun {
         scroll-margin-top: 130px;
     }
-    
+
     @media (max-width: 991px) {
         #profil-sidebar-col {
             position: -webkit-sticky !important;
@@ -117,10 +117,10 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="col-md-9">
                 <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; border: 1px solid #e2e8f0;">
-                    
+
                     @php
                         $sections = ['profil-singkat', 'sejarah', 'geografis', 'wilayah-dusun'];
                     @endphp
@@ -132,13 +132,13 @@
                                     <span style="display: inline-block; width: 4px; height: 24px; background: #dc3545; vertical-align: middle; margin-right: 10px; border-radius: 4px;"></span>
                                     {{ $identities[$key]->title }}
                                 </h2>
-                                
+
                                 @if($identities[$key]->image_path)
                                     <div class="g-margin-b-25--xs">
-                                        <img src="{{ asset('storage/'.$identities[$key]->image_path) }}" alt="{{ $identities[$key]->title }}" class="img-responsive" style="border-radius: 12px; width: 100%; max-height: 400px; object-fit: cover;">
+                                        <img src="{{ \App\Support\DemoImage::asset('storage/'.$identities[$key]->image_path) }}" alt="{{ $identities[$key]->title }}" class="img-responsive" style="border-radius: 12px; width: 100%; max-height: 400px; object-fit: cover;">
                                     </div>
                                 @endif
-                                
+
                                 <div class="g-font-size-15--xs" style="line-height: 1.8; color: #4a5568;">
                                     {!! nl2br(e($identities[$key]->content)) !!}
                                 </div>
@@ -161,16 +161,16 @@
         $('#profil-nav a').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation(); // Stop theme smooth scroll bubble
-            
+
             var target = $(this).attr('href');
             var targetEl = $(target);
-            
+
             // Remove active styles from all
             $('#profil-nav a').removeClass('active').css({'background': 'transparent', 'color': '#718096'});
-            
+
             // Add active style to clicked
             $(this).addClass('active').css({'background': '#f8f9fa', 'color': '#dc3545'});
-            
+
             if (targetEl.length) {
                 // Smooth scroll (offset for sticky nav, larger on mobile due to sticky tabs)
                 var offset = $(window).width() < 992 ? 220 : 120;

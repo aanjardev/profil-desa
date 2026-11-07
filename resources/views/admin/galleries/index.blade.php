@@ -16,18 +16,18 @@
 
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
     <h2 class="text-lg font-bold text-gray-900">Koleksi Galeri</h2>
-    
+
     <div class="flex items-center gap-3 w-full sm:w-auto">
         <!-- Form Filter Periode (Custom Alpine.js Dropdown) -->
         <form action="{{ route('admin.galleries.index') }}" method="GET" class="flex-1 sm:flex-none" x-data="{ open: false, selectedValue: '{{ request('period') }}' }">
             <input type="hidden" name="period" x-model="selectedValue">
             <div class="relative w-full sm:w-auto" @click.away="open = false">
-                
+
                 <!-- Dropdown Trigger -->
-                <button type="button" @click="open = !open" 
+                <button type="button" @click="open = !open"
                     class="flex items-center justify-between w-full sm:w-[180px] pl-4 pr-3 py-2 bg-gray-50 border hover:border-gray-300 hover:bg-white rounded-lg text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors shadow-sm"
                     :class="open ? 'border-blue-500 bg-white ring-2 ring-blue-500/20' : 'border-gray-200'">
-                    
+
                     <span class="truncate">
                         @if(request('period'))
                             @php
@@ -38,14 +38,14 @@
                             Semua Waktu
                         @endif
                     </span>
-                    
+
                     <svg class="w-4 h-4 text-gray-500 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
 
                 <!-- Dropdown Overlay List -->
-                <div x-show="open" 
+                <div x-show="open"
                      x-transition:enter="transition ease-out duration-100"
                      x-transition:enter-start="transform opacity-0 scale-95"
                      x-transition:enter-end="transform opacity-100 scale-100"
@@ -54,10 +54,10 @@
                      x-transition:leave-end="transform opacity-0 scale-95"
                      class="absolute z-50 mt-1.5 w-full sm:w-[200px] right-0 sm:left-0 bg-white border border-gray-100 rounded-xl shadow-lg py-1.5 overflow-hidden"
                      style="display: none;">
-                    
+
                     <ul class="max-h-60 overflow-y-auto" style="scrollbar-width: thin;">
                         <li>
-                            <button type="button" @click="selectedValue = ''; open = false; $nextTick(() => { $el.closest('form').submit() })" 
+                            <button type="button" @click="selectedValue = ''; open = false; $nextTick(() => { $el.closest('form').submit() })"
                                 class="w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center justify-between
                                 {{ request('period') == '' ? 'bg-blue-50/50 text-blue-700 font-bold' : 'text-gray-700 hover:bg-gray-50 font-medium' }}">
                                 Semua Waktu
@@ -66,13 +66,13 @@
                                 @endif
                             </button>
                         </li>
-                        
+
                         @foreach($periods as $period)
                             @php
                                 $date = \Carbon\Carbon::createFromFormat('Y-m', $period);
                             @endphp
                             <li>
-                                <button type="button" @click="selectedValue = '{{ $period }}'; open = false; $nextTick(() => { $el.closest('form').submit() })" 
+                                <button type="button" @click="selectedValue = '{{ $period }}'; open = false; $nextTick(() => { $el.closest('form').submit() })"
                                     class="w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center justify-between
                                     {{ request('period') == $period ? 'bg-blue-50/50 text-blue-700 font-bold' : 'text-gray-700 hover:bg-gray-50 font-medium' }}">
                                     {{ $date->translatedFormat('F Y') }}
@@ -108,19 +108,19 @@
 
                 <!-- Image -->
                 <div class="aspect-video bg-gray-100 relative overflow-hidden">
-                    <img src="{{ str_starts_with($gallery->image_path, 'images/') ? asset($gallery->image_path) : asset('storage/' . $gallery->image_path) }}" alt="{{ $gallery->title ?? 'Gallery Image' }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="{{ str_starts_with($gallery->image_path, 'images/') ? asset($gallery->image_path) : \App\Support\DemoImage::asset('storage/' . $gallery->image_path) }}" alt="{{ $gallery->title ?? 'Gallery Image' }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
-                
+
                 <!-- Content -->
                 <div class="p-4 flex-1 flex flex-col">
                     <h4 class="font-semibold text-gray-900 text-sm line-clamp-1 mb-1">{{ $gallery->title ?: 'Tanpa Judul' }}</h4>
                     <p class="text-xs text-gray-500 line-clamp-2 mb-3 flex-1">{{ $gallery->description ?: 'Tidak ada deskripsi.' }}</p>
-                    
+
                     <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-50">
                         <span class="text-[11px] font-medium text-gray-400">
                             Diperbarui {{ $gallery->updated_at->diffForHumans() }}
                         </span>
-                        
+
                         <!-- Actions -->
                         <div class="flex items-center gap-1">
                             <a href="{{ route('admin.galleries.edit', $gallery->id) }}" class="text-blue-500 hover:text-blue-700 p-1.5 rounded-lg hover:bg-blue-50 transition-colors" title="Edit Gambar">

@@ -9,7 +9,7 @@
     // Get dynamic Web Settings data
     $webSetting = WebSetting::first();
     $villageName = $webSetting ? $webSetting->village_name : 'Profil Desa';
-    $logoIconPath = $webSetting ? $webSetting->logo_url : asset('images/logo/logo-icon.svg');
+    $logoIconPath = $webSetting ? $webSetting->logo_url : \App\Support\DemoImage::asset('images/logo/logo-icon.svg');
 @endphp
 
 <aside id="sidebar"
@@ -73,7 +73,7 @@
         <a href="/admin" class="flex items-center gap-3">
             <img class="h-9 w-9 object-contain rounded-md"
                 src="{{ $logoIconPath }}" alt="Logo" />
-            
+
             <div x-show="$store.sidebar.isExpanded || $store.sidebar.isHovered || $store.sidebar.isMobileOpen"
                 class="flex flex-col text-left">
                 <span class="font-bold text-gray-800 text-sm leading-tight tracking-wide uppercase">

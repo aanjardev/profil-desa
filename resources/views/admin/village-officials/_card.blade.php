@@ -1,7 +1,7 @@
 {{-- Card partial untuk satu perangkat desa --}}
 <div data-id="{{ $official->id }}"
      class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-    
+
     {{-- Drag handle bar --}}
     <div title="Tahan dan geser untuk mengatur urutan posisi perangkat di level yang sama" class="drag-handle select-none flex items-center justify-center h-7 bg-gray-50 border-b border-gray-100 text-gray-300 hover:text-gray-400 hover:bg-gray-100 transition-colors gap-1 cursor-grab active:cursor-grabbing">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -15,7 +15,7 @@
     {{-- Photo --}}
     <div class="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden">
         @if($official->photo)
-            <img src="{{ asset('storage/' . $official->photo) }}"
+            <img src="{{ \App\Support\DemoImage::asset('storage/' . $official->photo) }}"
                  alt="{{ $official->name }}"
                  class="w-full h-full object-cover object-top">
         @else

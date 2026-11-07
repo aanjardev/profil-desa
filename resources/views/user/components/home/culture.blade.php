@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="col-sm-3 g-promo-section__img-right--lg g-bg-position--center g-height-100-percent--md js__fullwidth-img">
-        <img class="img-responsive" src="{{ asset('23/img/970x970/03.jpg') }}" alt="Image">
+        <img class="img-responsive" src="{{ \App\Support\DemoImage::asset('23/img/970x970/03.jpg') }}" alt="Image">
     </div>
 </div>
 <!-- End Culture -->

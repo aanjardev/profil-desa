@@ -48,6 +48,6 @@
             </div>
         </form>
     </div>
-    <img class="s-mockup-v2" src="{{ asset('23/img/mockups/pencil-01.png') }}" alt="Mockup Image">
+    <img class="s-mockup-v2" src="{{ \App\Support\DemoImage::asset('23/img/mockups/pencil-01.png') }}" alt="Mockup Image">
 </div>
 <!-- End Feedback Form -->

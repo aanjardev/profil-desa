@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="id" class="no-js">
     <!-- Begin Head -->
     <head>
+        @include('components.image-fallback')
         <!-- Basic -->
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Desa Tulungrejo</title>
+        <title>Demo Portofolio | Desa Tulungrejo</title>
         <meta name="keywords" content="HTML5 Theme" />
-        <meta name="description" content="Megakit - HTML5 Theme">
+        <meta name="description" content="Arsip website Desa Tulungrejo yang telah berhenti beroperasi dan ditampilkan hanya untuk demo portofolio. Informasi dan layanan di situs ini bukan rujukan resmi terkini.">
         <meta name="author" content="keenthemes.com">
 
         <!-- Web Fonts -->
@@ -28,8 +29,8 @@
         <link href="{{ asset('23/css/global/global.css') }}" rel="stylesheet" type="text/css"/>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('images/web-settings/icon-tab.png') }}" type="image/x-icon">
-        <link rel="apple-touch-icon" href="{{ asset('images/web-settings/icon-tab.png') }}">
+        <link rel="shortcut icon" href="{{ \App\Support\DemoImage::asset('images/web-settings/icon-tab.png') }}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="{{ \App\Support\DemoImage::asset('images/web-settings/icon-tab.png') }}">
         <!-- Custom Global Overrides -->
         <style>
             @media (min-width: 1200px) {

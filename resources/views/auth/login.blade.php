@@ -2,10 +2,10 @@
     $webSetting   = \App\Models\WebSetting::first();
     $villageName  = $webSetting ? $webSetting->village_name : 'Profil Desa';
     $faviconUrl   = $webSetting ? $webSetting->favicon_url   : asset('favicon.ico');
-    $logoUrl      = $webSetting ? $webSetting->logo_url      : asset('images/logo/logo.svg');
+    $logoUrl      = $webSetting ? $webSetting->logo_url      : \App\Support\DemoImage::asset('images/logo/logo.svg');
     // Favicon / icon tab URL (logo kota)
     $iconTabUrl   = $webSetting && $webSetting->favicon_path
-        ? (str_starts_with($webSetting->favicon_path, 'images/') ? asset($webSetting->favicon_path) : asset('storage/' . $webSetting->favicon_path))
+        ? (str_starts_with($webSetting->favicon_path, 'images/') ? asset($webSetting->favicon_path) : \App\Support\DemoImage::asset('storage/' . $webSetting->favicon_path))
         : asset('favicon.ico');
     // Data lokasi
     $city         = $webSetting ? $webSetting->city       : null;
@@ -717,7 +717,7 @@
     <div class="auth-hero">
 
         {{-- Background image --}}
-        <img class="auth-hero-bg" src="{{ asset('images/auth-bg.jpg') }}" alt="Background Desa">
+        <img class="auth-hero-bg" src="{{ \App\Support\DemoImage::asset('images/auth-bg.jpg') }}" alt="Background Desa">
 
         {{-- Gradient fallback jika gambar belum ada --}}
         <div class="auth-hero-bg-placeholder"></div>

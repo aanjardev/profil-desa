@@ -5,10 +5,10 @@
 @section('content')
 
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 130px !important;">
     <!-- Dark Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 32, 44, 0.85); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <h1 class="g-font-size-32--xs g-font-size-40--sm g-font-weight--700 g-color--white g-margin-b-10--xs">Agenda Kegiatan Desa</h1>
         <p class="g-font-size-16--xs g-color--white-opacity" style="max-width: 600px; margin: 0 auto;">Informasi lengkap mengenai jadwal, acara, dan kegiatan mendatang di desa kami.</p>
@@ -23,12 +23,12 @@
         <div class="row">
             <!-- Main Content (List) -->
             <div class="col-md-8 g-margin-b-30--xs g-margin-b-0--md">
-                
+
                 <!-- Filter Status -->
                 @if(request('search') || request('category') || request('month'))
                 <div class="g-margin-b-30--xs g-bg-color--white g-padding-x-20--xs g-padding-y-20--xs" style="border-radius: 12px; border: 1px solid #e2e8f0;">
                     <h4 class="g-font-size-16--xs g-font-weight--400 g-margin-b-0--xs" style="color: #4a5568;">
-                        Hasil untuk: 
+                        Hasil untuk:
                         @if(request('search')) <strong>"{{ request('search') }}"</strong> @endif
                         @if(request('category')) Kategori <strong>{{ request('category') }}</strong> @endif
                         @if(request('month') && request('year')) Bulan <strong>{{ \Carbon\Carbon::create()->month((int)request('month'))->translatedFormat('F') }} {{ request('year') }}</strong> @endif
@@ -53,7 +53,7 @@
                             }
                         }
                     </style>
-                    
+
                     <!-- Top Pagination & Info -->
                     <div class="g-margin-b-30--xs" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                         <p class="g-font-size-14--xs" style="color: #4a5568; margin-bottom: 0;">
@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="collapse" id="collapseAgenda{{ $agenda->id }}">
                                     <div class="g-bg-color--sky-light g-padding-x-20--xs g-padding-y-20--xs g-margin-b-20--xs g-margin-t-20--xs" style="border-radius: 8px; border: 1px solid #e2e8f0;">
                                         <div class="row">
@@ -113,7 +113,7 @@
                                             <div class="col-sm-6 g-margin-b-15--xs">
                                                 <strong class="g-color--dark g-font-size-14--xs" style="display: block; margin-bottom: 5px;"><i class="ti-time g-color--primary g-margin-r-5--xs"></i> Waktu</strong>
                                                 <span class="g-color--text g-font-size-14--xs">
-                                                    {{ $agenda->start_time ? \Carbon\Carbon::parse($agenda->start_time)->format('H:i') : 'TBA' }} 
+                                                    {{ $agenda->start_time ? \Carbon\Carbon::parse($agenda->start_time)->format('H:i') : 'TBA' }}
                                                     @if($agenda->end_time) - {{ \Carbon\Carbon::parse($agenda->end_time)->format('H:i') }} @endif
                                                     WIB
                                                 </span>
@@ -151,7 +151,7 @@
                             </article>
                         @endforeach
                     </div>
-                    
+
                     <!-- Bottom Pagination -->
                     <div class="g-margin-t-40--xs text-center custom-pagination" style="display: flex; justify-content: center;">
                         @if ($agendas->lastPage() > 1)

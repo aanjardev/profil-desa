@@ -42,22 +42,22 @@ class WebSetting extends Model
     public function getLogoUrlAttribute()
     {
         if (!$this->logo_path) {
-            return asset('images/logo/logo-icon.svg');
+            return \App\Support\DemoImage::asset('images/logo/logo-icon.svg');
         }
         if (str_starts_with($this->logo_path, 'images/')) {
-            return asset($this->logo_path);
+            return \App\Support\DemoImage::asset($this->logo_path);
         }
-        return asset('storage/' . $this->logo_path);
+        return \App\Support\DemoImage::asset('storage/' . $this->logo_path);
     }
 
     public function getFaviconUrlAttribute()
     {
         if (!$this->favicon_path) {
-            return asset('favicon.ico');
+            return \App\Support\DemoImage::asset('favicon.ico');
         }
         if (str_starts_with($this->favicon_path, 'images/')) {
-            return asset($this->favicon_path);
+            return \App\Support\DemoImage::asset($this->favicon_path);
         }
-        return asset('storage/' . $this->favicon_path);
+        return \App\Support\DemoImage::asset('storage/' . $this->favicon_path);
     }
 }

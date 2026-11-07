@@ -6,27 +6,27 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="wow fadeIn" data-wow-duration=".3" data-wow-delay=".1s">
-                        <img class="s-clients-v1" src="{{ asset('23/img/clients/01-dark.png') }}" alt="Clients Logo">
+                        <img class="s-clients-v1" src="{{ \App\Support\DemoImage::asset('23/img/clients/01-dark.png') }}" alt="Clients Logo">
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="wow fadeIn" data-wow-duration=".3" data-wow-delay=".2s">
-                        <img class="s-clients-v1" src="{{ asset('23/img/clients/02-dark.png') }}" alt="Clients Logo">
+                        <img class="s-clients-v1" src="{{ \App\Support\DemoImage::asset('23/img/clients/02-dark.png') }}" alt="Clients Logo">
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="wow fadeIn" data-wow-duration=".3" data-wow-delay=".3s">
-                        <img class="s-clients-v1" src="{{ asset('23/img/clients/03-dark.png') }}" alt="Clients Logo">
+                        <img class="s-clients-v1" src="{{ \App\Support\DemoImage::asset('23/img/clients/03-dark.png') }}" alt="Clients Logo">
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="wow fadeIn" data-wow-duration=".3" data-wow-delay=".4s">
-                        <img class="s-clients-v1" src="{{ asset('23/img/clients/04-dark.png') }}" alt="Clients Logo">
+                        <img class="s-clients-v1" src="{{ \App\Support\DemoImage::asset('23/img/clients/04-dark.png') }}" alt="Clients Logo">
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="wow fadeIn" data-wow-duration=".3" data-wow-delay=".5s">
-                        <img class="s-clients-v1" src="{{ asset('23/img/clients/05-dark.png') }}" alt="Clients Logo">
+                        <img class="s-clients-v1" src="{{ \App\Support\DemoImage::asset('23/img/clients/05-dark.png') }}" alt="Clients Logo">
                     </div>
                 </div>
             </div>

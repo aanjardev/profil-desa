@@ -109,18 +109,18 @@
         <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center;">
             @forelse($galleries as $gallery)
             <div class="col-sm-4 col-xs-12">
-                <a href="{{ $gallery->image_path ? asset('storage/'.$gallery->image_path) : asset('images/default-image.png') }}" 
-                   title="{{ $gallery->title }}" 
+                <a href="{{ $gallery->image_path ? \App\Support\DemoImage::asset('storage/'.$gallery->image_path) : \App\Support\DemoImage::asset('images/default-image.png') }}"
+                   title="{{ $gallery->title }}"
                    class="modern-gallery-item">
-                    
+
                     @if($gallery->category)
                     <span class="modern-gallery-category">{{ $gallery->category }}</span>
                     @endif
-                    
-                    <img class="modern-gallery-img" 
-                         src="{{ $gallery->image_path ? asset('storage/'.$gallery->image_path) : asset('images/default-image.png') }}" 
+
+                    <img class="modern-gallery-img"
+                         src="{{ $gallery->image_path ? \App\Support\DemoImage::asset('storage/'.$gallery->image_path) : \App\Support\DemoImage::asset('images/default-image.png') }}"
                          alt="{{ $gallery->title }}">
-                         
+
                     <div class="modern-gallery-overlay">
                         <h3 class="modern-gallery-title">{{ $gallery->title ?? 'Tanpa Judul' }}</h3>
                         @if($gallery->description)

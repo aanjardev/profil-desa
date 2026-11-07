@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PAGE CONTENT ==========-->
-<div style="background: url('{{ \App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg') }}') center center no-repeat fixed; background-size: cover; position: relative; min-height: 100vh;">
+<div style="background: url('{{ \App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg') }}') center center no-repeat fixed; background-size: cover; position: relative; min-height: 100vh;">
     <!-- Light Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(14, 22, 34, 0.71); z-index: 1;"></div>
-    
+
     <div style="position: relative; z-index: 2;">
         <div class="container g-padding-y-80--xs" style="padding-top: 130px;">
     <div class="row">
@@ -30,11 +30,11 @@
                 <!-- Featured Image -->
                 @if($post->image)
                     <div class="g-margin-b-30--xs text-center">
-                        <img class="img-responsive" src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px;">
+                        <img class="img-responsive" src="{{ \App\Support\DemoImage::asset('storage/'.$post->image) }}" alt="{{ $post->title }}" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px;">
                     </div>
                 @else
                     <div class="g-margin-b-30--xs text-center">
-                        <img class="img-responsive" src="{{ asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px;">
+                        <img class="img-responsive" src="{{ \App\Support\DemoImage::asset('images/default-image.png') }}" alt="{{ $post->title }}" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px;">
                     </div>
                 @endif
 
@@ -55,9 +55,9 @@
                             <div class="support-slide" data-index="{{ $i }}"
                                  style="display: {{ $i === 0 ? 'block' : 'none' }};">
                                 <!-- Image -->
-                                <a href="{{ asset('storage/'.$img->image_path) }}" class="supporting-image-popup"
+                                <a href="{{ \App\Support\DemoImage::asset('storage/'.$img->image_path) }}" class="supporting-image-popup"
                                    style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.13);">
-                                    <img src="{{ asset('storage/'.$img->image_path) }}"
+                                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$img->image_path) }}"
                                          alt="{{ $img->caption ?? 'Gambar Pendukung' }}"
                                          style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;">
                                 </a>
@@ -128,7 +128,7 @@
                             @endforeach
                         @endif
                     </div>
-                    
+
                     <div class="g-margin-b-10--xs" style="display: flex; align-items: center;">
                         <span class="g-font-size-13--xs g-font-weight--700 g-margin-r-10--xs">Bagikan:</span>
                         <a href="javascript:void(0)" onclick="copyShareLink('{{ request()->fullUrl() }}')" class="g-color--text g-color--primary--hover g-font-size-18--xs" title="Salin Tautan">
@@ -154,7 +154,7 @@
         // Fallback for older browsers or HTTP connections
         var textArea = document.createElement("textarea");
         textArea.value = text;
-        
+
         // Avoid scrolling to bottom
         textArea.style.top = "0";
         textArea.style.left = "0";
@@ -177,8 +177,8 @@
     function showToast() {
         var toast = document.getElementById('copy-toast');
         toast.style.display = 'inline-block';
-        setTimeout(function() { 
-            toast.style.display = 'none'; 
+        setTimeout(function() {
+            toast.style.display = 'none';
         }, 3000);
     }
 

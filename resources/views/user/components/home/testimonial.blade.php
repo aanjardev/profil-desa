@@ -1,5 +1,5 @@
 <!-- Testimonials -->
-<div class="js__parallax-window" style="background: url('{{ asset('23/img/1920x1080/04.jpg') }}') 50% 0 no-repeat fixed;">
+<div class="js__parallax-window" style="background: url('{{ \App\Support\DemoImage::asset('23/img/1920x1080/04.jpg') }}') 50% 0 no-repeat fixed;">
     <div class="container g-text-center--xs g-padding-y-80--xs g-padding-y-125--sm">
         <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-50--xs">Testimonials</p>
         <div class="s-swiper js__swiper-testimonials">

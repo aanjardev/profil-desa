@@ -9,6 +9,8 @@
 </style>
 <!--========== HEADER ==========-->
 <header class="navbar-fixed-top s-header js__header-sticky">
+    @include('user.components.demo-notice')
+
     <!-- Navbar -->
     <div class="s-header__navbar">
         <div class="s-header__container">
@@ -17,8 +19,8 @@
                     <!-- Logo -->
                     <div class="s-header__logo">
                         <a href="{{ route('beranda') }}" class="s-header__logo-link">
-                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-default" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
-                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-shrink" src="{{ asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
+                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-default" src="{{ \App\Support\DemoImage::asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
+                            <img class="object-contain rounded-md s-header__logo-img s-header__logo-img-shrink" src="{{ \App\Support\DemoImage::asset('images/web-settings/logo.png') }}" alt="Desa Tulungrejo Logo">
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -27,7 +29,7 @@
                 <div class="s-header__navbar-list hidden-xs hidden-sm hidden-md" style="width: 100%;">
                     <ul class="list-inline" style="white-space: nowrap;">
                         <li><a href="{{ route('beranda') }}" class="navbar-desktop-link {{ Route::is('beranda') ? 'active-page' : '' }}">BERANDA</a></li>
-                        
+
                         <li class="dropdown-wrapper">
                             <a href="javascript:void(0)" class="navbar-desktop-link {{ Route::is('profil-desa', 'sotk-desa', 'visi-misi', 'monografi-desa', 'data-penduduk') ? 'active-page' : '' }}">DATA DESA <i class="ti-angle-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                             <ul class="dropdown-menu-custom">
@@ -94,13 +96,13 @@
     <!-- Custom Mobile Sidebar -->
     <div class="custom-mobile-sidebar" id="mobileSidebar">
         <div class="sidebar-header">
-            <img class="object-contain" src="{{ asset('images/web-settings/logo.png') }}" alt="Logo" width="120" style="max-height: 50px;">
+            <img class="object-contain" src="{{ \App\Support\DemoImage::asset('images/web-settings/logo.png') }}" alt="Logo" width="120" style="max-height: 50px;">
             <button class="close-sidebar" onclick="toggleMobileSidebar()">&times;</button>
         </div>
         <div class="sidebar-content">
             <ul class="mobile-menu-list">
                 <li><a href="{{ route('beranda') }}">BERANDA</a></li>
-                
+
                 <li class="has-submenu">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">DATA DESA <i class="ti-angle-down pull-right" style="margin-top: 4px;"></i></a>
                     <ul class="mobile-submenu">

@@ -76,7 +76,7 @@
                         {{-- Thumbnail --}}
                         <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                             @if($tourism->main_image)
-                                <img src="{{ asset('storage/' . $tourism->main_image) }}" alt="{{ $tourism->name }}"
+                                <img src="{{ \App\Support\DemoImage::asset('storage/' . $tourism->main_image) }}" alt="{{ $tourism->name }}"
                                     class="w-full h-full object-cover">
                             @else
                                 <div class="w-full h-full flex items-center justify-center">
@@ -163,7 +163,7 @@
                         {{-- Thumbnail --}}
                         <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                             @if($umkm->main_image)
-                                <img src="{{ asset('storage/' . $umkm->main_image) }}" alt="{{ $umkm->name }}"
+                                <img src="{{ \App\Support\DemoImage::asset('storage/' . $umkm->main_image) }}" alt="{{ $umkm->name }}"
                                     class="w-full h-full object-cover">
                             @else
                                 <div class="w-full h-full flex items-center justify-center">

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Identitas desa — ilustrasi demo</title><desc id="desc">Placeholder untuk gambar asli yang belum tersedia.</desc>
+<rect width="1200" height="800" fill="#e0eee6"/><circle cx="1050" cy="110" r="240" fill="white" opacity=".25"/>
+<path d="M600 150 790 225v160q0 155-190 225-190-70-190-225V225Z" fill="#315e49"/><path d="m460 425 100-120 70 75 65-90 60 135Z" fill="#bad4b8"/><path d="M480 465h240M520 505h160" stroke="#f0dfa3" stroke-width="15" stroke-linecap="round"/>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#315e49">Identitas desa</text>
+<text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#315e49">ILUSTRASI DEMO</text></svg>

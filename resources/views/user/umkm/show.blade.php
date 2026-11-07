@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ $umkm->main_image ? asset('storage/' . $umkm->main_image) : (\App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg')) }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 155px !important; padding-bottom: 100px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ $umkm->main_image ? \App\Support\DemoImage::asset('storage/' . $umkm->main_image) : (\App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg')) }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 155px !important; padding-bottom: 100px !important;">
     <!-- Dark Gradient Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         @if($umkm->category)
         <span class="g-margin-b-15--xs" style="display: inline-block; background: #dc3545; color: #fff; padding: 6px 18px; border-radius: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.35); border: 1px solid rgba(255,255,255,0.15);">
@@ -27,7 +27,7 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs" style="background-color: #f8fafc !important;">
     <div class="container">
-        
+
         <style>
             /* Sticky info card styling */
             .umkm-detail-card {
@@ -37,7 +37,7 @@
                 padding: 30px !important;
                 border: 1px solid #e2e8f0 !important;
             }
-            
+
             .umkm-detail-title {
                 font-family: 'Montserrat', sans-serif;
                 font-size: 18px !important;
@@ -57,7 +57,7 @@
                 height: 2px;
                 background-color: #dc3545;
             }
-            
+
             .umkm-detail-list li {
                 display: flex;
                 align-items: flex-start;
@@ -94,7 +94,7 @@
                 font-size: 14px;
                 line-height: 1.5;
             }
-            
+
             /* Social/Contact Buttons */
             .umkm-btn-contact {
                 display: flex;
@@ -125,7 +125,7 @@
                 transition: all 0.3s ease;
                 flex-shrink: 0;
             }
-            
+
             /* WhatsApp */
             .umkm-btn-wa i {
                 color: #25D366;
@@ -140,7 +140,7 @@
                 color: #25D366;
                 background: #ffffff;
             }
-            
+
             /* Instagram */
             .umkm-btn-ig i {
                 color: #e1306c;
@@ -155,7 +155,7 @@
                 color: #e1306c;
                 background: #ffffff;
             }
-            
+
             /* Marketplace */
             .umkm-btn-marketplace i {
                 color: #f53d2d;
@@ -170,7 +170,7 @@
                 color: #f53d2d;
                 background: #ffffff;
             }
-            
+
             /* YouTube */
             .umkm-btn-youtube i {
                 color: #ff0000;
@@ -185,7 +185,7 @@
                 color: #ff0000;
                 background: #ffffff;
             }
-            
+
             /* Google Maps */
             .umkm-btn-maps i {
                 color: #4285F4;
@@ -200,7 +200,7 @@
                 color: #4285F4;
                 background: #ffffff;
             }
-            
+
             /* Main Content block styling */
             .umkm-details-box {
                 background: #ffffff;
@@ -210,7 +210,7 @@
                 border: 1px solid #e2e8f0;
                 margin-bottom: 20px;
             }
-            
+
             .umkm-details-section-title {
                 font-family: 'Montserrat', sans-serif;
                 font-size: 22px !important;
@@ -229,7 +229,7 @@
                 margin-right: 12px;
                 border-radius: 4px;
             }
-            
+
             /* Facility pill */
             .facility-pill {
                 display: flex;
@@ -253,7 +253,7 @@
                 color: #dc3545;
                 margin-right: 8px;
             }
-            
+
             /* Image gallery block */
             .gallery-card {
                 display: block;
@@ -300,7 +300,7 @@
                 }
             }
         </style>
-        
+
         <div class="g-margin-b-20--xs" style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #64748b; font-family: 'Montserrat', sans-serif;">
             <a href="{{ route('beranda') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;"><i class="ti-home"></i> Beranda</a>
             <span style="color: #cbd5e1;">/</span>
@@ -314,7 +314,7 @@
             <div class="col-md-4 g-margin-b-30--xs umkm-sidebar-col">
                 <div class="umkm-detail-card" style="position: -webkit-sticky; position: sticky; top: 100px;">
                     <h3 class="umkm-detail-title">Informasi UMKM</h3>
-                    
+
                     <ul class="list-unstyled umkm-detail-list g-margin-b-30--xs">
                         <li>
                             <div class="umkm-detail-icon">
@@ -379,7 +379,7 @@
                     @if($umkm->contact_person || $umkm->instagram_link || $umkm->youtube_link || $umkm->marketplace_link || $umkm->maps_link)
                     <div style="border-top: 2px solid #f1f5f9; padding-top: 20px;">
                         <h4 class="g-font-size-12--xs g-font-weight--700 g-margin-b-15--xs text-uppercase" style="color: #94a3b8; letter-spacing: 1px;">Hubungi & Kunjungi</h4>
-                        
+
                         <div style="display: flex; flex-direction: column;">
                             @if($umkm->contact_person)
                                 <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $umkm->contact_person) }}" target="_blank" class="umkm-btn-contact umkm-btn-wa">
@@ -435,16 +435,16 @@
 
             <!-- Main Details -->
             <div class="col-md-8 umkm-main-col">
-                
+
                 @if($umkm->main_image)
                 <div class="g-margin-b-20--xs" style="border-radius: 16px; overflow: hidden; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04); border: 1px solid #e2e8f0;">
-                    <img src="{{ asset('storage/'.$umkm->main_image) }}" alt="{{ $umkm->name }}" style="width: 100%; max-height: 500px; object-fit: cover;">
+                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$umkm->main_image) }}" alt="{{ $umkm->name }}" style="width: 100%; max-height: 500px; object-fit: cover;">
                 </div>
                 @endif
 
                 <div class="umkm-details-box">
                     <h2 class="umkm-details-section-title">Deskripsi Usaha</h2>
-                    
+
                     <div class="g-font-size-16--xs" style="line-height: 1.8; color: #475569;">
                         {!! nl2br(e($umkm->description ?? 'Deskripsi belum tersedia.')) !!}
                     </div>
@@ -469,7 +469,7 @@
                 @if(!empty($umkm->supporting_images) && is_array($umkm->supporting_images))
                 <div class="umkm-details-box" style="margin-bottom: 0;">
                     <!-- <h2 class="umkm-details-section-title">Galeri Produk</h2> -->
-                    
+
                     <div class="swiper-container js__swiper-gallery" style="padding-bottom: 40px; margin-top: 15px;">
                         <div class="swiper-wrapper umkm-gallery-container">
                             @foreach($umkm->supporting_images as $image)
@@ -480,8 +480,8 @@
                                 @if($imagePath)
                                 <div class="swiper-slide">
                                     <div style="padding: 10px;">
-                                        <a href="{{ asset('storage/'.$imagePath) }}" class="gallery-card umkm-gallery-popup" title="{{ $imageCaption }}">
-                                            <img src="{{ asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Produk ' . $umkm->name }}">
+                                        <a href="{{ \App\Support\DemoImage::asset('storage/'.$imagePath) }}" class="gallery-card umkm-gallery-popup" title="{{ $imageCaption }}">
+                                            <img src="{{ \App\Support\DemoImage::asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Produk ' . $umkm->name }}">
                                         </a>
                                         @if($imageCaption)
                                         <p style="margin: 12px 0 0; font-size: 13px; color: #475569; line-height: 1.5; text-align: center; font-weight: 500;">
@@ -497,10 +497,10 @@
                     </div>
                 </div>
                 @endif
-                
+
             </div>
         </div>
-        
+
     </div>
 </div>
 <!--========== END PAGE CONTENT ==========-->

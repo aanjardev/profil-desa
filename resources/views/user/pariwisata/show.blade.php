@@ -4,10 +4,10 @@
 
 @section('content')
 <!--========== PARALLAX HEADER ==========-->
-<div class="g-padding-y-80--xs" style="background-image: url('{{ $tourism->main_image ? asset('storage/' . $tourism->main_image) : (\App\Models\WebSetting::first()?->background_image ? asset('storage/' . \App\Models\WebSetting::first()->background_image) : asset('images/auth-bg.jpg')) }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 155px !important; padding-bottom: 100px !important;">
+<div class="g-padding-y-80--xs" style="background-image: url('{{ $tourism->main_image ? \App\Support\DemoImage::asset('storage/' . $tourism->main_image) : (\App\Models\WebSetting::first()?->background_image ? \App\Support\DemoImage::asset('storage/' . \App\Models\WebSetting::first()->background_image) : \App\Support\DemoImage::asset('images/auth-bg.jpg')) }}'); background-size: cover; background-position: center center; background-attachment: fixed; position: relative; padding-top: 155px !important; padding-bottom: 100px !important;">
     <!-- Dark Gradient Overlay -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); z-index: 1;"></div>
-    
+
     <div class="container text-center" style="position: relative; z-index: 2;">
         <span class="g-margin-b-15--xs" style="display: inline-block; background: #dc3545; color: #fff; padding: 6px 18px; border-radius: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.35); border: 1px solid rgba(255,255,255,0.15);">
             Wisata Desa
@@ -25,7 +25,7 @@
 <!--========== PAGE CONTENT ==========-->
 <div class="g-bg-color--sky-light g-padding-y-60--xs" style="background-color: #f8fafc !important;">
     <div class="container">
-        
+
         <style>
             /* Sticky info card styling */
             .wisata-detail-card {
@@ -35,7 +35,7 @@
                 padding: 30px !important;
                 border: 1px solid #e2e8f0 !important;
             }
-            
+
             .wisata-detail-title {
                 font-family: 'Montserrat', sans-serif;
                 font-size: 18px !important;
@@ -55,7 +55,7 @@
                 height: 2px;
                 background-color: #dc3545;
             }
-            
+
             .wisata-detail-list li {
                 display: flex;
                 align-items: flex-start;
@@ -92,7 +92,7 @@
                 font-size: 14px;
                 line-height: 1.5;
             }
-            
+
             /* Social/Contact Buttons */
             .wisata-btn-contact {
                 display: flex;
@@ -123,7 +123,7 @@
                 transition: all 0.3s ease;
                 flex-shrink: 0;
             }
-            
+
             /* WhatsApp */
             .wisata-btn-wa i {
                 color: #25D366;
@@ -138,7 +138,7 @@
                 color: #25D366;
                 background: #ffffff;
             }
-            
+
             /* Instagram */
             .wisata-btn-ig i {
                 color: #e1306c;
@@ -153,7 +153,7 @@
                 color: #e1306c;
                 background: #ffffff;
             }
-            
+
             /* Order / Tickets */
             .wisata-btn-order i {
                 color: #f53d2d;
@@ -168,7 +168,7 @@
                 color: #f53d2d;
                 background: #ffffff;
             }
-            
+
             /* YouTube */
             .wisata-btn-youtube i {
                 color: #ff0000;
@@ -183,7 +183,7 @@
                 color: #ff0000;
                 background: #ffffff;
             }
-            
+
             /* Google Maps */
             .wisata-btn-maps i {
                 color: #4285F4;
@@ -198,7 +198,7 @@
                 color: #4285F4;
                 background: #ffffff;
             }
-            
+
             /* Digital Map */
             .wisata-btn-dmap i {
                 color: #0ea5e9;
@@ -223,7 +223,7 @@
                 border: 1px solid #e2e8f0;
                 margin-bottom: 20px;
             }
-            
+
             .wisata-details-section-title {
                 font-family: 'Montserrat', sans-serif;
                 font-size: 22px !important;
@@ -242,7 +242,7 @@
                 margin-right: 12px;
                 border-radius: 4px;
             }
-            
+
             /* Facility pill */
             .facility-pill {
                 display: flex;
@@ -293,7 +293,7 @@
                 font-weight: 700;
                 font-size: 16px;
             }
-            
+
             .spot-box {
                 background: #ffffff;
                 border: 1px solid #e2e8f0;
@@ -328,7 +328,7 @@
                 margin-bottom: 12px;
                 line-height: 1.5;
             }
-            
+
             /* Image gallery block */
             .gallery-card {
                 display: block;
@@ -377,7 +377,7 @@
                 }
             }
         </style>
-        
+
         <div class="g-margin-b-20--xs" style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #64748b; font-family: 'Montserrat', sans-serif;">
             <a href="{{ route('beranda') }}" style="color: #0ea5e9; text-decoration: none; transition: color 0.2s;"><i class="ti-home"></i> Beranda</a>
             <span style="color: #cbd5e1;">/</span>
@@ -391,7 +391,7 @@
             <div class="col-md-4 g-margin-b-30--xs wisata-sidebar-col">
                 <div class="wisata-detail-card" style="position: -webkit-sticky; position: sticky; top: 100px;">
                     <h3 class="wisata-detail-title">Informasi Wisata</h3>
-                    
+
                     <ul class="list-unstyled wisata-detail-list g-margin-b-30--xs">
                         <li>
                             <div class="wisata-detail-icon">
@@ -444,7 +444,7 @@
                     @if($tourism->contact_person || $tourism->instagram_link || $tourism->youtube_link || $tourism->order_link || $tourism->maps_link || $tourism->digital_map_link)
                     <div style="border-top: 2px solid #f1f5f9; padding-top: 20px;">
                         <h4 class="g-font-size-12--xs g-font-weight--700 g-margin-b-15--xs text-uppercase" style="color: #94a3b8; letter-spacing: 1px;">Info & Layanan</h4>
-                        
+
                         <div style="display: flex; flex-direction: column;">
                             @if($tourism->contact_person)
                                 <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $tourism->contact_person) }}" target="_blank" class="wisata-btn-contact wisata-btn-wa">
@@ -500,10 +500,10 @@
 
             <!-- Main Details -->
             <div class="col-md-8 wisata-main-col">
-                
+
                 @if($tourism->main_image)
                 <div class="g-margin-b-30--xs" style="border-radius: 16px; overflow: hidden; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04); border: 1px solid #e2e8f0;">
-                    <img src="{{ asset('storage/'.$tourism->main_image) }}" alt="{{ $tourism->name }}" style="width: 100%; max-height: 500px; object-fit: cover;">
+                    <img src="{{ \App\Support\DemoImage::asset('storage/'.$tourism->main_image) }}" alt="{{ $tourism->name }}" style="width: 100%; max-height: 500px; object-fit: cover;">
                 </div>
                 @endif
 
@@ -528,7 +528,7 @@
 
                 <div class="wisata-details-box">
                     <h2 class="wisata-details-section-title">Deskripsi & Daya Tarik</h2>
-                    
+
                     <div class="g-font-size-16--xs" style="line-height: 1.8; color: #475569;">
                         {!! nl2br(e($tourism->description ?? 'Deskripsi belum tersedia.')) !!}
                     </div>
@@ -579,8 +579,8 @@
                             <div class="spot-box" style="display: flex; gap: 20px; align-items: flex-start; @media (max-width: 575px) { flex-direction: column; }">
                                 @if(!empty($spot['image_path']))
                                 <div style="width: 120px; height: 120px; flex-shrink: 0; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
-                                    <a href="{{ asset('storage/' . $spot['image_path']) }}" class="wisata-gallery-popup" title="{{ $spot['name'] }}">
-                                        <img src="{{ asset('storage/' . $spot['image_path']) }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="hover:scale-110" alt="{{ $spot['name'] }}">
+                                    <a href="{{ \App\Support\DemoImage::asset('storage/' . $spot['image_path']) }}" class="wisata-gallery-popup" title="{{ $spot['name'] }}">
+                                        <img src="{{ \App\Support\DemoImage::asset('storage/' . $spot['image_path']) }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="hover:scale-110" alt="{{ $spot['name'] }}">
                                     </a>
                                 </div>
                                 @endif
@@ -607,7 +607,7 @@
                 @if(!empty($tourism->supporting_images) && is_array($tourism->supporting_images))
                 <div class="wisata-details-box" style="margin-bottom: 0;">
                     <h2 class="wisata-details-section-title">Galeri Foto</h2>
-                    
+
                     <div class="swiper-container js__swiper-gallery" style="padding-bottom: 40px; margin-top: 15px;">
                         <div class="swiper-wrapper wisata-gallery-container">
                             @foreach($tourism->supporting_images as $image)
@@ -618,8 +618,8 @@
                                 @if($imagePath)
                                 <div class="swiper-slide">
                                     <div style="padding: 10px;">
-                                        <a href="{{ asset('storage/'.$imagePath) }}" class="gallery-card wisata-gallery-popup" title="{{ $imageCaption }}">
-                                            <img src="{{ asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Galeri ' . $tourism->name }}">
+                                        <a href="{{ \App\Support\DemoImage::asset('storage/'.$imagePath) }}" class="gallery-card wisata-gallery-popup" title="{{ $imageCaption }}">
+                                            <img src="{{ \App\Support\DemoImage::asset('storage/'.$imagePath) }}" alt="{{ $imageCaption ?: 'Galeri ' . $tourism->name }}">
                                         </a>
                                         @if($imageCaption)
                                         <p style="margin: 12px 0 0; font-size: 13px; color: #475569; line-height: 1.5; text-align: center; font-weight: 500;">
@@ -635,10 +635,10 @@
                     </div>
                 </div>
                 @endif
-                
+
             </div>
         </div>
-        
+
     </div>
 </div>
 <!--========== END PAGE CONTENT ==========-->

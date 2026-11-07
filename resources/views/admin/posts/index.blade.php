@@ -23,21 +23,21 @@
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul artikel..." 
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul artikel..."
                    style="padding-left: 2.5rem !important;"
                    class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors">
         </div>
-        
+
         <div class="flex flex-col sm:flex-row gap-3 shrink-0">
             <!-- Filter Kategori (Alpine.js) -->
             <div x-data="{ open: false, category: '{{ request('category') }}' }" class="relative shrink-0 w-full sm:w-48">
                 <input type="hidden" name="category" :value="category">
-                <button type="button" @click="open = !open" @click.away="open = false" 
+                <button type="button" @click="open = !open" @click.away="open = false"
                         class="w-full flex items-center justify-between px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                     <span x-text="category ? category : 'Semua Kategori'"></span>
                     <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                
+
                 <div x-show="open" x-transition.opacity.duration.200ms style="display: none;"
                      class="absolute z-20 mt-2 w-full max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-lg shadow-lg py-1">
                     <button type="button" @click="category = ''; open = false; $nextTick(() => { $el.closest('form').submit(); })" class="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors" :class="category === '' ? 'font-bold text-blue-600 bg-blue-50/50' : 'text-gray-700'">Semua Kategori</button>
@@ -50,12 +50,12 @@
             <!-- Filter Tahun (Alpine.js) -->
             <div x-data="{ open: false, year: '{{ request('year') }}' }" class="relative shrink-0 w-full sm:w-32">
                 <input type="hidden" name="year" :value="year">
-                <button type="button" @click="open = !open" @click.away="open = false" 
+                <button type="button" @click="open = !open" @click.away="open = false"
                         class="w-full flex items-center justify-between px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                     <span x-text="year ? year : 'Semua'"></span>
                     <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                
+
                 <div x-show="open" x-transition.opacity.duration.200ms style="display: none;"
                      class="absolute z-20 mt-2 w-full max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-lg shadow-lg py-1">
                     <button type="button" @click="year = ''; open = false; $nextTick(() => { $el.closest('form').submit(); })" class="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors" :class="year === '' ? 'font-bold text-blue-600 bg-blue-50/50' : 'text-gray-700'">Semua</button>
@@ -68,19 +68,19 @@
             <!-- Sort (Alpine.js) -->
             <div x-data="{ open: false, sort: '{{ request('sort', 'newest') }}' }" class="relative shrink-0 w-full sm:w-40">
                 <input type="hidden" name="sort" :value="sort">
-                <button type="button" @click="open = !open" @click.away="open = false" 
+                <button type="button" @click="open = !open" @click.away="open = false"
                         class="w-full flex items-center justify-between px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                     <span x-text="sort === 'oldest' ? 'Terlama' : 'Terbaru'"></span>
                     <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                
+
                 <div x-show="open" x-transition.opacity.duration.200ms style="display: none;"
                      class="absolute z-20 mt-2 w-full bg-white border border-gray-100 rounded-lg shadow-lg overflow-hidden py-1">
                     <button type="button" @click="sort = 'newest'; open = false; $nextTick(() => { $el.closest('form').submit(); })" class="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors" :class="sort === 'newest' ? 'font-bold text-blue-600 bg-blue-50/50' : 'text-gray-700'">Terbaru</button>
                     <button type="button" @click="sort = 'oldest'; open = false; $nextTick(() => { $el.closest('form').submit(); })" class="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors" :class="sort === 'oldest' ? 'font-bold text-blue-600 bg-blue-50/50' : 'text-gray-700'">Terlama</button>
                 </div>
             </div>
-            
+
             <button type="submit" class="px-5 py-2.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-200 transition-colors focus:ring-2 focus:ring-gray-200 hidden sm:block">
                 Cari
             </button>
@@ -129,7 +129,7 @@
                     <td class="px-6 py-4">
                         <div class="flex items-start gap-4">
                             @if($post->image)
-                                <img src="{{ asset('storage/' . $post->image) }}" alt="Thumbnail" class="w-16 h-12 object-cover rounded shadow-sm shrink-0">
+                                <img src="{{ \App\Support\DemoImage::asset('storage/' . $post->image) }}" alt="Thumbnail" class="w-16 h-12 object-cover rounded shadow-sm shrink-0">
                             @else
                                 <div class="w-16 h-12 bg-gray-100 rounded flex items-center justify-center text-gray-400 shrink-0">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>

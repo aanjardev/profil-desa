@@ -101,6 +101,6 @@ class VillageOfficial extends Model
 
     public function getPhotoUrlAttribute(): ?string
     {
-        return $this->photo ? asset('storage/' . $this->photo) : null;
+        return $this->photo ? \App\Support\DemoImage::asset('storage/' . $this->photo) : null;
     }
 }
